@@ -2,7 +2,7 @@
 /**
  * Handles requests for the 'Extensions' section.
  */
-class ExtensionController extends AppManagerController
+class ExtensionController extends EntityController
 {
     protected $title = 'Extensions';
     protected $entityClass = 'AppManagerExtension';
