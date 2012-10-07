@@ -49,10 +49,10 @@ class AppManagerFlash extends CWidget
     {
         $id = $this->getId();
 
-		if (isset($this->htmlOptions['id'])) {
-			$id = $this->htmlOptions['id'];
+        if (isset($this->htmlOptions['id'])) {
+            $id = $this->htmlOptions['id'];
         } else {
-			$this->htmlOptions['id'] = $id;
+            $this->htmlOptions['id'] = $id;
         }
     }
     
@@ -67,8 +67,8 @@ class AppManagerFlash extends CWidget
                 $this->content.= strtr($this->template, array(
                     '{key}'    => $key,
                     '{message}'=> Yii::app()->user->getFlash($name),
-				));
-			}
+                ));
+            }
         }
     }
     
@@ -84,7 +84,7 @@ class AppManagerFlash extends CWidget
         echo $this->content;
         echo CHtml::closeTag('div');
 
-		$this->registerScript();
+        $this->registerScript();
     }
     
     /**

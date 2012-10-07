@@ -18,10 +18,10 @@ class AppManagerPhpValidator extends CValidator
     private $_attribute;
     
     /**
-	 * Validates a single attribute.
-	 * @param CModel $object the data object being validated
-	 * @param string $attribute the name of the attribute to be validated.
-	 */
+     * Validates a single attribute.
+     * @param CModel $object the data object being validated
+     * @param string $attribute the name of the attribute to be validated.
+     */
     protected function validateAttribute($object, $attribute)
     { 
         $this->_object    = $object;
@@ -61,7 +61,7 @@ class AppManagerPhpValidator extends CValidator
     protected function restoreErrorHandler()
     {
         if($this->_systemHandler && YII_ENABLE_ERROR_HANDLER) {
-			set_error_handler($this->_systemHandler, error_reporting());
+            set_error_handler($this->_systemHandler, error_reporting());
         }
     }
     

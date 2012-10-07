@@ -14,7 +14,7 @@ class AppManagerConfig extends AppManagerNode
      * @param string $location 
      */
     public function __construct($location=null)
-	{
+    {
         $this->loadFromFile($location);
     }
     
