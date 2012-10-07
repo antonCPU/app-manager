@@ -2,7 +2,7 @@
 /**
  * Handles requests for the 'Components' section.
  */
-class ComponentController extends EntityController
+class ComponentController extends AppManagerEntityController
 {
     protected $title = 'Components';
     protected $entityClass = 'AppManagerComponent';

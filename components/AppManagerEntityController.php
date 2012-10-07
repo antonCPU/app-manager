@@ -2,7 +2,7 @@
 /**
  * Common controller for all entities.
  */
-class EntityController extends AppManagerController
+class AppManagerEntityController extends AppManagerController
 {
     /**
      * @var string 
