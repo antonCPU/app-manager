@@ -10,35 +10,35 @@ class AppManagerModule extends CWebModule
     protected static $settings;
     private $_assetsUrl;
  
-	public function init()
-	{
+    public function init()
+    {
         //custom error action
         Yii::app()->getErrorHandler()->errorAction = $this->errorAction;
-        
-		// import the module-level models and components
-		$this->setImport(array(
-			'appManager.models.*',
-			'appManager.components.*',
+
+        // import the module-level models and components
+        $this->setImport(array(
+            'appManager.models.*',
+            'appManager.components.*',
             'appManager.components.parser.*',
-		));
+        ));
 	}
 
     public function getName()
-	{
+    {
         return self::t('App Manager');
     }
-    
-	public function beforeControllerAction($controller, $action)
-	{
-		if(parent::beforeControllerAction($controller, $action)) {
-			// this method is called before any module controller action is performed
-			// you may place customized code here
-			return true;
-		} else {
-			return false;
+
+    public function beforeControllerAction($controller, $action)
+    {
+        if(parent::beforeControllerAction($controller, $action)) {
+            // this method is called before any module controller action is performed
+            // you may place customized code here
+            return true;
+        } else {
+            return false;
         }
-	}
-    
+    }
+
     public static function config($path = null)
     {
         if (null === self::$settings) {
@@ -52,17 +52,17 @@ class AppManagerModule extends CWebModule
     {
         return Yii::app()->controller->module;
     }
-    
+
     public static function t($message, $params = array())
     {
         return Yii::t('AppManagerModule.core', $message, $params);
     }
-    
+
     public function getConfigLocation()
     {
         return Yii::app()->basePath . DIRECTORY_SEPARATOR . $this->config;
     }
-    
+
     public function getAssetsUrl()
     {
         if (null === $this->_assetsUrl) {
@@ -71,7 +71,7 @@ class AppManagerModule extends CWebModule
         }
         return $this->_assetsUrl;
     }
-    
+
     public function getCssUrl($name)
     {
         return $this->getAssetsUrl() . '/css/' . $name . '.css';
