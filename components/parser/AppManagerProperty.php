@@ -22,6 +22,7 @@ class AppManagerProperty extends CComponent
      */
     public function __construct($property)
     {
+        require_once 'Zend/Reflection/Docblock/Tag/Return.php';
         $this->setProperty($property);
     }
     

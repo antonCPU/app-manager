@@ -730,7 +730,7 @@ abstract class AppManagerEntity extends AppManagerModel
      * @return AppManagerConfig 
      */
     protected function loadConfigSection()
-    {
+    { 
         return AppManagerModule::config($this->getConfigSection());
     }
     
@@ -740,7 +740,7 @@ abstract class AppManagerEntity extends AppManagerModel
      */
     protected function getConfigSection()
     {
-        return '';
+        return null;
     }
     
     /**

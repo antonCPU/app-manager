@@ -4,14 +4,17 @@
  */
 class SettingsController extends AppManagerController
 {
-    public $defaultAction = 'list';
+    public $defaultAction = 'update';
     protected $title = 'Settings';
     
     /**
      * Shows list of entities.
      */
-    public function actionList()
+    public function actionUpdate()
     { 
-        $this->render('list');
+        $model = new AppManagerApplication;
+        $this->render('update', array(
+            'model' => $model,
+        ));
     }
 }
