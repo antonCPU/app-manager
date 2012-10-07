@@ -73,7 +73,7 @@ class AppManagerWriter extends CComponent
             if (null === $options) {
                 echo 'null';
             } else {
-                echo var_export($options);
+                echo $this->replaceConfigDir(var_export($options, true));
             }
         }
         else {
@@ -106,5 +106,34 @@ class AppManagerWriter extends CComponent
     protected function getTemplate($name)
     {
         return dirname(__FILE__) . '/templates/' . $name . '.php';
+    }
+    
+    /**
+     * Gets absolute path to the config directory.
+     * @return string 
+     */
+    protected function getConfigDir()
+    {
+        return dirname($this->getSettings()->getLocation());
+    }
+    
+    /**
+     * Replaces absolute path to config by relative.
+     * @param string $value
+     * @return string
+     */
+    protected function replaceConfigDir($value)
+    {
+        $configDir = $this->getConfigDir();
+        $index = strpos($value, $configDir);
+        if (false !== $index) {
+            $dir = 'dirname(__FILE__)';
+            if (1 === $index) {
+                $value = $dir . '.' . str_replace($configDir, '', $value);
+            } else {
+                $value = str_replace($configDir, '\'.' . $dir . '.\'', $value);
+            }
+        }
+        return $value;
     }
 }
