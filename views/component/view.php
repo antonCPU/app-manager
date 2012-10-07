@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-    $this->getTitle() => array('index'),
+    $this->getTitle() => array('list'),
     $entity->name,
 );
 

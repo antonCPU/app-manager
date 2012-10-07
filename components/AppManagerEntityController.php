@@ -4,6 +4,8 @@
  */
 class AppManagerEntityController extends AppManagerController
 {
+    public $defaultAction = 'list';
+    
     /**
      * @var string 
      */
@@ -16,9 +18,9 @@ class AppManagerEntityController extends AppManagerController
     /**
      * Shows list of entities.
      */
-    public function actionIndex()
+    public function actionList()
     { 
-        $this->render('index', array('entities' => $this->createEntity()->search()));
+        $this->render('list', array('entities' => $this->createEntity()->search()));
     }
     
     /**
