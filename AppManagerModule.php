@@ -21,7 +21,7 @@ class AppManagerModule extends CWebModule
             'appManager.components.*',
             'appManager.components.parser.*',
         ));
-	}
+    }
 
     public function getName()
     {
