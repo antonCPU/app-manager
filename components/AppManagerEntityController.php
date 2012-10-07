@@ -18,8 +18,7 @@ class AppManagerEntityController extends AppManagerController
      */
     public function actionIndex()
     { 
-        $this->render($this->getBaseViewPath() . 'index', 
-                      array('entities' => $this->createEntity()->search()));
+        $this->render('index', array('entities' => $this->createEntity()->search()));
     }
     
     /**
@@ -28,8 +27,7 @@ class AppManagerEntityController extends AppManagerController
      */
     public function actionView($id)
     {
-        $this->render($this->getBaseViewPath() . 'view', 
-                      array('entity' => $this->getEntity()));
+        $this->render('view', array('entity' => $this->getEntity()));
     }
     
     /**
@@ -63,8 +61,7 @@ class AppManagerEntityController extends AppManagerController
             }
         }
         
-        $this->render($this->getBaseViewPath() . 'update', 
-                      array('entity' => $entity));
+        $this->render('update', array('entity' => $entity));
     }
         
     /**
@@ -150,16 +147,6 @@ class AppManagerEntityController extends AppManagerController
             throw new CHttpException(404, $e->getMessage());
         }
         return $entity;
-    }
-    
-    /**
-     * Gets path to common view directory.
-     * Should be empty if a subclass wants to use default by Yii templates directory. 
-     * @return string 
-     */
-    protected function getBaseViewPath()
-    {
-        return '../default/';
     }
     
     /**
