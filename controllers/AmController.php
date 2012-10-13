@@ -10,6 +10,8 @@ class AmController extends AppManagerController
     public function actionTest()
     {
         $entity = new AmEntity('ext.EWordValidator');
-        myd($entity->author);
+        foreach ($entity->options as $option) {
+            myd($option);
+        }
     }
 }

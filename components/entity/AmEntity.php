@@ -48,7 +48,7 @@ class AmEntity extends AmModel
      */
     protected function createId()
     {
-        $name = $this->getName();
+        $name = $this->getTitle();
         $name[0] = strtolower($name[0]);
         return (string)$name;
     }
@@ -102,6 +102,37 @@ class AmEntity extends AmModel
         return $this->_fileName;
     }
     
+        /**
+     * Sets options from input data.
+     * @param array $options 
+     */
+    public function setOptions($options)
+    { 
+        $this->getOptions()->attributes = $options;
+    }
+    
+    /**
+     * @return AppManagerOptions 
+     */
+    public function getOptions() 
+    { 
+        if (null === $this->options) {
+            $options = new AmOptions;
+            $options->setParser($this->getParser());
+            $options->setConfig($this->getConfig());
+            $this->options = $options;
+        }
+        return $this->options;
+    }
+    
+    /**
+     * @return AppManagerOptions 
+     */
+    public function getOptionsProvider()
+    {
+        return $this->getOptions()->getProvider();
+    }
+    
     /**
      * @return AppManagerParser 
      */
@@ -122,6 +153,70 @@ class AmEntity extends AmModel
             $this->_config = $this->loadConfig();
         }
         return $this->_config;
+    }
+    
+        /**
+     * Loads main config.
+     * Creates an empty if does not exist.
+     * @return AppManagerConfig
+     */
+    protected function loadConfig()
+    {
+        $config  = $this->loadConfigSection();
+        $name    = $this->getId();
+        $current = $config->itemAt($name);
+        if (null === $current) {
+            $key = $config->search($name);
+            if (false !== $key) { //normalize config
+                $config->remove($key);
+                $config->add($name, array(
+                    'class' => $this->getFullClassName(),
+                ));
+            } else {
+                $config->add($name, array());
+            }
+            $current = $config->itemAt($name);
+        } 
+        return $current;
+    }
+    
+    /**
+     * @return bool 
+     */
+    protected function saveConfig()
+    {
+        return AppManagerModule::config()->save();
+    }
+    
+    /**
+     * Gets value from config.
+     * @param string $name
+     * @return mixed 
+     */
+    protected function getConfigValue($name)
+    {
+        if ($config = $this->getConfig()) {
+            return $config->itemAt($name);
+        }
+        return null;
+    }
+    
+    /**
+     * Loads config only for current settings section.
+     * @return AppManagerConfig 
+     */
+    protected function loadConfigSection()
+    { 
+        return AppManagerModule::config($this->getConfigSection());
+    }
+    
+    /**
+     * Gets name of the config section.
+     * @return string 
+     */
+    protected function getConfigSection()
+    {
+        return null;
     }
     
     /**
