@@ -76,16 +76,6 @@ class AppManagerController extends CController
     }
     
     /**
-     * Determines class name for entity options.
-     * Used for dealing with CActiveForm form elements naming convention.
-     * @return string
-     */
-    protected function getOptionClass()
-    {
-        return get_class($this->getEntity()->getOptions());
-    }
-    
-    /**
      * Wrapper to Yii user->setFlash() functionality.
      * All messages will be localized for AppManager module.
      * @param string $type could be: 'success', 'notice', 'error'.

@@ -3,8 +3,24 @@
  * Gets information about class details.
  * Facade to Zend_Reflection library.
  */
-class AppManagerParser extends CComponent
+class AmParser extends CComponent
 {
+    /**
+     * @var string full description.
+     */
+    protected $description;
+    /**
+     * @var string short description.
+     */
+    protected $summary;
+    /**
+     * @var string author's details.
+     */
+    protected $author;
+    /**
+     * @var string entity web reference.
+     */
+    protected $link;
     /**
      * @var string full path to file.
      */
@@ -46,7 +62,7 @@ class AppManagerParser extends CComponent
      */
     public function setFileName($fileName)
     {
-        $this->fileName = $fileName;
+        $this->fileName = $fileName . '.php';
         return $this;
     }
     
@@ -72,23 +88,23 @@ class AppManagerParser extends CComponent
     /**
      * @return string 
      */
-    public function getDesc()
+    public function getDescription()
     { 
-        if ($doc = $this->getClassDoc()) {
-            return $doc->getLongDescription();
+        if ((null === $this->description) && $doc = $this->getClassDoc()) {
+            $this->description = $doc->getLongDescription();
         }
-        return null;
+        return $this->description;
     }
     
     /**
      * @return string 
      */
-    public function getShortDesc()
+    public function getSummary()
     {
-        if ($doc = $this->getClassDoc()) {
-            return $doc->getShortDescription();
+        if ((null === $this->summary) && $doc = $this->getClassDoc()) {
+            $this->summary = $doc->getShortDescription();
         }
-        return null;
+        return $this->summary;
     }
     
     /**
@@ -96,10 +112,10 @@ class AppManagerParser extends CComponent
      */
     public function getAuthor()
     {
-        if ($tag = $this->getTag('author')) {
-            return $tag->getDescription();
+        if ((null === $this->author) && $tag = $this->getTag('author')) {
+            $this->author = $tag->getDescription();
         }
-        return null;
+        return $this->author;
     }
     
     /**
@@ -107,10 +123,10 @@ class AppManagerParser extends CComponent
      */
     public function getLink()
     { 
-        if ($tag = $this->getTag('link')) {
-            return $tag->getDescription();
+        if ((null === $this->link) && $tag = $this->getTag('link')) {
+            $this->link = $tag->getDescription();
         }
-        return null;
+        return $this->link;
     }
     
     /**
@@ -131,7 +147,7 @@ class AppManagerParser extends CComponent
     {
         $result = array();
         foreach ($this->getClass()->getProperties() as $property) {
-            $property = new AppManagerProperty($property);
+            $property = new AmProperty($property);
             if ($property->isPublic()) {
                 $result[] = $property;
             }

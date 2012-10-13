@@ -180,4 +180,14 @@ class AppManagerEntityController extends AppManagerController
         $this->setFlash($flashType, $message, 
                         array('{name}' => $this->getEntity()->name));
     }
+    
+    /**
+     * Determines class name for entity options.
+     * Used for dealing with CActiveForm form elements naming convention.
+     * @return string
+     */
+    protected function getOptionClass()
+    {
+        return get_class($this->getEntity()->getOptions());
+    }
 }

@@ -2,7 +2,7 @@
 /**
  * Works with class properties.
  */
-class AppManagerProperty extends CComponent
+class AmProperty extends CComponent
 {    
     /**
      * @var Zend_Reflection_Class 
@@ -80,7 +80,7 @@ class AppManagerProperty extends CComponent
     /**
      * @return string 
      */
-    public function getDesc()
+    public function getDescription()
     {
         if ($doc = $this->getProperty()->getDocComment()) {
             $pattern = '/(@var \b[\w\|]+\b)|(@property \b[\w\|]+\b)/';
