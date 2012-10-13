@@ -47,6 +47,14 @@ Yii::app()->clientScript->registerScript('appManager-view', '
             'data'=>$entity,
             'attributes'=>array(
                 array(
+                    'label' => AppManagerModule::t('Location'),
+                    'name'  => 'fileName',
+                ),
+                array(
+                    'label' => AppManagerModule::t('Class'),
+                    'name'  => 'className',
+                ),
+                array(
                     'label' => AppManagerModule::t('Author'),
                     'name'  => 'author',
                 ),
@@ -56,7 +64,7 @@ Yii::app()->clientScript->registerScript('appManager-view', '
                 ),
             ),
         ), true),
-        AppManagerModule::t('Description') => $entity->summary . '<br /><br />' . $entity->summary,
+        AppManagerModule::t('Description') => $entity->summary . '<br /><br />' . $entity->description,
       ),
 ));?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(

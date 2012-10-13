@@ -9,7 +9,7 @@ class AmController extends AppManagerController
     
     public function actionList()
     {
-        $search = new AmSearchComponent('application');
+        $search = new AmSearchModule('application.modules');
         
         $this->render('list', array(
             'search' => $search,
@@ -18,7 +18,7 @@ class AmController extends AppManagerController
     
     public function actionView($id)
     {
-        $search = new AmSearchComponent('application');
+        $search = new AmSearchModule('application');
         
         $this->render('view', array(
             'entity' => $search->findById($id)
