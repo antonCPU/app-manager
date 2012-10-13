@@ -62,7 +62,7 @@ class AmParser extends CComponent
      */
     public function setFileName($fileName)
     {
-        $this->fileName = $fileName . '.php';
+        $this->fileName = $fileName;
         return $this;
     }
     

@@ -9,7 +9,7 @@ class AmController extends AppManagerController
     
     public function actionTest()
     {
-        $entity = new AmParser(Yii::getPathOfAlias('ext.EWordValidator'));
-        myd($entity->properties[0]->value);
+        $entity = new AmEntity('ext.EWordValidator');
+        myd($entity->author);
     }
 }
