@@ -11,7 +11,11 @@ $this->breadcrumbs=array(
         'enableClientValidation' => false,
     )); ?>
         <?php $options = $model->options; ?>
-        <?php foreach ($options as $attribute => $option): ?>
+        <div class="row">
+            <?php echo $form->labelEx($options, 'name', array('label' => AppManagerModule::t('Name'))); ?>
+            <?php echo $form->textField($options, 'name', array('class' => 'textfield')); ?>
+        </div>
+        <?php /*foreach ($options as $attribute => $option): ?>
             <div class="row">
                 <?php echo $form->labelEx($options, $attribute); ?>
                 <div class="hint"><?php echo $option->desc; ?></div>
@@ -31,6 +35,6 @@ $this->breadcrumbs=array(
                 <?php endif; ?>
                 <?php echo $form->error($options, $attribute); ?>
             </div>
-        <?php endforeach; ?>
+        <?php endforeach;*/ ?>
     <?php $this->endWidget(); ?>
 </div>
