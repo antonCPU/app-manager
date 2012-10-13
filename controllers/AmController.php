@@ -24,4 +24,13 @@ class AmController extends AppManagerController
             'entity' => $search->findById($id)
         ));
     }
+    
+    public function actionUpdate($id)
+    {
+        $search = new AmSearchModule('application');
+        
+        $this->render('update', array(
+            'entity' => $search->findById($id)
+        ));
+    }
 }

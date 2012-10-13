@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
     $this->getTitle() => array('list'),
-    $entity->name => array('view', 'id' => $entity->id),
+    $entity->title => array('view', 'id' => $entity->id),
     AppManagerModule::t('Edit')
 ); 
 
@@ -12,20 +12,13 @@ Yii::app()->clientScript->registerScript('appManager-update', '
     });
 ');
 ?>
-<h1><?php echo $entity->name; ?></h1>
+<h1><?php echo $entity->title; ?></h1>
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'settings-form',
 	'enableAjaxValidation'=>false,
     'enableClientValidation' => false,
 )); ?>
-    <fieldset>
-        <div class="row">
-            <?php echo $form->labelEx($entity,'fullClassName'); ?>
-            <?php echo $form->textField($entity,'fullClassName', array('class' => 'textfield')); ?>
-            <?php echo $form->error($entity,'fullClassName'); ?>
-        </div> 
-    </fieldset>
     <fieldset>
         <legend><?php echo AppManagerModule::t('Options'); ?></legend>
         <?php 
@@ -63,14 +56,14 @@ Yii::app()->clientScript->registerScript('appManager-update', '
     </fieldset>
     <div class="row buttons">
 		<?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
-        <?php if ($entity->canRestore()): ?>
+        <?php /*if ($entity->canRestore()): ?>
             <?php echo CHtml::submitButton(AppManagerModule::t('Restore'), array(
                 'name' => 'restore',
                 'onclick' => 'if(!confirm(' 
                              . CJavaScript::encode(AppManagerModule::t('Are you sure?'))
                              . ')) return false;',
             )); ?>
-        <?php endif; ?>
+        <?php endif; */?>
 	</div>
 <?php $this->endWidget(); ?>
 </div>
