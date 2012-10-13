@@ -1,17 +1,27 @@
 <?php
 
 Yii::import('appManager.components.entity.*');
+Yii::import('appManager.components.search.*');
 
 class AmController extends AppManagerController
 {
-    public $defaultAction = 'test';
     protected $title = 'Am test';
     
-    public function actionTest()
+    public function actionList()
     {
-        $entity = new AmEntity('ext.EWordValidator');
-        foreach ($entity->options as $option) {
-            myd($option);
-        }
+        $search = new AmSearchComponent('application');
+        
+        $this->render('list', array(
+            'search' => $search,
+        ));
+    }
+    
+    public function actionView($id)
+    {
+        $search = new AmSearchComponent('application');
+        
+        $this->render('view', array(
+            'entity' => $search->findById($id)
+        ));
     }
 }

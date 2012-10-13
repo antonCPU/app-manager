@@ -125,7 +125,7 @@ class AmParser extends CComponent
     { 
         if ((null === $this->link) && $tag = $this->getTag('link')) {
             $this->link = $tag->getDescription();
-        }
+        } 
         return $this->link;
     }
     

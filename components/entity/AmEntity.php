@@ -16,19 +16,28 @@ class AmEntity extends AmModel
      * Initialization.
      * @param string $path full path or with aliases.
      */
-    public function __construct($path = null)
+    public function __construct($id)
     {
-        $this->setPath($path);
+        $this->id = $id;
     }
     
     public function __get($name)
     {
         if(isset($this->attributes[$name])) {
 			return $this->attributes[$name];
-        } elseif (isset($this->getParser()->$name)) {
+        } elseif (property_exists($this->getParser(), $name)) {
             return $this->attributes[$name] = $this->getParser()->$name;
-        }
+        } 
         return parent::__get($name);
+    }
+    
+    /**
+     * @return string
+     * @see CButtonColumn 
+     */
+    public function getPrimaryKey()
+    {
+        return $this->getId();
     }
     
     /**
@@ -36,23 +45,9 @@ class AmEntity extends AmModel
      */
     public function getId()
     {
-        if (null === $this->id) {
-            $this->id = $this->createId();
-        }
         return $this->id;
     }
     
-    /**
-     * Forms unique identifier.
-     * @return string
-     */
-    protected function createId()
-    {
-        $name = $this->getTitle();
-        $name[0] = strtolower($name[0]);
-        return (string)$name;
-    }
- 
     /**
      * @return string
      */
@@ -74,20 +69,13 @@ class AmEntity extends AmModel
     }
     
     /**
-     * @param string $path full path with directory separators or with aliases. 
-     */
-    public function setPath($path)
-    {
-        if (!empty($path)) {
-            $this->_path = $this->resolveFullPath($path);
-        }
-    }
-    
-    /**
      * @return string 
      */
     public function getPath()
     {
+        if (null === $this->_path) {
+            $this->_path = $this->resolveFullPath($this->id);
+        }
         return $this->_path;
     }
     
@@ -102,7 +90,7 @@ class AmEntity extends AmModel
         return $this->_fileName;
     }
     
-        /**
+    /**
      * Sets options from input data.
      * @param array $options 
      */
@@ -224,8 +212,9 @@ class AmEntity extends AmModel
      * @param string $path could be with Yii aliases
      * @return string 
      */
-    protected function resolveFullPath($path)
+    protected function resolveFullPath($id)
     {            
+        $path = str_replace('-', '.', $id);
         if ($fullPath = Yii::getPathOfAlias($path)) {
             if (is_file($fullPath . '.php')) {
                 $fullPath.= '.php';
