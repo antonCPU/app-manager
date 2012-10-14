@@ -48,12 +48,16 @@ Yii::app()->clientScript->registerScript('appManager-view', '
             'data'=>$entity,
             'attributes'=>array(
                 array(
-                    'label' => AppManagerModule::t('Location'),
-                    'name'  => 'fileName',
+                    'label' => AppManagerModule::t('Name'),
+                    'name'  => 'name',
                 ),
                 array(
                     'label' => AppManagerModule::t('Class'),
                     'name'  => 'className',
+                ),
+                array(
+                    'label' => AppManagerModule::t('Location'),
+                    'name'  => 'fileName',
                 ),
                 array(
                     'label' => AppManagerModule::t('Author'),
