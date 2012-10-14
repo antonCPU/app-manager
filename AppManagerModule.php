@@ -2,7 +2,7 @@
 
 class AppManagerModule extends CWebModule
 {
-    public $defaultController = 'module';
+    public $defaultController = 'app';
     public $config = 'config/main.php';
     public $layout = '/layouts/main';
     public $errorAction = '/appManager/error/show';
