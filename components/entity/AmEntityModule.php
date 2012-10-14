@@ -2,6 +2,8 @@
 
 class AmEntityModule extends AmEntity
 {
+    protected $section;
+    
     protected function formClassName($path)
     {
         return ucfirst(parent::formClassName($path)) . 'Module';
@@ -30,10 +32,16 @@ class AmEntityModule extends AmEntity
         return $this->createSearch($section)->findById($id);
     }
     
+    public function getSection()
+    {
+        return $this->section;
+    }
+    
     protected function createSearch($section)
     {
         $sections = $this->getSearchSections(); 
         $className = 'AmSearch' . ucfirst($sections[$section]);
+        $this->section = $section;
         return new $className($this->getPath() . DIRECTORY_SEPARATOR . $section);
     }
     

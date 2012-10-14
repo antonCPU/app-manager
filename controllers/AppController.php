@@ -3,6 +3,9 @@
 class AppController extends AmController
 {
     public $defaultAction = 'components';
+    public $layout = '/layouts/app';
+    
+    protected $model;
     
     public function actionComponents()
     {
@@ -35,7 +38,7 @@ class AppController extends AmController
     public function actionUpdate($id)
     { 
         $entity = $this->getEntity();
-        
+    
         if ($this->getPost('restore')) {
             if ($entity->restore()) {
                // $this->setEntityFlash('success', '{name} has been restored.');
@@ -48,7 +51,7 @@ class AppController extends AmController
             
             if ($entity->save()) {
                // $this->setEntityFlash('success', '{name} has been updated.');
-                //$this->redirect(array('list'));
+                $this->redirect(array($this->getModel()->getSection()));
             } else {
                 //$this->setEntityFlash('error', 'Unable to update {name}.');
             }
@@ -61,7 +64,10 @@ class AppController extends AmController
     
     public function getModel()
     {
-        return new AmEntityApp;
+        if (null === $this->model) {
+            $this->model = new AmEntityApp;
+        }
+        return $this->model;
     }
     
     public function getEntity()

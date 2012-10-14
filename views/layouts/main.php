@@ -31,24 +31,12 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array(
-                    'label'  => AppManagerModule::t('Modules'), 
-                    'url'    => array('/appManager/module'), 
-                    'active' => $this->isId('module'),
+                    'label'  => AppManagerModule::t('App'), 
+                    'url'    => array('/appManager/app'), 
                 ),
 				array(
-                    'label'  => AppManagerModule::t('Extensions'), 
-                    'url'    => array('/appManager/extension'), 
-                    'active' => $this->isId('extension'),
-                ),
-				array(
-                    'label'  => AppManagerModule::t('Components'), 
-                    'url'    => array('/appManager/component'), 
-                    'active' => $this->isId('component'),
-                ),
-				array(
-                    'label'  => AppManagerModule::t('Settings'), 
-                    'url'    => array('/appManager/settings'), 
-                    'active' => $this->isId('settings'),
+                    'label'  => AppManagerModule::t('Core'), 
+                    'url'    => array('/appManager/core'), 
                 ),
 			),
 		)); ?>
