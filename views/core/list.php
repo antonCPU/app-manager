@@ -19,6 +19,10 @@ $confirm = 'function(){if(!confirm('
             'header' => AppManagerModule::t('Title'),
         ),
         array(
+            'name'   => 'name',
+            'header' => AppManagerModule::t('Name'),
+        ),
+        array(
             'name'   => 'summary',
             'header' => AppManagerModule::t('Description'),
         ),

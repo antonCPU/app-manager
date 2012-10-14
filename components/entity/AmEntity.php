@@ -193,6 +193,11 @@ class AmEntity extends AmModel
         return lcfirst(array_pop($tmp));
     }
     
+    public function getIsDefaultName()
+    {
+        return ($this->getName() === $this->getDefaultName());
+    }
+    
     /**
      * @return string
      */

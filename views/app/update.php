@@ -23,6 +23,12 @@ Yii::app()->clientScript->registerScript('appManager-update', '
     <fieldset>
         <div class="row">
             <?php echo $form->labelEx($entity,'name'); ?>
+            <div class="hint">This name is used in the configue.</div>
+            <div class="note">
+                <?php if (!$entity->isDefaultName): ?><span>*</span><?php endif; ?>
+                default: 
+                <pre><?php echo $entity->defaultName; ?></pre>
+            </div>
             <?php echo $form->textField($entity,'name', array('class' => 'textfield')); ?>
             <?php echo $form->error($entity,'name'); ?>
         </div> 

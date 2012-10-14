@@ -21,13 +21,6 @@ Yii::app()->clientScript->registerScript('appManager-update', '
     'enableClientValidation' => false,
 )); ?>
     <fieldset>
-        <div class="row">
-            <?php echo $form->labelEx($entity,'name'); ?>
-            <?php echo $form->textField($entity,'name', array('class' => 'textfield')); ?>
-            <?php echo $form->error($entity,'name'); ?>
-        </div> 
-    </fieldset>
-    <fieldset>
         <legend><?php echo AppManagerModule::t('Options'); ?></legend>
         <?php 
             $split = ceil($entity->options->count / 2); 
