@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-    $this->getTitle() => array('list'),
+    $this->getTitle() => array('/appManager/core'),
+    $this->getSectionTitle() => array($this->getSection()),
     $entity->title,
 );
 

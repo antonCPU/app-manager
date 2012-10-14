@@ -3,6 +3,7 @@
 class CoreController extends AmEntityController
 {
     public $layout = '/layouts/core';
+    protected $title = 'Core';
     
     public function getModel()
     {

@@ -123,6 +123,11 @@ class AmEntityController extends AmController
         return $this->getModel()->getSection();
     }
     
+    public function getSectionTitle()
+    {
+        return ucfirst($this->getSection());
+    }
+    
     /**
      * Sets a flash message related to the entity.
      * @param string $flashType

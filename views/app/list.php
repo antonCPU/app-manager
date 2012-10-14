@@ -1,7 +1,8 @@
 <?php
-$this->breadcrumbs=array(
-    $this->getTitle(),
-);
+    $this->breadcrumbs=array(
+        $this->getTitle() => array('/appManager/app'),
+        $this->getSectionTitle(),
+    );
 ?>
 <?php 
 $confirm = 'function(){if(!confirm(' 

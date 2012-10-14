@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-    $this->getTitle() => array('list'),
+    $this->getTitle() => array('/appManager/app'),
+    $this->getSectionTitle() => array($this->getSection()),
     $entity->title => array('view', 'id' => $entity->id),
     AppManagerModule::t('Edit')
 ); 
