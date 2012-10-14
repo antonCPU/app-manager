@@ -20,6 +20,8 @@ class AppManagerModule extends CWebModule
             'appManager.models.*',
             'appManager.components.*',
             'appManager.components.parser.*',
+            'appManager.components.entity.*',
+            'appManager.components.search.*',
         ));
     }
 

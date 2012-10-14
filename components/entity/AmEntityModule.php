@@ -9,20 +9,41 @@ class AmEntityModule extends AmEntity
     
     public function getComponents()
     {
-        $search = new AmSearchComponent($this->getPath() . '/components');
-        return $search->perform();
+        return $this->createSearch('components')->perform();
     }
     
     public function getModules()
     {
-        $search = new AmSearchModule($this->getPath() . '/modules');
-        return $search->perform();
+        return $this->createSearch('modules')->perform();
     }
     
     public function getExtensions()
     {
-        $search = new AmSearchComponent($this->getPath() . '/extensions');
-        return $search->perform();
+        return $this->createSearch('extensions')->perform();
+    }
+    
+    public function findById($id)
+    { 
+        $tmp = str_replace($this->getId() . '.', '', $id);
+        $tmp = explode('.', $tmp);
+        $section = $tmp[0];
+        return $this->createSearch($section)->findById($id);
+    }
+    
+    protected function createSearch($section)
+    {
+        $sections = $this->getSearchSections(); 
+        $className = 'AmSearch' . ucfirst($sections[$section]);
+        return new $className($this->getPath() . DIRECTORY_SEPARATOR . $section);
+    }
+    
+    protected function getSearchSections()
+    {
+        return array(
+            'components'  => 'component',
+            'modules'     => 'module',
+            'extensions'  => 'component',
+        );
     }
     
     protected function getConfigSection()
