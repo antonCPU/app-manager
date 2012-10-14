@@ -29,7 +29,7 @@ class AmEntityModule extends AmEntityComposite
         );
     }
     
-    protected function getConfigSection()
+    public function getConfigSection()
     {
         return 'modules';
     }

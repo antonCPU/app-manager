@@ -2,7 +2,7 @@
 
 class AmEntityComponent extends AmEntity
 {
-    protected function getConfigSection()
+    public function getConfigSection()
     {
         return 'components';
     }

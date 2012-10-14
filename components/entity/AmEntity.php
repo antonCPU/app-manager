@@ -33,10 +33,7 @@ class AmEntity extends AmModel
         if (!$this->canActivate()) {
             return false;
         }
-        $this->loadConfigSection()->add($this->getName(), array(
-            'class' => $this->getFullClassName(),
-        ));
-        return $this->saveConfig();
+        return $this->getConfig()->activate();
     }
     
     /**
@@ -47,8 +44,7 @@ class AmEntity extends AmModel
         if (!$this->canDeactivate()) {
             return false;
         }
-        $this->loadConfigSection()->remove($this->getName());
-        return $this->saveConfig();
+        return $this->getConfig()->deactivate();
     }
     
     /**
@@ -71,12 +67,11 @@ class AmEntity extends AmModel
         if (!$this->canUpdate() || !$this->validate()) {
             return false;
         }
-        $config = $this->getConfig(); 
-        $config->add('class', $this->getFullClassName());
+        $config = $this->getConfig()->update(); 
         if (!$this->getOptions()->updateConfig()) {
             return false;
         }
-        return $this->saveConfig();
+        return $this->getConfig()->save();
     }
     
     /**
@@ -88,10 +83,7 @@ class AmEntity extends AmModel
         if (!$this->canRestore()) {
             return false;
         } 
-        $config = $this->getConfig();
-        $config->clear();
-        $config->add('class', $this->getFullClassName());
-        return $this->saveConfig();
+        return $this->getConfig()->restore();
     }
     
     /**
@@ -111,7 +103,7 @@ class AmEntity extends AmModel
     public function getIsActive() 
     { 
         if (null === $this->isActive) {
-            $this->isActive = (bool)$this->getConfig()->count();
+            $this->isActive = !$this->getConfig()->isEmpty();
         } 
         return $this->isActive;
     }
@@ -154,7 +146,7 @@ class AmEntity extends AmModel
      */
     public function canRestore()
     {
-        return ($this->canUpdate() && ($this->getConfig()->count() > 1));
+        return ($this->canUpdate() && ($this->getConfig()->isChanged()));
     }
     
     /**
@@ -183,7 +175,7 @@ class AmEntity extends AmModel
     public function getName()
     {
         if (null === $this->name) {
-            $this->name = $this->getDefaultName();
+            $this->name = $this->getConfig()->getName();
         }
         return $this->name;
     }
@@ -292,7 +284,7 @@ class AmEntity extends AmModel
         if (null === $this->options) {
             $options = new AmOptions;
             $options->setParser($this->getParser());
-            $options->setConfig($this->getConfig());
+            $options->setConfig($this->getConfig()->get());
             $this->options = $options;
         }
         return $this->options;
@@ -323,78 +315,16 @@ class AmEntity extends AmModel
     protected function getConfig()
     {
         if (null === $this->_config) {
-            $this->_config = $this->loadConfig();
+            $this->_config = new AmConfigEntity($this);
         }
         return $this->_config;
-    }
-    
-        /**
-     * Loads main config.
-     * Creates an empty if does not exist.
-     * @return AppManagerConfig
-     */
-    protected function loadConfig()
-    {
-        $config  = $this->loadConfigSection();
-        $name    = $this->getName();
-        $current = $config->itemAt($name);
-        if (null === $current) {
-            if (!$this->normalizeConfig($config, $name)) {
-                $config->add($name, array());
-            }
-            $current = $config->itemAt($name);
-        } 
-        return $current;
-    }
-    
-    protected function normalizeConfig($config, $name)
-    {
-        $key = $config->search($name);
-        if (false !== $key) {
-            $config->remove($key);
-            $config->add($name, array(
-                'class' => $this->getFullClassName(),
-            ));
-            return true;
-        }
-        return false;
-    }
-    
-    /**
-     * @return bool 
-     */
-    protected function saveConfig()
-    {
-        return AppManagerModule::config()->save();
-    }
-    
-    /**
-     * Gets value from config.
-     * @param string $name
-     * @return mixed 
-     */
-    protected function getConfigValue($name)
-    {
-        if ($config = $this->getConfig()) {
-            return $config->itemAt($name);
-        }
-        return null;
-    }
-    
-    /**
-     * Loads config only for current settings section.
-     * @return AppManagerConfig 
-     */
-    protected function loadConfigSection()
-    { 
-        return AppManagerModule::config($this->getConfigSection());
     }
     
     /**
      * Gets name of the config section.
      * @return string 
      */
-    protected function getConfigSection()
+    public function getConfigSection()
     {
         return null;
     }
