@@ -183,9 +183,7 @@ class AmEntity extends AmModel
     public function getName()
     {
         if (null === $this->name) {
-            $id = $this->getId();
-            $tmp = explode('.', $id);
-            $this->name = lcfirst(array_pop($tmp));
+            $this->name = $this->getDefaultName();
         }
         return $this->name;
     }
@@ -194,6 +192,13 @@ class AmEntity extends AmModel
     {
         $this->name = $name;
         return $this;
+    }
+    
+    public function getDefaultName()
+    {
+        $id = $this->getId();
+        $tmp = explode('.', $id);
+        return lcfirst(array_pop($tmp));
     }
     
     /**
@@ -334,18 +339,25 @@ class AmEntity extends AmModel
         $name    = $this->getName();
         $current = $config->itemAt($name);
         if (null === $current) {
-            $key = $config->search($name);
-            if (false !== $key) { //normalize config
-                $config->remove($key);
-                $config->add($name, array(
-                    'class' => $this->getFullClassName(),
-                ));
-            } else {
+            if (!$this->normalizeConfig($config, $name)) {
                 $config->add($name, array());
-            }
+            } 
             $current = $config->itemAt($name);
         } 
         return $current;
+    }
+    
+    protected function normalizeConfig($config, $name)
+    {
+        $key = $config->search($name);
+        if (false !== $key) {
+            $config->remove($key);
+            $config->add($name, array(
+                'class' => $this->getFullClassName(),
+            ));
+            return true;
+        }
+        return false;
     }
     
     /**
