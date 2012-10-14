@@ -49,7 +49,7 @@
 	<?php endif?>
          
     <div id="content">
-        <?php $this->widget('AppManagerFlash'); ?>
+        <?php $this->widget('AmFlash'); ?>
         <?php echo $content; ?>
     </div>
         

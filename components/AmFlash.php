@@ -4,7 +4,7 @@
  * Most of functionality comes from "yii-flash". 
  * @link http://www.yiiframework.com/extension/yii-flash
  */
-class AppManagerFlash extends CWidget
+class AmFlash extends CWidget
 {
     /**
      * @var string message types.

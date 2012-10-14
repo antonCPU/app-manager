@@ -11,4 +11,11 @@ class CoreController extends AmEntityController
         }
         return $this->model;
     }
+    
+    public function actionDelete($id)
+    {
+        $entity = $this->getEntity();
+        $this->setEntityFlash('error', 'Unable to delete a core class.');
+        $this->redirect(array($this->getSection()));
+    }
 }
