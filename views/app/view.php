@@ -65,6 +65,7 @@ Yii::app()->clientScript->registerScript('appManager-view', '
                 ),
                 array(
                     'label' => AppManagerModule::t('Link'),
+                    'type'  => 'url',
                     'name'  => 'link',
                 ),
             ),
