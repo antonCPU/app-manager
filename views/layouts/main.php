@@ -49,12 +49,9 @@
 			'links'    => $this->breadcrumbs,
 		)); ?><!-- breadcrumbs -->
 	<?php endif?>
-         
-    <div id="content">
-        <?php $this->widget('AmFlash'); ?>
-        <?php echo $content; ?>
-    </div>
-        
+
+    <?php echo $content; ?>
+      
 	<div class="clear"></div>
 </div><!-- page -->
 
