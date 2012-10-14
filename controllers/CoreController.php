@@ -2,7 +2,6 @@
 
 class CoreController extends AmEntityController
 {
-    public $layout = '/layouts/core';
     protected $title = 'Core';
     
     public function getModel()
@@ -18,5 +17,12 @@ class CoreController extends AmEntityController
         $entity = $this->getEntity();
         $this->setEntityFlash('error', 'Unable to delete a core class.');
         $this->redirect(array($this->getSection()));
+    }
+    
+    public function getMenu()
+    {
+        $menu = parent::getMenu();
+        array_pop($menu);
+        return $menu;
     }
 }

@@ -3,7 +3,7 @@
 class AmEntityController extends AmController
 {
     public $defaultAction = 'components';
-    
+    public $layout = '/layouts/column1';
     protected $model;
     
     public function actionComponents()
@@ -126,6 +126,32 @@ class AmEntityController extends AmController
     public function getSectionTitle()
     {
         return ucfirst($this->getSection());
+    }
+    
+    public function isSection($section)
+    {
+        return ($this->getSection() === $section);
+    }
+    
+    public function getMenu()
+    {
+        return array(
+            array(
+                'label'  => AppManagerModule::t('Components'), 
+                'url'    => array('components'), 
+                'active' => $this->isSection('components'),
+            ),
+            array(
+                'label'  => AppManagerModule::t('Modules'), 
+                'url'    => array('modules'), 
+                'active' => $this->isSection('modules'),
+            ),
+            array(
+                'label'  => AppManagerModule::t('Extensions'), 
+                'url'    => array('extensions'), 
+                'active' => $this->isSection('extensions'),
+            ),
+        );
     }
     
     /**

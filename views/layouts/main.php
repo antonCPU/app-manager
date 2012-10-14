@@ -33,10 +33,12 @@
 				array(
                     'label'  => AppManagerModule::t('App'), 
                     'url'    => array('/appManager/app'), 
+                    'active' => $this->isId('app'),
                 ),
 				array(
                     'label'  => AppManagerModule::t('Core'), 
                     'url'    => array('/appManager/core'), 
+                    'active' => $this->isId('core'),
                 ),
 			),
 		)); ?>

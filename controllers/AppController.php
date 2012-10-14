@@ -2,7 +2,6 @@
 
 class AppController extends AmEntityController
 {
-    public $layout = '/layouts/app';
     protected $title = 'App';
     
     public function getModel()
