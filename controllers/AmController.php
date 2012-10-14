@@ -43,8 +43,31 @@ class AmController extends AppManagerController
         ));
     }
     
-        protected function needRestore()
+    /**
+     * @param string $id 
+     */
+    public function actionActivate($id)
+    {
+        $this->getEntity()->activate();
+        $this->redirect(array('update', 'id' => $id));
+    }
+    
+    /**
+     * @param string $id 
+     */
+    public function actionDeactivate($id)
+    {
+        $this->getEntity()->deactivate();
+        $this->redirect(array('list'));
+    }
+    
+    protected function needRestore()
     {
         return (bool)$this->getPost('restore');
+    }
+    
+    public function getEntity()
+    {
+        return new AmEntityModule($this->getParam('id'));
     }
 }
