@@ -341,7 +341,7 @@ class AmEntity extends AmModel
         if (null === $current) {
             if (!$this->normalizeConfig($config, $name)) {
                 $config->add($name, array());
-            } 
+            }
             $current = $config->itemAt($name);
         } 
         return $current;
