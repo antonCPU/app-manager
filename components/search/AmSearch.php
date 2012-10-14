@@ -35,7 +35,11 @@ class AmSearch extends CComponent
         if ($results = $this->scan()) {
             $results = $this->createEntities($results);
         }
-        return new CArrayDataProvider($results);
+        return new CArrayDataProvider($results, array(
+            'sort' => array(
+                'defaultOrder'=>'isActive DESC',
+            )
+        ));
     }
     
     public function findById($id)
