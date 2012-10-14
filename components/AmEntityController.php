@@ -6,6 +6,11 @@ class AmEntityController extends AmController
     public $layout = '/layouts/column1';
     protected $model;
     
+    public function getPageTitle()
+    {
+        return parent::getPageTitle() . ' - ' . $this->getSectionTitle();
+    }
+    
     public function actionComponents()
     {
         $this->render('list', array(
