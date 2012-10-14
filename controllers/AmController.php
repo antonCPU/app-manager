@@ -10,16 +10,18 @@ class AmController extends AppManagerController
     
     public function actionList()
     {
-        $search = new AmSearchModule('application.modules');
+        $app = new AmEntityCore;
         
+        //$search = new AmSearchModule('application.modules');
+
         $this->render('list', array(
-            'list' => $search->perform(),
+            'list' => $app->modules,
         ));
     }
     
     public function actionView($id)
     {
-        $entity = new AmEntityModule($id);
+        $entity = $this->getEntity();
 
         $this->render('view', array(
             'entity' => $entity,
@@ -28,7 +30,7 @@ class AmController extends AppManagerController
     
     public function actionUpdate($id)
     {
-        $entity = new AmEntityModule($id);
+        $entity = $this->getEntity();
          if ($this->needRestore()) {
             $entity->restore();
         } elseif ($data = $this->getPost('AmEntityModule')) {
@@ -68,6 +70,7 @@ class AmController extends AppManagerController
     
     public function getEntity()
     {
-        return new AmEntityModule($this->getParam('id'));
+        $search = new AmSearchCoreModule('system');
+        return $search->findById($this->getParam('id'));
     }
 }

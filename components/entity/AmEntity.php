@@ -14,15 +14,6 @@ class AmEntity extends AmModel
     private $_parser;
     private $_config;
     
-    /**
-     * Initialization.
-     * @param string $id alias
-     */
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
-    
     public function __get($name)
     {
         if(isset($this->attributes[$name])) {
@@ -99,6 +90,12 @@ class AmEntity extends AmModel
         return $this->getId();
     }
     
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+    
     /**
      * @return string 
      */
@@ -120,6 +117,7 @@ class AmEntity extends AmModel
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
     }
     
     /**
@@ -170,11 +168,16 @@ class AmEntity extends AmModel
     protected function getPath()
     {
         if (null === $this->_path) {
-            $this->_path = Yii::getPathOfAlias($this->getId());
+            $this->_path = $this->resolvePath();
         }
         return $this->_path;
     }
 
+    protected function resolvePath()
+    {
+        return Yii::getPathOfAlias($this->getId());
+    }
+    
     /**
      * @return string 
      */

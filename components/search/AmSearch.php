@@ -38,6 +38,11 @@ class AmSearch extends CComponent
         return new CArrayDataProvider($results);
     }
     
+    public function findById($id)
+    {
+        return $this->createEntity($id);
+    }
+    
     protected function scan()
     {
         $results = scandir($this->getDir());
@@ -59,7 +64,8 @@ class AmSearch extends CComponent
     
     protected function createEntity($id)
     {
-        return new AmEntity($id);
+        $entity = new AmEntity();
+        return $entity->setId($id);
     }
     
     protected function createEntityId($path)
