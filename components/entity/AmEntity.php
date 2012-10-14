@@ -229,7 +229,7 @@ class AmEntity extends AmModel
     protected function resolveFullClassName()
     {
         $name = $this->getId();
-        $path = $this->getPath();
+        $path = $this->getPath(); 
         if (!is_file($path . '.php')) {
             $className = $this->formClassName($path);
             $path .= DIRECTORY_SEPARATOR . $className . '.php';
@@ -341,6 +341,6 @@ class AmEntity extends AmModel
      */
     protected function formClassName($path)
     {
-        return basename($path, '.php');
+        return ucfirst(basename($path, '.php'));
     }
 }

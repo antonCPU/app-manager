@@ -4,7 +4,7 @@ class AmEntityModule extends AmEntityComposite
 {
     protected function formClassName($path)
     {
-        return ucfirst(parent::formClassName($path)) . 'Module';
+        return parent::formClassName($path) . 'Module';
     }
    
     protected function createTitle()
