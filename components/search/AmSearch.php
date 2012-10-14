@@ -68,7 +68,7 @@ class AmSearch extends CComponent
         $parts = explode('.', $path);
         $dir = $parts[0];
         $dir = str_replace($baseDir, 'application', $dir);
-        $id = str_replace(DIRECTORY_SEPARATOR, '-', $dir);
+        $id = str_replace(DIRECTORY_SEPARATOR, '.', $dir);
         return $id;
     }
 }

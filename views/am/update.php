@@ -20,6 +20,13 @@ Yii::app()->clientScript->registerScript('appManager-update', '
     'enableClientValidation' => false,
 )); ?>
     <fieldset>
+        <div class="row">
+            <?php echo $form->labelEx($entity,'name'); ?>
+            <?php echo $form->textField($entity,'name', array('class' => 'textfield')); ?>
+            <?php echo $form->error($entity,'name'); ?>
+        </div> 
+    </fieldset>
+    <fieldset>
         <legend><?php echo AppManagerModule::t('Options'); ?></legend>
         <?php 
             $split = ceil($entity->options->count / 2); 
@@ -56,14 +63,12 @@ Yii::app()->clientScript->registerScript('appManager-update', '
     </fieldset>
     <div class="row buttons">
 		<?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
-        <?php /*if ($entity->canRestore()): ?>
-            <?php echo CHtml::submitButton(AppManagerModule::t('Restore'), array(
-                'name' => 'restore',
-                'onclick' => 'if(!confirm(' 
-                             . CJavaScript::encode(AppManagerModule::t('Are you sure?'))
-                             . ')) return false;',
-            )); ?>
-        <?php endif; */?>
+        <?php echo CHtml::submitButton(AppManagerModule::t('Restore'), array(
+            'name' => 'restore',
+            'onclick' => 'if(!confirm(' 
+                         . CJavaScript::encode(AppManagerModule::t('Are you sure?'))
+                         . ')) return false;',
+        )); ?>
 	</div>
 <?php $this->endWidget(); ?>
 </div>

@@ -6,6 +6,8 @@ class AmEntity extends AmModel
     protected $title;
     protected $options;
     protected $attributes;
+    protected $name;
+    protected $fullClassName;
     
     private $_path;
     private $_fileName;
@@ -14,7 +16,7 @@ class AmEntity extends AmModel
     
     /**
      * Initialization.
-     * @param string $path full path or with aliases.
+     * @param string $id alias
      */
     public function __construct($id)
     {
@@ -32,6 +34,63 @@ class AmEntity extends AmModel
     }
     
     /**
+     * @return bool 
+     */
+    public function activate() 
+    {
+        $this->loadConfigSection()->add($this->getName(), array(
+            'class' => $this->getFullClassName(),
+        ));
+        return $this->saveConfig();
+    }
+    
+    /**
+     * @return bool 
+     */
+    public function deactivate() 
+    {
+        $this->loadConfigSection()->remove($this->getName());
+        return $this->saveConfig();
+    }
+    
+    /**
+     * Completely deletes the entity.
+     * @return bool
+     */
+    public function delete() 
+    {
+        if (!$this->canDelete()) {
+            return false;
+        }
+    }
+    
+    /**
+     * Saves entity and all options.
+     * @return bool 
+     */
+    public function save() 
+    {
+        $config = $this->getConfig(); 
+        $config->add('class', $this->getFullClassName());
+        if (!$this->getOptions()->updateConfig()) {
+            return false;
+        }
+        return $this->saveConfig();
+    }
+    
+    /**
+     * Restores options and the class name to defaults.
+     * @return bool
+     */
+    public function restore()
+    {
+        $config = $this->getConfig();
+        $config->clear();
+        $config->add('class', $this->getFullClassName());
+        return $this->saveConfig();
+    }
+    
+    /**
      * @return string
      * @see CButtonColumn 
      */
@@ -46,6 +105,21 @@ class AmEntity extends AmModel
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function getName()
+    {
+        if (null === $this->name) {
+            $id = $this->getId();
+            $tmp = explode('.', $id);
+            $this->name = lcfirst(array_pop($tmp));
+        }
+        return $this->name;
+    }
+    
+    public function setName($name)
+    {
+        $this->name = $name;
     }
     
     /**
@@ -68,26 +142,53 @@ class AmEntity extends AmModel
         return ucfirst(basename($this->getFileName(), '.php'));
     }
     
+    public function getFullClassName()
+    {
+        if (null === $this->fullClassName) {
+            $this->fullClassName = $this->resolveFullClassName();
+        }
+        return $this->fullClassName;
+    }
+    
+    protected function resolveFullClassName()
+    {
+        $name = $this->getId();
+        $path = $this->getPath();
+        if (!is_file($path . '.php')) {
+            $className = $this->formClassName($path);
+            $path .= DIRECTORY_SEPARATOR . $className . '.php';
+            if (is_file($path)) {
+                $name .= '.' . $className;
+            }
+        } 
+        return $name;
+    }
+    
     /**
      * @return string 
      */
-    public function getPath()
+    protected function getPath()
     {
         if (null === $this->_path) {
-            $this->_path = $this->resolveFullPath($this->id);
+            $this->_path = Yii::getPathOfAlias($this->getId());
         }
         return $this->_path;
     }
-    
+
     /**
      * @return string 
      */
     public function getFileName()
     {
         if (null === $this->_fileName) {
-            $this->_fileName = $this->resolveFileName($this->getPath());
+            $this->_fileName = $this->resolveFileName();
         }
         return $this->_fileName;
+    }
+    
+    protected function resolveFileName()
+    {
+        return Yii::getPathOfAlias($this->getFullClassName()) . '.php';
     }
     
     /**
@@ -151,7 +252,7 @@ class AmEntity extends AmModel
     protected function loadConfig()
     {
         $config  = $this->loadConfigSection();
-        $name    = $this->getId();
+        $name    = $this->getName();
         $current = $config->itemAt($name);
         if (null === $current) {
             $key = $config->search($name);
@@ -208,59 +309,12 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Finds full path using supplied.
-     * @param string $path could be with Yii aliases
-     * @return string 
-     */
-    protected function resolveFullPath($id)
-    {            
-        $path = str_replace('-', '.', $id);
-        if ($fullPath = Yii::getPathOfAlias($path)) {
-            if (is_file($fullPath . '.php')) {
-                $fullPath.= '.php';
-            }
-        } else {
-            $fullPath = $path;
-        }
-        return $fullPath;
-    }
-
-    /**
-     * Finds full path to entity file.
-     * @param string $path
-     * @return string 
-     * @throws CException in case if file does not exist
-     */
-    protected function resolveFileName($path)
-    {  
-        if (false === strpos($path, '.')) {
-            $path .= DIRECTORY_SEPARATOR . $this->formFileName(basename($path));
-        }
-        if (!file_exists($path)) {
-            throw new CException(AppManagerModule::t('{path} does not exist.', 
-                                 array('{path}' => $path)));
-        }
-        return $path;
-    }
-     
-    /**
      * Forms class name.
-     * @return string 
-     */
-    protected function resolveClassName()
-    {
-        $name = $this->resolveName();
-        $tmp = explode('.', $name);
-        return array_pop($tmp);
-    }
-    
-    /**
-     * Forms file name.
      * @param string $name
      * @return string 
      */
-    protected function formFileName($name)
+    protected function formClassName($path)
     {
-        return $name . '.php';
+        return basename($path, '.php');
     }
 }

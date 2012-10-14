@@ -2,9 +2,9 @@
 
 class AmEntityModule extends AmEntity
 {
-    protected function formFileName($name)
+    protected function formClassName($path)
     {
-        return parent::formFileName(ucfirst($name) . 'Module');
+        return ucfirst(parent::formClassName($path)) . 'Module';
     }
     
     public function getComponents()
@@ -23,5 +23,10 @@ class AmEntityModule extends AmEntity
     {
         $search = new AmSearchComponent($this->getPath() . '/extensions');
         return $search->perform();
+    }
+    
+    protected function getConfigSection()
+    {
+        return 'modules';
     }
 }
