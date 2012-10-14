@@ -43,12 +43,6 @@
 			),
 		)); ?>
 	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-            'homeLink' => CHtml::link(AppManagerModule::t('Home'), array('/appManager')),
-			'links'    => $this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
 
     <?php echo $content; ?>
       
