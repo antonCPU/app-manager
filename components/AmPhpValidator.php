@@ -2,7 +2,7 @@
 /**
  * Checks if an attribute contains a valid php expression.
  */
-class AppManagerPhpValidator extends CValidator
+class AmPhpValidator extends CValidator
 {
     /**
      * @var array a valid php callback that is used for set_error_handler().

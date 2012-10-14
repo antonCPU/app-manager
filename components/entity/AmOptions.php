@@ -27,7 +27,7 @@ class AmOptions extends AmModel
     {
         $attributes = implode(', ', array_keys($this->get()));
         return array(
-            array($attributes, 'AppManagerPhpValidator'),  
+            array($attributes, 'AmPhpValidator'),  
         );
     }
     

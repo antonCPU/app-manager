@@ -2,7 +2,7 @@
 /**
  * Provides functionality to operate with settings tree.
  */
-class AppManagerNode extends CConfiguration
+class AmNode extends CConfiguration
 {
     /**
      * Gets an item for key.

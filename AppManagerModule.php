@@ -45,7 +45,7 @@ class AppManagerModule extends CWebModule
     {
         if (null === self::$settings) {
             $config = self::getInstance()->getConfigLocation();
-            self::$settings = new AppManagerConfig($config);
+            self::$settings = new AmConfig($config);
         }
         return self::$settings->itemAtPath($path);
     }

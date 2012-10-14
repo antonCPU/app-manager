@@ -2,7 +2,7 @@
 /**
  * Works with the Yii config.
  */
-class AppManagerConfig extends AppManagerNode
+class AmConfig extends AmNode
 {
     /**
      * @var string full path
