@@ -12,25 +12,23 @@ class AmController extends AppManagerController
         $search = new AmSearchModule('application.modules');
         
         $this->render('list', array(
-            'search' => $search,
+            'list' => $search->perform(),
         ));
     }
     
     public function actionView($id)
     {
-        $search = new AmSearchModule('application');
-        
+        $entity = new AmEntityModule($id);
         $this->render('view', array(
-            'entity' => $search->findById($id)
+            'entity' => $entity,
         ));
     }
     
     public function actionUpdate($id)
     {
-        $search = new AmSearchModule('application');
-        
+        $entity = new AmEntityModule($id);
         $this->render('update', array(
-            'entity' => $search->findById($id)
+            'entity' => $entity,
         ));
     }
 }

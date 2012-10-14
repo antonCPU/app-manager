@@ -263,19 +263,4 @@ class AmEntity extends AmModel
     {
         return $name . '.php';
     }
-   
-    public function getComponents()
-    {
-        return null;
-    }
-    
-    public function getModules()
-    {
-        return null;
-    }
-    
-    public function getExtension()
-    {
-        return null;
-    }
 }

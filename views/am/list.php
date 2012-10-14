@@ -9,7 +9,7 @@ $confirm = 'function(){if(!confirm('
          . ')) return false;}'; 
 ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-    'dataProvider' => $search->perform(),
+    'dataProvider' => $list,
     'template' => "<h3>{$this->getTitle()}</h3>{summary}\n{items}\n{pager}",
     'selectableRows' => 0,
     'columns' => array(
