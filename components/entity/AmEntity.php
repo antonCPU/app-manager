@@ -232,10 +232,12 @@ class AmEntity extends AmModel
         $path = $this->getPath(); 
         if (!is_file($path . '.php')) {
             $className = $this->formClassName($path);
-            $path .= DIRECTORY_SEPARATOR . $className . '.php';
-            if (is_file($path)) {
+            $file = $path . DIRECTORY_SEPARATOR . $className . '.php';
+            if (is_file($file)) {
                 $name .= '.' . $className;
-            }
+            } elseif ($files = glob($path . '/*.php')) {
+                $name .= '.' . basename($files[0], '.php');
+            } 
         } 
         return $name;
     }
