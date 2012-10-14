@@ -7,6 +7,9 @@ class AmSearchCoreComponent extends AmSearchComponent
         $alias = str_replace('system.', '', $id);
         $components = $this->scan();
         $name = array_search($alias, $this->scan());
+        if (false === $name) {
+            return null;
+        }
         $entity = $this->createEntity($id);
         return $entity->setName($name);
     }

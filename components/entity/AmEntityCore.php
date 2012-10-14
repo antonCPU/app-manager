@@ -1,16 +1,29 @@
 <?php
 
-class AmEntityCore extends AmEntity
+class AmEntityCore extends AmEntityComposite
 {
-    public function getComponents()
+    public function getExtensions()
     {
-        $search = new AmSearchCoreComponent('system');
-        return $search->perform();
+        return null;
     }
     
-    public function getModules()
+    public function findById($id)
     {
-        $search = new AmSearchCoreModule('system');
-        return $search->perform();
+        $section = 'components';
+        $entity = $this->createSearch($section)->findById($id);
+        if (!$entity) {
+            $section = 'modules';
+            $entity = $this->createSearch($section)->findById($id);
+        }
+        return $entity;
     }
+    
+    protected function createSearch($section)
+    {
+        $type = ('components' === $section) ? 'Component' : 'Module'; 
+        $className = 'AmSearchCore' . $type;
+        $this->section = $section;
+        return new $className('system');
+    }
+    
 }
