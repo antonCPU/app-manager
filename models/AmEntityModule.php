@@ -7,6 +7,11 @@ class AmEntityModule extends AmEntityComposite
         return ucfirst(parent::formClassName($path)) . 'Module';
     }
    
+    protected function createTitle()
+    {
+        return str_replace('Module', '', parent::createTitle());
+    }
+    
     protected function createSearch($section)
     {
         $sections = $this->getSearchSections(); 
