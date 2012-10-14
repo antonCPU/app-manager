@@ -28,17 +28,17 @@ $confirm = 'function(){if(!confirm('
                 'activate' => array(
                     'label'   => AppManagerModule::t('activate'),
                     'url'     => 'array("activate", "id" => $data->id)',
-                    //'visible' => '$data->canActivate()',
+                    'visible' => '$data->canActivate()',
                     'click'   => $confirm,
                 ),
                 'deactivate' => array(
                     'label'   => AppManagerModule::t('deactivate'),
                     'url'     => 'array("deactivate", "id" => $data->id)',
-                    //'visible' => '$data->canDeactivate()',
+                    'visible' => '$data->canDeactivate()',
                     'click'   => $confirm,
                 ),
                 'update' => array(
-                    //'visible' => '$data->canUpdate()',
+                    'visible' => '$data->canUpdate()',
                 ),
             ),
        ),

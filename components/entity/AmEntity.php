@@ -8,6 +8,7 @@ class AmEntity extends AmModel
     protected $attributes;
     protected $name;
     protected $fullClassName;
+    protected $isActive;
     
     private $_path;
     private $_fileName;
@@ -29,6 +30,9 @@ class AmEntity extends AmModel
      */
     public function activate() 
     {
+        if (!$this->canActivate()) {
+            return false;
+        }
         $this->loadConfigSection()->add($this->getName(), array(
             'class' => $this->getFullClassName(),
         ));
@@ -40,6 +44,9 @@ class AmEntity extends AmModel
      */
     public function deactivate() 
     {
+        if (!$this->canDeactivate()) {
+            return false;
+        }
         $this->loadConfigSection()->remove($this->getName());
         return $this->saveConfig();
     }
@@ -61,6 +68,9 @@ class AmEntity extends AmModel
      */
     public function save() 
     {
+        if (!$this->canUpdate() || !$this->validate()) {
+            return false;
+        }
         $config = $this->getConfig(); 
         $config->add('class', $this->getFullClassName());
         if (!$this->getOptions()->updateConfig()) {
@@ -75,10 +85,76 @@ class AmEntity extends AmModel
      */
     public function restore()
     {
+        if (!$this->canRestore()) {
+            return false;
+        } 
         $config = $this->getConfig();
         $config->clear();
         $config->add('class', $this->getFullClassName());
         return $this->saveConfig();
+    }
+    
+    /**
+     * Validation rules.
+     * @return array 
+     */
+    public function rules()
+    {
+        return array(
+          array('name', 'required'),
+        );
+    }
+    
+    /**
+     * @return bool 
+     */
+    public function getIsActive() 
+    { 
+        if (null === $this->isActive) {
+            $this->isActive = (bool)$this->getConfig()->count();
+        } 
+        return $this->isActive;
+    }
+    
+    /**
+     * Determines if the entity can BE activated.
+     * @return bool
+     */
+    public function canActivate()
+    {
+        return !$this->getIsActive();
+    }
+    
+    /**
+     * @return bool 
+     */
+    public function canDeactivate()
+    {
+        return $this->getIsActive();
+    }
+    
+    /**
+     * @return bool 
+     */
+    public function canUpdate()
+    {
+        return $this->getIsActive();
+    }
+    
+    /**
+     * @return bool 
+     */
+    public function canDelete()
+    {
+        return true;
+    }
+    
+    /**
+     * @return bool 
+     */
+    public function canRestore()
+    {
+        return ($this->canUpdate() && ($this->getConfig()->count() > 1));
     }
     
     /**

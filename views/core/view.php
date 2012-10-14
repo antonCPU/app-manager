@@ -19,17 +19,17 @@ Yii::app()->clientScript->registerScript('appManager-view', '
 				array(
                     'label'  => AppManagerModule::t('Edit'), 
                     'url'    => array('update', 'id' => $entity->id), 
-                    //'visible' => $entity->canUpdate(),
+                    'visible' => $entity->canUpdate(),
                 ),
                 array(
                     'label'  => AppManagerModule::t('Activate'), 
                     'url'    => array('activate', 'id' => $entity->id), 
-                    //'visible' => $entity->canActivate(),
+                    'visible' => $entity->canActivate(),
                 ),
                 array(
                     'label'  => AppManagerModule::t('Deactivate'), 
                     'url'    => array('deactivate', 'id' => $entity->id), 
-                    //'visible' => $entity->canDeactivate(),
+                    'visible' => $entity->canDeactivate(),
                     'itemOptions' => array('class' => 'confirm'),
                 ),
             )
@@ -47,10 +47,6 @@ Yii::app()->clientScript->registerScript('appManager-view', '
                 array(
                     'label' => AppManagerModule::t('Class'),
                     'name'  => 'className',
-                ),
-                array(
-                    'label' => AppManagerModule::t('Author'),
-                    'name'  => 'author',
                 ),
                 array(
                     'label' => AppManagerModule::t('Link'),

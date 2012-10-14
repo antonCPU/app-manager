@@ -63,12 +63,14 @@ Yii::app()->clientScript->registerScript('appManager-update', '
     </fieldset>
     <div class="row buttons">
 		<?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
-        <?php echo CHtml::submitButton(AppManagerModule::t('Restore'), array(
-            'name' => 'restore',
-            'onclick' => 'if(!confirm(' 
-                         . CJavaScript::encode(AppManagerModule::t('Are you sure?'))
-                         . ')) return false;',
-        )); ?>
+        <?php if ($entity->canRestore()): ?>
+            <?php echo CHtml::submitButton(AppManagerModule::t('Restore'), array(
+                'name' => 'restore',
+                'onclick' => 'if(!confirm(' 
+                             . CJavaScript::encode(AppManagerModule::t('Are you sure?'))
+                             . ')) return false;',
+            )); ?>
+        <?php endif; ?>
 	</div>
 <?php $this->endWidget(); ?>
 </div>
