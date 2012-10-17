@@ -33,12 +33,6 @@ Yii::app()->clientScript->registerScript('appManager-view', '
                     'visible' => $entity->canDeactivate(),
                     'itemOptions' => array('class' => 'confirm'),
                 ),
-                array(
-                    'label'  => AppManagerModule::t('Delete'), 
-                    'url'    => array('delete', 'id' => $entity->id), 
-                    'visible' => $entity->canDelete(),
-                    'itemOptions' => array('class' => 'confirm'),
-                ),
             )
     )); ?>
 </div>

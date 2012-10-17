@@ -28,7 +28,7 @@ $confirm = 'function(){if(!confirm('
         ),
         array(            
             'class'    =>'CButtonColumn',
-            'template' => '{activate} {deactivate} {view} {update} {delete}',
+            'template' => '{activate} {deactivate} {view} {update}',
             'buttons' => array(
                 'activate' => array(
                     'label'   => AppManagerModule::t('activate'),
@@ -44,9 +44,6 @@ $confirm = 'function(){if(!confirm('
                 ),
                 'update' => array(
                     'visible' => '$data->canUpdate()',
-                ),
-                'delete' => array(
-                    'visible' => '$data->canDelete()',
                 ),
             ),
        ),

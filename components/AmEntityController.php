@@ -97,19 +97,6 @@ class AmEntityController extends AmController
         $this->redirect(array($this->getSection()));
     }
     
-    /**
-     * @param string $id 
-     */
-    public function actionDelete($id)
-    {
-        if ($this->getEntity()->delete()) {
-            $this->setEntityFlash('success', '{name} has been deleted.');
-        } else { 
-            $this->setEntityFlash('error', 'Unable to delete {name}.');
-        }
-        $this->redirect(array($this->getSection()));
-    }
-    
     public function getModel()
     {
         if (null === $this->model) {

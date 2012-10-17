@@ -54,7 +54,7 @@ class AmOptions extends AmModel
     public function setAttributes($attributes)
     {
         $options = $this->get();
-        foreach ($attributes as $name => $value) {
+        foreach ((array)$attributes as $name => $value) {
             if (isset($options[$name])) {
                 $options[$name]->setTextValue($value);
             }

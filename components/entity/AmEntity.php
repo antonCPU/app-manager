@@ -48,17 +48,6 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Completely deletes the entity.
-     * @return bool
-     */
-    public function delete() 
-    {
-        if (!$this->canDelete()) {
-            return false;
-        }
-    }
-    
-    /**
      * Saves entity and all options.
      * @return bool 
      */
@@ -131,14 +120,6 @@ class AmEntity extends AmModel
     public function canUpdate()
     {
         return $this->getIsActive();
-    }
-    
-    /**
-     * @return bool 
-     */
-    public function canDelete()
-    {
-        return true;
     }
     
     /**
