@@ -13,9 +13,17 @@ class AppController extends AmEntityController
     }
     
     public function actionSettings()
-    {
+    { 
+        $model = new AmSettingsForm;
+        if ($data = $this->getPost('AmSettingsForm')) {
+            $model->attributes = $data;
+            if ($model->save()) {
+                $this->setFlash('success', 'Settings have been saved.');
+            }
+        }
+        
         $this->render('settings', array(
-            'model' => $this->getModel(),
+            'model' => $model,
         ));
     }
     
