@@ -185,6 +185,9 @@ class AmOption extends AmModel
      */
     protected function formTextValue($value, $level = 0)
     {
+        if ($value instanceof CMap) {
+            $value = $value->toArray();
+        }
         if (!is_array($value)) {
             return CVarDumper::dumpAsString($value);
         } elseif (empty($value)) {
