@@ -33,6 +33,7 @@ class AmSearchCoreComponent extends AmSearchComponent
             'authManager'       => 'web.auth.CAuthManager',
             'clientScript'      => 'web.CClientScript',
             'widgetFactory'     => 'web.CWidgetFactory',
+            'log'               => 'logging.CLogRouter',
         );
     }
     
