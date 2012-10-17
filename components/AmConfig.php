@@ -55,11 +55,11 @@ class AmConfig extends AmNode
     
     /**
      * Gets helper that is able to generate a config file.
-     * @return AppManagerWriter 
+     * @return AmWriter 
      */
     protected function getWriter()
     {
         Yii::import('appManager.components.writer.*');
-        return new AppManagerWriter($this);
+        return new AmWriter($this);
     }
 }

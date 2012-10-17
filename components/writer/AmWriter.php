@@ -2,7 +2,7 @@
 /**
  * Generates a config file.
  */
-class AppManagerWriter extends CComponent
+class AmWriter extends CComponent
 {
     /**
      * @var AppManagerConfig 
