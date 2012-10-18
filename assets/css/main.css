@@ -251,4 +251,4 @@ code {white-space: pre;}
 .menu-sections ul li a:hover, .menu-sections ul li.active a {color: #000000; background-color:#EFF4FA;}
 .menu-sections .breadcrumbs {float:right;}
 
-.config-error { color: #C92D2D; float: right; font-weight: bold; padding: 5px 10px; }
+.config-error { color: #000000; float: right; font-weight: bold; padding: 5px 10px; }
