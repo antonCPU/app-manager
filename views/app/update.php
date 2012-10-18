@@ -6,12 +6,6 @@ $this->breadcrumbs=array(
     AppManagerModule::t('Edit')
 ); 
 
-$this->module->registerJs('jquery.textarea.js');
-Yii::app()->clientScript->registerScript('appManager-update', '
-    $("textarea").tabby({
-        "tabString" : "    "
-    });
-');
 ?>
 <h1><?php echo $entity->title; ?></h1>
 <div class="form">
@@ -33,43 +27,10 @@ Yii::app()->clientScript->registerScript('appManager-update', '
             <?php echo $form->error($entity,'name'); ?>
         </div> 
     </fieldset>
-    <?php $options = $entity->options; ?>
-    <?php if ($options->count): ?>
-        <fieldset>
-            <legend><?php echo AppManagerModule::t('Options'); ?></legend>
-            <?php 
-                $split = ceil($entity->options->count / 2); 
-                $index = 0;
-            ?>
-            <div class="block first">
-                <?php foreach ($options as $attribute => $option): ?>
-                    <?php if ($index == $split): ?>
-                        </div><div class="block last">
-                    <?php endif; ?>
-                    <div class="row">
-                        <?php echo $form->labelEx($options, $attribute); ?>
-                        <div class="hint"><?php echo $option->desc; ?></div>
-                        <div class="note">
-                            <?php if (!$option->isDefault()): ?><span>*</span><?php endif; ?>
-                            default
-                            <?php if ($option->type): ?>
-                                (<?php echo $option->type; ?>)
-                            <?php endif; ?>
-                            : 
-                            <pre><?php echo $option->textDefault; ?></pre>
-                        </div>
-                        <?php if ($option->isArray || !$option->type): ?>
-                            <?php echo $form->textArea($options, $attribute); ?>
-                        <?php else: ?>
-                            <?php echo $form->textField($options, $attribute, array('class' => 'textfield')); ?>
-                        <?php endif; ?>
-                        <?php echo $form->error($options, $attribute); ?>
-                    </div> 
-                    <?php $index++; ?>
-                <?php endforeach; ?>
-            </div>
-        </fieldset>
-    <?php endif; ?>
+    <?php $this->widget('AmWidgets.amOptionsBlock.AmOptionsBlock', array(
+        'form'      => $form,
+        'options'   => $entity->options,
+    )); ?>
     <div class="row buttons">
 		<?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
         <?php if ($entity->canRestore()): ?>

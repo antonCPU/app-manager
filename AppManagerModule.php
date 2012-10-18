@@ -1,5 +1,5 @@
 <?php
-
+        
 class AppManagerModule extends CWebModule
 {
     public $defaultController = 'app';
@@ -23,6 +23,8 @@ class AppManagerModule extends CWebModule
             'appManager.components.entity.*',
             'appManager.components.search.*',
         ));
+        
+        Yii::setPathOfAlias('AmWidgets', dirname(__FILE__) . '/components/widgets');
     }
 
     public function getName()
