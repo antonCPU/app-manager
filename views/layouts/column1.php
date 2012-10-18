@@ -10,7 +10,7 @@
 	</div>	
     
     <div id="content">
-        <?php $this->widget('AmFlash'); ?>
+        <?php $this->widget('appManager.components.widgets.AmFlash'); ?>
         <?php echo $content; ?>
     </div>
 <?php $this->endContent(); ?>
