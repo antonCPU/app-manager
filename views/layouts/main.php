@@ -28,6 +28,11 @@
 	</div><!-- header -->
 
 	<div id="mainmenu">
+         <?php if (!AppManagerModule::config()->isWritable()): ?>
+            <span class="config-error">
+                <?php echo AppManagerModule::t('Config file is not writable!'); ?>
+            </span>
+        <?php endif; ?>
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array(
@@ -42,8 +47,9 @@
                 ),
 			),
 		)); ?>
-	</div><!-- mainmenu -->
-
+        
+    </div><!-- mainmenu -->
+    
     <?php echo $content; ?>
       
 	<div class="clear"></div>

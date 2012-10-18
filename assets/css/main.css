@@ -250,3 +250,5 @@ code {white-space: pre;}
 .menu-sections ul li a {color:#6399CD;font-size:12px;font-weight:bold;text-decoration:none;padding:5px 8px;}
 .menu-sections ul li a:hover, .menu-sections ul li.active a {color: #000000; background-color:#EFF4FA;}
 .menu-sections .breadcrumbs {float:right;}
+
+.config-error { color: #C92D2D; float: right; font-weight: bold; padding: 5px 10px; }
