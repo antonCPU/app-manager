@@ -33,6 +33,9 @@ class AmConfig extends AmNode
      */
     public function save()
     {
+        if (!$this->isWritable()) {
+            throw new CException(AppManagerModule::t('Config file is not writable.'));
+        }
         return (bool)@file_put_contents($this->getLocation(), 
                                         (string)$this->getWriter());
     }
@@ -51,6 +54,14 @@ class AmConfig extends AmNode
     public function getLocation()
     {
         return $this->location;
+    }
+    
+    /**
+     * @return bool 
+     */
+    public function isWritable()
+    {
+        return is_writable($this->location);
     }
     
     /**
