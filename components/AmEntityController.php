@@ -61,7 +61,7 @@ class AmEntityController extends AmController
                 $this->setEntityFlash('success', '{name} has been updated.');
                 $this->redirect(array($this->getSection()));
             } else {
-                $this->setEntityFlash('error', 'Unable to update {name}.');
+                $this->setEntityFlash('error', 'Unable to update. Incorrect input.');
             }
         }
         
