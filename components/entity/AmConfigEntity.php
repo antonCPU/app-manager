@@ -72,6 +72,11 @@ class AmConfigEntity extends CComponent
         $this->get()->add('class', $this->getEntity()->getFullClassName());
     }
     
+    public function isWritable()
+    {
+        return AppManagerModule::config()->isWritable();
+    }
+    
     protected function updateName()
     {
         $entity = $this->getEntity();

@@ -103,7 +103,7 @@ class AmEntity extends AmModel
      */
     public function canActivate()
     {
-        return !$this->getIsActive();
+        return (!$this->getIsActive() && $this->getConfig()->isWritable());
     }
     
     /**
@@ -111,7 +111,7 @@ class AmEntity extends AmModel
      */
     public function canDeactivate()
     {
-        return $this->getIsActive();
+        return $this->canUpdate();
     }
     
     /**
@@ -119,7 +119,7 @@ class AmEntity extends AmModel
      */
     public function canUpdate()
     {
-        return $this->getIsActive();
+        return ($this->getIsActive() && $this->getConfig()->isWritable());
     }
     
     /**
@@ -127,7 +127,7 @@ class AmEntity extends AmModel
      */
     public function canRestore()
     {
-        return ($this->canUpdate() && ($this->getConfig()->isChanged()));
+        return ($this->canUpdate() && $this->getConfig()->isChanged());
     }
     
     /**
