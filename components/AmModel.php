@@ -27,7 +27,7 @@ abstract class AmModel extends CModel
      */
     public function setAttributes($attributes, $safeOnly = true)
     {
-        foreach ($attributes as $name => $value) {
+        foreach ((array)$attributes as $name => $value) {
             $this->$name = $value;
         }
     }
