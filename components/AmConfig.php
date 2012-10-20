@@ -29,6 +29,7 @@ class AmConfig extends AmNode
     
     /**
      * Updates config file.
+     * @throws CException if config file is not writable.
      * @return bool 
      */
     public function save()
