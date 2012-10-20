@@ -2,7 +2,7 @@
 /**
  * Handles error requests.
  */
-class ErrorController extends AppManagerController
+class ErrorController extends AmController
 {
     public $defaultAction = 'show';
     protected $title = 'Error';
