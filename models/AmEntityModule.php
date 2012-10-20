@@ -13,8 +13,13 @@ class AmEntityModule extends AmEntityComposite
     }
     
     protected function createSearch($section)
-    {
+    { 
         $sections = $this->getSearchSections(); 
+        if (!isset($sections[$section])) {
+            throw new CException(AppManagerModule::t('Unable to resolve section "{name}".', array(
+                '{name}' => $section,
+            )));
+        }
         $className = 'AmSearch' . ucfirst($sections[$section]);
         $this->section = $section;
         return new $className($this->getPath() . DIRECTORY_SEPARATOR . $section);
