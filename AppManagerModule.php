@@ -3,9 +3,7 @@
 class AppManagerModule extends CWebModule
 {
     public $defaultController = 'app';
-    public $config = 'config/main.php';
     public $layout = '/layouts/main';
-    public $errorAction = '/appManager/error/show';
     
     protected static $settings;
     private $_assetsUrl;
@@ -13,7 +11,7 @@ class AppManagerModule extends CWebModule
     public function init()
     {
         //custom error action
-        Yii::app()->getErrorHandler()->errorAction = $this->errorAction;
+        Yii::app()->getErrorHandler()->errorAction = '/appManager/error/show';
 
         // import the module-level models and components
         $this->setImport(array(
@@ -64,7 +62,7 @@ class AppManagerModule extends CWebModule
 
     public function getConfigLocation()
     {
-        return Yii::app()->basePath . DIRECTORY_SEPARATOR . $this->config;
+        return Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config/main.php';
     }
 
     public function getAssetsUrl()
