@@ -60,7 +60,7 @@ class AmEntity extends AmModel
         if (!$this->getOptions()->updateConfig()) {
             return false;
         }
-        return $this->getConfig()->save();
+        return $config->save();
     }
     
     /**

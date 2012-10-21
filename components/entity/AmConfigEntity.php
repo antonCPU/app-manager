@@ -70,6 +70,7 @@ class AmConfigEntity extends CComponent
     {
         $this->updateName();
         $this->get()->add('class', $this->getEntity()->getFullClassName());
+        return $this;
     }
     
     public function isWritable()
