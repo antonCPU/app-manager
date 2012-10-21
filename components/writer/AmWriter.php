@@ -10,11 +10,6 @@ class AmWriter extends CComponent
     protected $settings;
     
     /**
-     * @var string 
-     */
-    private $_optionsTemplate;
-    
-    /**
      * @param AppManagerConfig $settings 
      */
     public function __construct($settings)
