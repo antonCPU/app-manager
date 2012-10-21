@@ -51,7 +51,7 @@ class AmOptions extends AmModel
      * Populates options 'textValue'.
      * @param array $attributes 
      */
-    public function setAttributes($attributes)
+    public function setAttributes($attributes, $safeOnly = true)
     {
         $options = $this->get();
         foreach ((array)$attributes as $name => $value) {
