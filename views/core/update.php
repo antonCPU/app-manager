@@ -3,7 +3,7 @@ $this->breadcrumbs=array(
     $this->getTitle() => array('/appManager/core'),
     $this->getSectionTitle() => array($this->getSection()),
     $entity->title => array('view', 'id' => $entity->id),
-    AppManagerModule::t('Edit')
+    AppManagerModule::t('Update')
 ); 
 
 ?>

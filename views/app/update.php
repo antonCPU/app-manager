@@ -3,7 +3,7 @@ $this->breadcrumbs=array(
     $this->getTitle() => array('/appManager/app'),
     $this->getSectionTitle() => array($this->getSection()),
     $entity->title => array('view', 'id' => $entity->id),
-    AppManagerModule::t('Edit')
+    AppManagerModule::t('Update')
 ); 
 
 ?>
@@ -17,10 +17,10 @@ $this->breadcrumbs=array(
     <fieldset>
         <div class="row">
             <?php echo $form->labelEx($entity,'name'); ?>
-            <div class="hint">This name is used in the configue.</div>
+            <div class="hint"><?php echo AppManagerModule::t('This name is used in the configue.'); ?></div>
             <div class="note">
                 <?php if (!$entity->isDefaultName): ?><span>*</span><?php endif; ?>
-                default: 
+                <?php echo AppManagerModule::t('default'); ?>: 
                 <pre><?php echo $entity->defaultName; ?></pre>
             </div>
             <?php echo $form->textField($entity,'name', array('class' => 'textfield')); ?>

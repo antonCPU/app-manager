@@ -18,7 +18,7 @@ Yii::app()->clientScript->registerScript('appManager-view', '
     <?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array(
-                    'label'  => AppManagerModule::t('Edit'), 
+                    'label'  => AppManagerModule::t('Update'), 
                     'url'    => array('update', 'id' => $entity->id), 
                     'visible' => $entity->canUpdate(),
                 ),
