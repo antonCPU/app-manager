@@ -1,71 +1,93 @@
 <?php
 
-class AmSettingsForm extends AmModel
+class AmSettingsForm extends CFormModel
 {
-    protected $attributes;
+    protected $settings;
+    protected $text;
     
     public function rules()
     {
         return array(
-          array('name', 'required'),
+            array('name', 'required'),
+            array('preload, import, params', 'safe'),
         );
-    }
-    
-    public function setPreload($preload)
-    {
-        $this->attributes['preload'] = array_map('trim', explode(',', $preload));
     }
     
     public function getPreload()
     { 
-        return implode(', ', $this->getConfigValue('preload')->toArray());
+        if (!isset($this->text['preload'])) {
+            $this->text['preload'] = implode(', ', $this->getConfigArray('preload'));
+        } 
+        return $this->text['preload'];
+    }
+    
+    public function setPreload($preload)
+    {
+        $this->text['preload'] = $preload;
+        $this->settings['preload']= $this->explode(',', $preload);
     }
     
     public function getName()
     {
-        return $this->getConfigValue('name');
+        if (!isset($this->text['name'])) {
+            $this->text['name'] = $this->getConfigValue('name');
+        } 
+        return $this->text['name'];
     }
 
     public function setName($name)
     {
-        $this->attributes['name'] = $name;
-    }
-    
-    public function setImport($import) 
-    {
-        $this->attributes['import'] = array_map('trim', explode("\n", $import));
+        $this->text['name'] = $name;
+        $this->settings['name'] = $name;
     }
     
     public function getImport()
     {
-        return implode("\n", $this->getConfigValue('import')->toArray());
+        if (!isset($this->text['import'])) {
+            $this->text['import'] = implode("\n", $this->getConfigArray('import'));
+        }
+        return $this->text['import'];
+    }
+    
+    public function setImport($import) 
+    {
+        $this->text['import'] = $import;
+        $this->settings['import'] = $this->explode("\n", $import);
     }
     
     public function getParams()
     {
-        $params = $this->getConfigValue('params');
-        $result = array();
-        foreach ($params as $key => $value) {
-            $result[] = $key . ': ' . $value;
+        if (!isset($this->text['params'])) {
+            $params = $this->getConfigArray('params');
+            $result = array();
+            foreach ($params as $key => $value) {
+                $result[] = $key . ': ' . $value;
+            }
+            $this->text['params'] = implode("\n", $result);
         }
-        return implode("\n", $result);
+        return $this->text['params'];
     }
     
     public function setParams($params)
     {
-        $params = array_map('trim', explode("\n", $params));
+        $this->text['params'] = $params;
+        $params = $this->explode("\n", $params);
         $result = array();
         foreach ($params as $line) {
-            list($key, $value) = array_map('trim', explode(':', $line));
-            $result[$key] = $value;
-        }
-        $this->attributes['params'] = $result;
+            if (($values = $this->explode(':', $line)) && 2 === count($values)) {
+                $result[$values[0]] = $values[1];
+            }
+        } 
+        $this->settings['params'] = $result;
     }
     
     public function save()
     {
+        if (!$this->validate()) {
+            return false;
+        } 
         $config = $this->getConfig();
-        foreach ($this->attributes as $name => $value) {
+        foreach ($this->settings as $name => $value) {
             $config->add($name, $value);
         }
         return $config->save();
@@ -78,6 +100,16 @@ class AmSettingsForm extends AmModel
     
     protected function getConfigValue($name)
     {
-        return $this->getConfig()->itemAt($name);
+        return $this->settings[$name] = $this->getConfig()->itemAt($name);
+    }
+    
+    protected function getConfigArray($name)
+    {
+        return $this->getConfigValue($name)->toArray();
+    }
+    
+    protected function explode($sep, $data)
+    {
+        return array_filter(array_map('trim', explode($sep, (string)$data)));
     }
 }
