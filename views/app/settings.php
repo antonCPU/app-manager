@@ -32,6 +32,11 @@ $this->breadcrumbs=array(
         <?php echo $form->textArea($model, 'params'); ?>
     </div>
     
+    <div class="row">
+        <?php echo $form->labelEx($model, 'aliases'); ?>
+        <?php echo $form->textArea($model, 'aliases'); ?>
+    </div>
+    
     <div class="row buttons">
 		<?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
     </div>
