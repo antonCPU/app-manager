@@ -94,7 +94,8 @@ class AmOptions extends AmModel
      */
     public function getIterator()
     {
-        return new CMapIterator($this->get());
+        $data = $this->get();
+        return new CMapIterator($data);
     }
     
     /**
