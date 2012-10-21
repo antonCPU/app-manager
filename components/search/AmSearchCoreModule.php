@@ -4,7 +4,6 @@ class AmSearchCoreModule extends AmSearchModule
 {
     public function findById($id)
     {
-        $components = $this->scan();
         $name = array_search($id, $this->scan());
         $entity = $this->createEntity($id);
         return $entity->setName($name);
