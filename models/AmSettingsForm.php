@@ -35,11 +35,6 @@ class AmSettingsForm extends CFormModel
         return $this->settings['name'];
     }
     
-    public function setName($name)
-    {
-        $this->settings['name'] = $name;
-    }
-    
     public function getSettings()
     {
         if (null === $this->settings) {
@@ -94,6 +89,7 @@ class AmSettingsForm extends CFormModel
             'preload' => ',',
             'import'  => "\n",
             'params'  => array("\n", ':'),
+            'aliases' => array("\n", ':'),
         );
     }
 }
