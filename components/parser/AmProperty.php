@@ -148,7 +148,7 @@ class AmProperty extends CComponent
      */
     protected function getMagicMethodName()
     {
-        return  $name = 'set' . ucfirst($this->getName());
+        return  'set' . ucfirst($this->getName());
     }
     
     /**
