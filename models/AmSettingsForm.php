@@ -8,7 +8,6 @@ class AmSettingsForm extends CFormModel
     {
         return array(
             array('name', 'required'),
-            array('preload, import, params', 'safe'),
         );
     }
     
