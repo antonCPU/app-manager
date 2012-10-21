@@ -6,7 +6,7 @@ class AmSearchCoreComponent extends AmSearchComponent
     {
         $alias = str_replace('system.', '', $id);
         $components = $this->scan();
-        $name = array_search($alias, $this->scan());
+        $name = array_search($alias, $components);
         if (false === $name) {
             return null;
         }
