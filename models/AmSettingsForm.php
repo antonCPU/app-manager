@@ -3,7 +3,6 @@
 class AmSettingsForm extends CFormModel
 {
     protected $settings;
-    protected $text;
     
     public function rules()
     {
@@ -13,83 +12,70 @@ class AmSettingsForm extends CFormModel
         );
     }
     
-    public function getPreload()
-    { 
-        if (!isset($this->text['preload'])) {
-            $this->text['preload'] = implode(', ', $this->getConfigArray('preload'));
-        } 
-        return $this->text['preload'];
+    public function __get($name)
+    {
+        $settings = $this->getSettings();
+        if (isset($settings[$name])) {
+            return $settings[$name];
+        }
+        return parent::__get($name);
     }
     
-    public function setPreload($preload)
+    public function setAttributes($values, $safeOnly=true)
     {
-        $this->text['preload'] = $preload;
-        $this->settings['preload']= $this->explode(',', $preload);
+        foreach ($values as $name => $value) {
+            $this->settings[$name] = $value;
+        }
     }
     
     public function getName()
     {
-        if (!isset($this->text['name'])) {
-            $this->text['name'] = $this->getConfigValue('name');
-        } 
-        return $this->text['name'];
+        if (!isset($this->settings['name'])) {
+            $this->settings['name'] = $this->getConfigValue('name');
+        }
+        return $this->settings['name'];
     }
-
+    
     public function setName($name)
     {
-        $this->text['name'] = $name;
         $this->settings['name'] = $name;
     }
     
-    public function getImport()
+    public function getSettings()
     {
-        if (!isset($this->text['import'])) {
-            $this->text['import'] = implode("\n", $this->getConfigArray('import'));
-        }
-        return $this->text['import'];
-    }
-    
-    public function setImport($import) 
-    {
-        $this->text['import'] = $import;
-        $this->settings['import'] = $this->explode("\n", $import);
-    }
-    
-    public function getParams()
-    {
-        if (!isset($this->text['params'])) {
-            $params = $this->getConfigArray('params');
-            $result = array();
-            foreach ($params as $key => $value) {
-                $result[] = $key . ': ' . $value;
+        if (null === $this->settings) {
+            foreach ($this->getSettingsFormat() as $name => $params) {
+                $data = $this->getConfigValue($name);
+                $this->settings[$name] = $this->formatSettings($data, $params);
             }
-            $this->text['params'] = implode("\n", $result);
         }
-        return $this->text['params'];
+        return $this->settings;
     }
     
-    public function setParams($params)
+    protected function formatSettings($data, $params)
     {
-        $this->text['params'] = $params;
-        $params = $this->explode("\n", $params);
-        $result = array();
-        foreach ($params as $line) {
-            if (($values = $this->explode(':', $line)) && 2 === count($values)) {
-                $result[$values[0]] = $values[1];
-            }
-        } 
-        $this->settings['params'] = $result;
+        $sep    = null;
+        $keySep = null;
+        if (is_string($params)) {
+            $sep = $params;
+        } elseif (is_array($params)) {
+            $sep = $params[0];
+            $keySep = isset($params[1]) ? $params[1] : null;
+        }
+        if ($data && !is_string($data)) {
+            $data = $data->toArray();
+        }
+        return new AmDataView($data, $sep, $keySep);
     }
     
     public function save()
     {
-        if (!$this->validate()) {
-            return false;
-        } 
         $config = $this->getConfig();
-        foreach ($this->settings as $name => $value) {
+        foreach ($this->getSettingsFormat() as $name => $params) {
+            $value = $this->formatSettings($this->$name, $params)->toArray();
             $config->add($name, $value);
         }
+        $config->add('name', $this->getName());
         return $config->save();
     }
     
@@ -100,16 +86,15 @@ class AmSettingsForm extends CFormModel
     
     protected function getConfigValue($name)
     {
-        return $this->settings[$name] = $this->getConfig()->itemAt($name);
+        return $this->getConfig()->itemAt($name);
     }
     
-    protected function getConfigArray($name)
+    protected function getSettingsFormat()
     {
-        return $this->getConfigValue($name)->toArray();
-    }
-    
-    protected function explode($sep, $data)
-    {
-        return array_filter(array_map('trim', explode($sep, (string)$data)));
+        return array(
+            'preload' => ',',
+            'import'  => "\n",
+            'params'  => array("\n", ':'),
+        );
     }
 }
