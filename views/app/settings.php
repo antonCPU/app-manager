@@ -14,26 +14,30 @@ $this->breadcrumbs=array(
 
     <div class="row">
         <?php echo $form->labelEx($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name'); ?>
+        <?php echo $form->textField($model, 'name', array('class' => 'textfield')); ?>
     </div>
     
     <div class="row">
         <?php echo $form->labelEx($model, 'preload'); ?>
-        <?php echo $form->textField($model, 'preload'); ?>
+        <div class="hint"><?php echo AppManagerModule::t('Comma-separated list.'); ?></div>
+        <?php echo $form->textField($model, 'preload', array('class' => 'textfield')); ?>
     </div>
     
     <div class="row">
         <?php echo $form->labelEx($model, 'import'); ?>
+        <div class="hint"><?php echo AppManagerModule::t('One path per line.'); ?></div>
         <?php echo $form->textArea($model, 'import'); ?>
     </div>
     
     <div class="row">
         <?php echo $form->labelEx($model, 'params'); ?>
+        <div class="hint"><?php echo AppManagerModule::t('One option per line (name:value).'); ?></div>
         <?php echo $form->textArea($model, 'params'); ?>
     </div>
     
     <div class="row">
         <?php echo $form->labelEx($model, 'aliases'); ?>
+        <div class="hint"><?php echo AppManagerModule::t('One alias per line (name:path.to.alias).'); ?></div>
         <?php echo $form->textArea($model, 'aliases'); ?>
     </div>
     
