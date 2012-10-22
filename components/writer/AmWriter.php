@@ -70,8 +70,7 @@ class AmWriter extends CComponent
             } else {
                 echo $this->replaceConfigDir(var_export($options, true));
             }
-        }
-        else {
+        } else {
             $level++;
             include $this->getTemplate('options');
         }
