@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Base class for all entities. 
+ * Entity represents a part of application or application itself.
+ * Implements Composite design pattern.
+ */
 class AmEntity extends AmModel
 {
     protected $id;
@@ -23,6 +27,25 @@ class AmEntity extends AmModel
             return $this->attributes[$name] = $this->getParser()->$name;
         } 
         return parent::__get($name);
+    }
+    
+    /**
+     * @return string 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
+     * Sets the entity unique identifier.
+     * @param string $id Yii alias to the source (file or directory).
+     * @return AmEntity
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
     }
     
     /**
@@ -139,20 +162,10 @@ class AmEntity extends AmModel
         return $this->getId();
     }
     
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-    
     /**
-     * @return string 
+     * Gets a name for the configue file.
+     * @return string
      */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
     public function getName()
     {
         if (null === $this->name) {
@@ -161,12 +174,20 @@ class AmEntity extends AmModel
         return $this->name;
     }
     
+    /**
+     * @param string $name
+     * @return AmEntity
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
     
+    /**
+     * Generates a name for the configue file.
+     * @return string
+     */
     public function getDefaultName()
     {
         $id = $this->getId();
@@ -174,12 +195,17 @@ class AmEntity extends AmModel
         return lcfirst(array_pop($tmp));
     }
     
+    /**
+     * Verifies if current name is a default.
+     * @return bool
+     */
     public function getIsDefaultName()
     {
         return ($this->getName() === $this->getDefaultName());
     }
     
     /**
+     * Gets well formatted title.
      * @return string
      */
     public function getTitle() 
@@ -191,7 +217,7 @@ class AmEntity extends AmModel
     }
   
     /**
-     * Forms title.
+     * Creates title from a related file.
      * @return string 
      */
     protected function createTitle()
@@ -199,6 +225,10 @@ class AmEntity extends AmModel
         return ucfirst(basename($this->getFileName(), '.php'));
     }
     
+    /**
+     * Gets full Yii alias to the class.
+     * @return string
+     */
     public function getFullClassName()
     {
         if (null === $this->fullClassName) {
@@ -207,6 +237,10 @@ class AmEntity extends AmModel
         return $this->fullClassName;
     }
     
+    /**
+     * Finds a full Yii alias for the class.
+     * @return string
+     */
     protected function resolveFullClassName()
     {
         $name = $this->getId();
@@ -224,6 +258,17 @@ class AmEntity extends AmModel
     }
     
     /**
+     * Creates a class name from the source name.
+     * @param string $name
+     * @return string 
+     */
+    protected function formClassName($path)
+    {
+        return ucfirst(basename($path, '.php'));
+    }
+    
+    /**
+     * Gets an absolute path to the source (file or directory).
      * @return string 
      */
     protected function getPath()
@@ -234,12 +279,17 @@ class AmEntity extends AmModel
         return $this->_path;
     }
 
+    /**
+     * Determines an absolute path.
+     * @return string
+     */
     protected function resolvePath()
     {
         return Yii::getPathOfAlias($this->getId());
     }
     
     /**
+     * Gets an absolute path to the entity class.
      * @return string 
      */
     public function getFileName()
@@ -250,21 +300,17 @@ class AmEntity extends AmModel
         return $this->_fileName;
     }
     
+    /**
+     * Determines an absolute file name.
+     * @return string
+     */
     protected function resolveFileName()
     {
         return Yii::getPathOfAlias($this->getFullClassName()) . '.php';
     }
     
     /**
-     * Sets options from input data.
-     * @param array $options 
-     */
-    public function setOptions($options)
-    { 
-        $this->getOptions()->attributes = $options;
-    }
-    
-    /**
+     * Gets attributes for editing.
      * @return AppManagerOptions 
      */
     public function getOptions() 
@@ -279,14 +325,16 @@ class AmEntity extends AmModel
     }
     
     /**
-     * @return AppManagerOptions 
+     * Sets options from input data.
+     * @param array $options 
      */
-    public function getOptionsProvider()
-    {
-        return $this->getOptions()->getProvider();
+    public function setOptions($options)
+    { 
+        $this->getOptions()->attributes = $options;
     }
     
     /**
+     * Gets a parser for the class attributes.
      * @return AppManagerParser 
      */
     protected function getParser()
@@ -298,7 +346,8 @@ class AmEntity extends AmModel
     }
     
     /**
-     * @return AppManagerConfig 
+     * Gets a configue manager (helper).
+     * @return AmConfigEntity
      */
     protected function getConfig()
     {
@@ -309,8 +358,8 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Gets name of the config section.
-     * @return string 
+     * Gets name of the configue section.
+     * @return string|null 
      */
     public function getConfigSection()
     {
@@ -318,12 +367,12 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Forms class name.
-     * @param string $name
-     * @return string 
+     * Gets the entity children.
+     * @param string $type children category.
+     * @return CArrayDataProvider|null
      */
-    protected function formClassName($path)
+    public function getChildren($type = null)
     {
-        return ucfirst(basename($path, '.php'));
+        return null;
     }
 }
