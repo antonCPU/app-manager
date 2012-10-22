@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
     $this->getTitle() => array('/appManager/app'),
-    AppManagerModule::t('Settings') => array('settings'),
+    AppManagerModule::t('Settings'),
 ); 
 ?>
 <h1><?php echo AppManagerModule::t('Settings'); ?></h1>
