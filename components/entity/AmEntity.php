@@ -367,11 +367,11 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Gets the entity children.
-     * @param string $type children category.
-     * @return CArrayDataProvider|null
+     * Finds a child.
+     * @param string $id
+     * @return AmEntity|null
      */
-    public function getChildren($type = null)
+    public function getChild($id)
     {
         return null;
     }

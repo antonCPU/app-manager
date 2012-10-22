@@ -107,7 +107,7 @@ class AmEntityController extends AmController
     
     public function getEntity()
     {
-        return $this->getModel()->findById($this->getParam('id')); 
+        return $this->getModel()->getChild($this->getParam('id')); 
     }
     
     public function getSection()

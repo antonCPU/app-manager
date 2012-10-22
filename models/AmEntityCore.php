@@ -7,7 +7,7 @@ class AmEntityCore extends AmEntityComposite
         return null;
     }
     
-    public function findById($id)
+    public function getChild($id)
     {
         $section = 'components';
         $entity = $this->createSearch($section)->findById($id);

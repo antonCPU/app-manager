@@ -4,6 +4,11 @@ class AmEntityComposite extends AmEntity
 {
     protected $section;
     
+    public function getChildren($type = null)
+    {
+        return $this->$type;
+    }
+    
     public function getComponents()
     {
         return $this->createSearch('components')->perform();
@@ -19,7 +24,7 @@ class AmEntityComposite extends AmEntity
         return $this->createSearch('extensions')->perform();
     }
     
-    public function findById($id)
+    public function getChild($id)
     { 
         $tmp = str_replace($this->getId() . '.', '', $id);
         $tmp = explode('.', $tmp);
