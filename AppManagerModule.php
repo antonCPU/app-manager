@@ -22,7 +22,9 @@ class AppManagerModule extends CWebModule
             'appManager.components.search.*',
         ));
         
-        Yii::setPathOfAlias('AmWidgets', dirname(__FILE__) . '/components/widgets');
+        $this->setAliases(array(
+            'AmWidgets' => 'appManager.components.widgets',
+        ));
     }
 
     public function getName()
