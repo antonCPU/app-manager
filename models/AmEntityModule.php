@@ -12,6 +12,13 @@ class AmEntityModule extends AmEntityComposite
         return str_replace('Module', '', parent::createTitle());
     }
     
+    protected function createChild($id)
+    {
+        $entityClass = 'AmEntity' . ucfirst($id);
+        $entity = new $entityClass;
+        return $entity->setParent($this)->setId($id);
+    }
+    
     protected function createSearch($section)
     { 
         $sections = $this->getSearchSections(); 

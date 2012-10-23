@@ -14,21 +14,21 @@ class AmEntityController extends AmController
     public function actionComponents()
     {
         $this->render('list', array(
-           'list' => $this->getModel()->getComponents() 
+           'list' => $this->getModel()->getChild('components')->getChildrenProvider(), 
         ));
     }
     
     public function actionModules()
     {
         $this->render('list', array(
-           'list' => $this->getModel()->getModules() 
+           'list' => $this->getModel()->getChild('modules')->getChildrenProvider(),
         ));
     }
     
     public function actionExtensions()
     {
         $this->render('list', array(
-           'list' => $this->getModel()->getExtensions() 
+           'list' => $this->getModel()->getChild('extensions')->getChildrenProvider(), 
         ));
     }
     
@@ -106,7 +106,7 @@ class AmEntityController extends AmController
     }
     
     public function getEntity()
-    {
+    { 
         return $this->getModel()->getChild($this->getParam('id')); 
     }
     

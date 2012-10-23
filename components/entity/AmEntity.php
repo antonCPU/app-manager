@@ -18,6 +18,7 @@ class AmEntity extends AmModel
     private $_fileName;
     private $_parser;
     private $_config;
+    private $_parent;
     
     public function __get($name)
     {
@@ -44,7 +45,18 @@ class AmEntity extends AmModel
      */
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id = $this->getParent()->getId() . '.' . $id;
+        return $this;
+    }
+    
+    public function getParent()
+    {
+        return $this->_parent;
+    }
+    
+    public function setParent($parent)
+    {
+        $this->_parent = $parent;
         return $this;
     }
     
@@ -374,5 +386,19 @@ class AmEntity extends AmModel
     public function getChild($id)
     {
         return null;
+    }
+    
+    /**
+     * 
+     * @return CArrayDataProvider
+     */
+    public function getChildrenProvider()
+    {
+        return new CArrayDataProvider($this->getChildren());
+    }
+    
+    public function getChildren()
+    {
+        return array();
     }
 }

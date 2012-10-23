@@ -2,39 +2,22 @@
 
 class AmEntityComposite extends AmEntity
 {
-    protected $section;
-    
-    public function getChildren($type = null)
-    {
-        return $this->$type;
-    }
-    
-    public function getComponents()
-    {
-        return $this->createSearch('components')->perform();
-    }
-    
-    public function getModules()
-    {
-        return $this->createSearch('modules')->perform();
-    }
-    
-    public function getExtensions()
-    {
-        return $this->createSearch('extensions')->perform();
-    }
-    
     public function getChild($id)
     { 
-        $tmp = str_replace($this->getId() . '.', '', $id);
-        $tmp = explode('.', $tmp);
-        $section = $tmp[0];
-        return $this->createSearch($section)->findById($id);
+        $parts = explode('.', $id);
+        $childId = array_shift($parts);
+        $child = $this->createChild($childId);
+        if ($parts) {
+            $id = implode('.', $parts);
+            $child = $child->getChild($id);
+        }
+        return $child;
     }
     
-    public function getSection()
+    protected function createChild($id)
     {
-        return $this->section;
+        $entity = new self;
+        return $entity->setParent($this)->setId($id);
     }
     
     protected function createSearch($section)
