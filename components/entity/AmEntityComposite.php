@@ -2,6 +2,34 @@
 
 class AmEntityComposite extends AmEntity
 {
+    public function getChildren()
+    {
+        $results = array();
+        if ($results = $this->scan()) {
+            $results = $this->createChildren($results);
+        }
+        return $results;
+    }
+    
+    protected function scan()
+    {
+        $results = scandir($this->getPath());
+        unset($results[0], $results[1]);
+        foreach ($results as &$result) {
+            $result = basename($result, '.php');
+        }
+        return $results;
+    }
+    
+    protected function createChildren($results)
+    {
+        $entities = array();
+        foreach ($results as $result) {
+            $entities[] = $this->createChild($result);
+        }
+        return $entities;
+    }
+    
     public function getChild($id)
     { 
         $parts = explode('.', $id);
@@ -18,11 +46,5 @@ class AmEntityComposite extends AmEntity
     {
         $entity = new self;
         return $entity->setParent($this)->setId($id);
-    }
-    
-    protected function createSearch($section)
-    {
-        $this->section = $section;
-        return new AmSearch($this->getPath() . DIRECTORY_SEPARATOR . $section);
     }
 }

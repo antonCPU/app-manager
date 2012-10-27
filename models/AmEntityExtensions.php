@@ -1,6 +1,6 @@
 <?php
 
-class AmEntityExtensions extends AmEntitySearch
+class AmEntityExtensions extends AmEntityComposite
 {
     protected function createChild($id)
     {

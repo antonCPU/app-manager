@@ -5,7 +5,7 @@ class AmEntityCoreComponents extends AmEntityComponents
     public function getChild($id)
     { 
         $components = $this->scan();
-        if (false === array_search($id, $components)) {
+        if (false === array_search($id, $components)) { 
             return null;
         }
         return $this->createChild($id);
@@ -14,7 +14,6 @@ class AmEntityCoreComponents extends AmEntityComponents
     protected function scan()
     {
         return array(
-            'coreMessages'      => 'i18n.CPhpMessageSource',
             'db'                => 'db.CDbConnection',
             'messages'          => 'i18n.CPhpMessageSource',
             'errorHandler'      => 'base.CErrorHandler',
