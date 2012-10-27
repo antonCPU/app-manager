@@ -2,11 +2,6 @@
 
 class AmEntityCore extends AmEntityComposite
 {
-    public function getSection()
-    {
-        return null;
-    }
-    
     public function getId()
     {
         return 'system';
