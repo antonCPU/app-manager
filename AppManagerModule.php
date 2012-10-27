@@ -19,7 +19,6 @@ class AppManagerModule extends CWebModule
             'appManager.components.*',
             'appManager.components.parser.*',
             'appManager.components.entity.*',
-            'appManager.components.search.*',
         ));
         
         $this->setAliases(array(
@@ -30,17 +29,6 @@ class AppManagerModule extends CWebModule
     public function getName()
     {
         return self::t('App Manager');
-    }
-
-    public function beforeControllerAction($controller, $action)
-    {
-        if(parent::beforeControllerAction($controller, $action)) {
-            // this method is called before any module controller action is performed
-            // you may place customized code here
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public static function config($path = null)
