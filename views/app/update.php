@@ -27,7 +27,7 @@ $this->breadcrumbs=array(
             <?php echo $form->error($entity,'name'); ?>
         </div> 
     </fieldset>
-    <?php $this->widget('AmWidgets.amOptionsBlock.AmOptionsBlock', array(
+    <?php $this->widget('AmWidgets.optionsBlock.AmOptionsBlock', array(
         'form'      => $form,
         'options'   => $entity->options,
     )); ?>

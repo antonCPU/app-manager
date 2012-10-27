@@ -14,7 +14,7 @@ $this->breadcrumbs=array(
 	'enableAjaxValidation'=>false,
     'enableClientValidation' => false,
 )); ?>
-    <?php $this->widget('AmWidgets.amOptionsBlock.AmOptionsBlock', array(
+    <?php $this->widget('AmWidgets.optionsBlock.AmOptionsBlock', array(
         'form'      => $form,
         'options'   => $entity->options,
     )); ?>
