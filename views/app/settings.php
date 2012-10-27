@@ -13,8 +13,8 @@ $this->breadcrumbs=array(
     )); ?>
 
     <?php $this->widget('AmWidgets.optionsBlock.AmOptionsBlock', array(
-        'form'      => $form,
         'title'     => null,
+        'form'      => $form,
         'options'   => $entity->options,
     )); ?>
    
