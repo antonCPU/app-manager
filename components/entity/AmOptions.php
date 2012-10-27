@@ -6,16 +6,16 @@
 class AmOptions extends AmModel
 {
     /**
-     * @var array list of AppManagerOption. 
+     * @var AmOption[]. 
      */
     protected $options;
     
     /**
-     * @var AppManagerParser 
+     * @var AmParser 
      */
     private $_parser;
     /**
-     * @var AppManagerConfig 
+     * @var AmConfig 
      */
     private $_config;
     
@@ -139,7 +139,7 @@ class AmOptions extends AmModel
     }
     
     /**
-     * @param AppManagerParser $parser 
+     * @param AmParser $parser 
      */
     public function setParser($parser)
     {
@@ -147,7 +147,7 @@ class AmOptions extends AmModel
     }
     
     /**
-     * @return AppManagerParser
+     * @return AmParser
      */
     public function getParser()
     {
@@ -155,7 +155,7 @@ class AmOptions extends AmModel
     }
     
     /**
-     * @param AppManagerConfig $parser 
+     * @param AmConfig $config
      */
     public function setConfig($config)
     {
@@ -163,7 +163,7 @@ class AmOptions extends AmModel
     }
     
     /**
-     * @return AppManagerConfig
+     * @return AmConfig
      */
     public function getConfig()
     {
@@ -181,7 +181,7 @@ class AmOptions extends AmModel
         foreach ($properties as $property) {
             $option = new AmOption;
             $value = $this->getConfigValue($property->name);
-            if ($value instanceof AppManagerNode) {
+            if ($value instanceof AmNode) {
                 $value = $value->toArray();
             }
             $option->attributes = array(
