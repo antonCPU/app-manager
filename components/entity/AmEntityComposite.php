@@ -1,16 +1,13 @@
 <?php
-
+/**
+ * Represents entities that may have children.
+ */
 class AmEntityComposite extends AmEntity
 {
-    public function getChildren()
-    {
-        $results = array();
-        if ($results = $this->scan()) {
-            $results = $this->createChildren($results);
-        }
-        return $results;
-    }
-    
+    /**
+     * Performs scanning inside the base directory.
+     * @return array list of found php files or directories.
+     */
     protected function scan()
     {
         $results = scandir($this->getPath());
@@ -21,6 +18,23 @@ class AmEntityComposite extends AmEntity
         return $results;
     }
     
+    /**
+     * @return AmEntity[]
+     */
+    public function getChildren()
+    {
+        $results = array();
+        if ($results = $this->scan()) {
+            $results = $this->createChildren($results);
+        }
+        return $results;
+    }
+    
+    /**
+     * Forms entity instances.
+     * @param array $results
+     * @return AmEntity[]
+     */
     protected function createChildren($results)
     {
         $entities = array();
@@ -30,15 +44,11 @@ class AmEntityComposite extends AmEntity
         return $entities;
     }
     
-    public function getChildrenProvider()
-    {
-        return new CArrayDataProvider($this->getChildren(), array(
-            'sort'=>array(
-                'defaultOrder'=>'isActive DESC',
-            ),
-        ));
-    }
-    
+    /**
+     * Finds a child.
+     * @param string $id
+     * @return AmEntity|null
+     */
     public function getChild($id)
     { 
         $parts = explode('.', $id);
@@ -51,9 +61,26 @@ class AmEntityComposite extends AmEntity
         return $child;
     }
     
+    /**
+     * Creates an entity.
+     * @param string $id Yii alias.
+     * @return AmEntity
+     */
     protected function createChild($id)
     {
         $entity = new self;
         return $entity->setParent($this)->setId($id);
+    }
+
+    /**
+     * @return CArrayDataProvider
+     */
+    public function getChildrenProvider()
+    {
+        $provider = parent::getChildrenProvider();
+        $provider->sort = array(
+            'defaultOrder'=>'isActive DESC',
+        );
+        return $provider;
     }
 }
