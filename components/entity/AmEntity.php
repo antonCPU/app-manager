@@ -249,6 +249,12 @@ class AmEntity extends AmModel
         return $this->fullClassName;
     }
     
+    public function setFullClassName($name)
+    {
+        $this->fullClassName = $name; 
+        return $this;
+    }
+    
     /**
      * Finds a full Yii alias for the class.
      * @return string
