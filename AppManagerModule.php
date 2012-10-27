@@ -68,14 +68,4 @@ class AppManagerModule extends CWebModule
     {
         return $this->getAssetsUrl() . '/css/' . $name . '.css';
     }
-    
-    public function getJsUrl($name)
-    {
-        return $this->getAssetsUrl() . '/js/' . $name . '.js';
-    }
-    
-    public function registerJs($name)
-    {
-        Yii::app()->clientScript->registerScriptFile($this->getJsUrl($name));
-    }
 }
