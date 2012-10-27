@@ -112,7 +112,7 @@ class AmEntityController extends AmController
     
     public function getSection()
     {
-        return $this->getModel()->getSection();
+        return $this->action->id;
     }
     
     public function getSectionTitle()
