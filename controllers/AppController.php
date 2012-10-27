@@ -4,12 +4,9 @@ class AppController extends AmEntityController
 {
     protected $title = 'App';
     
-    public function getModel()
+    protected function createModel()
     {
-        if (null === $this->model) {
-            $this->model = new AmEntityApp;
-        }
-        return $this->model;
+        return new AmEntityApp;
     }
     
     public function actionSettings()

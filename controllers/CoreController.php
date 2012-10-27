@@ -4,12 +4,9 @@ class CoreController extends AmEntityController
 {
     protected $title = 'Core';
     
-    public function getModel()
+    protected function createModel()
     {
-        if (null === $this->model) {
-            $this->model = new AmEntityCore;
-        }
-        return $this->model;
+        return new AmEntityCore;
     }
     
     public function getMenu()

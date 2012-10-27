@@ -1,11 +1,19 @@
 <?php
-
+/**
+ * Handles actions related to entities.
+ */
 class AmEntityController extends AmController
 {
     public $defaultAction = 'components';
     public $layout = '/layouts/column1';
+    /**
+     * @var AmEntity 
+     */
     protected $model;
     
+    /**
+     * @return string
+     */
     public function getPageTitle()
     {
         return parent::getPageTitle() . ' - ' . $this->getSectionTitle();
@@ -14,24 +22,27 @@ class AmEntityController extends AmController
     public function actionComponents()
     {
         $this->render('list', array(
-           'list' => $this->getModel()->getChild('components')->getChildrenProvider(), 
+           'list' => $this->getChildrenProvider('components'), 
         ));
     }
     
     public function actionModules()
     {
         $this->render('list', array(
-           'list' => $this->getModel()->getChild('modules')->getChildrenProvider(),
+           'list' => $this->getChildrenProvider('modules'),
         ));
     }
     
     public function actionExtensions()
     {
         $this->render('list', array(
-           'list' => $this->getModel()->getChild('extensions')->getChildrenProvider(), 
+           'list' => $this->getChildrenProvider('extensions'), 
         ));
     }
     
+    /**
+     * @param string $id
+     */
     public function actionView($id)
     { 
         $this->render('view', array(
@@ -39,6 +50,9 @@ class AmEntityController extends AmController
         ));
     }
     
+    /**
+     * @param string $id
+     */
     public function actionUpdate($id)
     { 
         $entity = $this->getEntity();
@@ -97,19 +111,39 @@ class AmEntityController extends AmController
         $this->redirect(array($this->getSection()));
     }
     
+    /**
+     * Gets base entity model.
+     * @return AmEntity
+     */
     public function getModel()
     {
         if (null === $this->model) {
-            $this->model = new AmEntityModule;
+            $this->model = $this->createModel();
         }
         return $this->model;
     }
     
+    /**
+     * Factory method.
+     * @return AmEntity
+     */
+    protected function createModel()
+    {
+        return new AmEntity;
+    }
+    
+    /**
+     * Gets requested by id entity.
+     * @return AmEntity
+     */
     public function getEntity()
     { 
         return $this->getModel()->getChild($this->getParam('id')); 
     }
     
+    /**
+     * @return string
+     */
     public function getSection()
     {
         $section = $this->action->id;
@@ -119,16 +153,27 @@ class AmEntityController extends AmController
         return $section;
     }
     
+    /**
+     * @return string
+     */
     public function getSectionTitle()
     {
         return ucfirst($this->getSection());
     }
     
+    /**
+     * Checks if current section equals $section.
+     * @param string $section
+     * @return bool
+     */
     public function isSection($section)
     {
         return ($this->getSection() === $section);
     }
     
+    /**
+     * @return array compatible with CMenu.
+     */
     public function getMenu()
     {
         return array(
@@ -160,6 +205,15 @@ class AmEntityController extends AmController
     {
         $this->setFlash($flashType, $message, 
                         array('{name}' => $this->getEntity()->title));
+    }
+    
+    /**
+     * @param string $section
+     * @return CArrayDataProvider
+     */
+    protected function getChildrenProvider($section)
+    {
+        return $this->getModel()->getChild($section)->getChildrenProvider();
     }
 }
 
