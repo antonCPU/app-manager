@@ -12,12 +12,12 @@ class AmEntityApp extends AmEntityModule
         return true;
     }
     
-    public function activate() 
+    public function canActivate() 
     {
         return false;
     }
     
-    public function deactivate()
+    public function canDeactivate()
     {
         return false;
     }
