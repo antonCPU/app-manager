@@ -30,6 +30,15 @@ class AmEntityComposite extends AmEntity
         return $entities;
     }
     
+    public function getChildrenProvider()
+    {
+        return new CArrayDataProvider($this->getChildren(), array(
+            'sort'=>array(
+                'defaultOrder'=>'isActive DESC',
+            ),
+        ));
+    }
+    
     public function getChild($id)
     { 
         $parts = explode('.', $id);

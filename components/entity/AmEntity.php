@@ -396,11 +396,11 @@ class AmEntity extends AmModel
     
     /**
      * 
-     * @return CArrayDataProvider
+     * @return CDataProvider|null
      */
     public function getChildrenProvider()
     {
-        return new CArrayDataProvider($this->getChildren());
+        return null;
     }
     
     public function getChildren()
