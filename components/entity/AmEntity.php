@@ -3,29 +3,74 @@
  * Base class for all entities. 
  * Entity represents a part of application or application itself.
  * Implements Composite design pattern.
+ * 
+ * Properties that available through AmParser.
+ * @property string $author
+ * @property string $description
+ * @property string $summary
+ * @property string $link
+ * @property string $fileName
+ * @property string $className
+ * @see AmParser
  */
 class AmEntity extends AmModel
 {
+    /**
+     * @var string Yii alias to the entity file or directory.
+     */
     protected $id;
+    /**
+     * @var AmEntity 
+     */
+    protected $parent;
+    /**
+     * @var string human-readable title. 
+     */
     protected $title;
+    /**
+     * @var AmOptions class properties with the configue values. 
+     */
     protected $options;
-    protected $attributes;
+    /**
+     * @var string name as it appears in the configue.
+     */
     protected $name;
+    /**
+     * @var string Yii alias to the entity class.
+     */
     protected $fullClassName;
-    protected $isActive;
     
+    /**
+     * @var string absolute path to the entity file or directory. 
+     */
     private $_path;
+    /**
+     * @var string absolute path to the file. 
+     */
     private $_fileName;
+    /**
+     * @var AmParser 
+     */
     private $_parser;
+    /**
+     * @var array class attributes that were parsed. 
+     */
+    private $_attributes;
+    /**
+     * @var AmConfigHelper 
+     */
     private $_configHelper;
-    private $_parent;
     
+    /**
+     * @param string $name
+     * @return mixed
+     */
     public function __get($name)
     {
-        if(isset($this->attributes[$name])) {
-			return $this->attributes[$name];
+        if(isset($this->_attributes[$name])) {
+			return $this->_attributes[$name];
         } elseif (property_exists($this->getParser(), $name)) {
-            return $this->attributes[$name] = $this->getParser()->$name;
+            return $this->_attributes[$name] = $this->getParser()->$name;
         } 
         return parent::__get($name);
     }
@@ -49,18 +94,26 @@ class AmEntity extends AmModel
         return $this;
     }
     
+    /**
+     * @return AmEntity
+     */
     public function getParent()
     {
-        return $this->_parent;
+        return $this->parent;
     }
     
+    /**
+     * @param AmEntity $parent
+     * @return AmEntity
+     */
     public function setParent($parent)
     {
-        $this->_parent = $parent;
+        $this->parent = $parent;
         return $this;
     }
     
     /**
+     * Adds the entity to the configue.
      * @return bool 
      */
     public function activate() 
@@ -72,6 +125,7 @@ class AmEntity extends AmModel
     }
     
     /**
+     * Removes from the configue.
      * @return bool 
      */
     public function deactivate() 
@@ -83,7 +137,7 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Saves entity and all options.
+     * Saves the entity and all its options.
      * @return bool 
      */
     public function save() 
@@ -126,10 +180,7 @@ class AmEntity extends AmModel
      */
     public function getIsActive() 
     { 
-        if (null === $this->isActive) {
-            $this->isActive = !$this->getConfigHelper()->isEmpty();
-        } 
-        return $this->isActive;
+        return !$this->getConfigHelper()->isEmpty();
     }
     
     /**
@@ -249,6 +300,10 @@ class AmEntity extends AmModel
         return $this->fullClassName;
     }
     
+    /**
+     * @param string $name
+     * @return AmEntity
+     */
     public function setFullClassName($name)
     {
         $this->fullClassName = $name; 
@@ -404,14 +459,16 @@ class AmEntity extends AmModel
     }
     
     /**
-     * 
-     * @return CDataProvider|null
+     * @return CArrayDataProvider
      */
     public function getChildrenProvider()
     {
-        return null;
+        return new CArrayDataProvider($this->getChildren());
     }
     
+    /**
+     * @return AmEntity[]
+     */
     public function getChildren()
     {
         return array();
