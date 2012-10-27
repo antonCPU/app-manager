@@ -112,7 +112,11 @@ class AmEntityController extends AmController
     
     public function getSection()
     {
-        return $this->action->id;
+        $section = $this->action->id;
+        if (!in_array($section, array('components', 'modules', 'extensions'))) {
+            $section = $this->getEntity()->getParent()->getName();
+        }
+        return $section;
     }
     
     public function getSectionTitle()
