@@ -22,8 +22,7 @@ class AmEntityCoreModules extends AmEntityModules
     protected function createChildren($results)
     { 
         $entities = array();
-        foreach ($results as $name => $id)
-        {
+        foreach ($results as $name => $id) {
             $entities[] = $this->createChild($id, $name);
         }
         return $entities;

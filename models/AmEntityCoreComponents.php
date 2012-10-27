@@ -5,8 +5,7 @@ class AmEntityCoreComponents extends AmEntityComponents
     public function getChild($id)
     { 
         $components = $this->scan();
-        $name = array_search($id, $components);
-        if (false === $name) {
+        if (false === array_search($id, $components)) {
             return null;
         }
         return $this->createChild($id);
@@ -38,9 +37,8 @@ class AmEntityCoreComponents extends AmEntityComponents
     protected function createChildren($results)
     {
         $entities = array();
-        foreach ($results as $name => $id)
-        { 
-            $entities[] = $this->createChild($id);
+        foreach ($results as $name => $id) { 
+            $entities[] = $this->createChild($id, $name);
         }
         return $entities;
     }
