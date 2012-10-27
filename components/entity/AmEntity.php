@@ -153,7 +153,7 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Restores options and the class name to defaults.
+     * Restores options.
      * @return bool
      */
     public function restore()
