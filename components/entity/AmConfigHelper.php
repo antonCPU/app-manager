@@ -1,6 +1,6 @@
 <?php
 
-class AmConfigEntity extends CComponent
+class AmConfigHelper extends CComponent
 {
     protected $name;
     protected $entity;

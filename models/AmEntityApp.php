@@ -7,9 +7,30 @@ class AmEntityApp extends AmEntityModule
         return array();
     }
     
-    public function canUpdate()
+    public function getIsActive()
     {
-        return ($this->getConfig()->isWritable());
+        return true;
+    }
+    
+    public function activate() 
+    {
+        return false;
+    }
+    
+    public function deactivate()
+    {
+        return false;
+    }
+    
+    public function save() 
+    {
+        if (!$this->canUpdate()) {
+            return false;
+        } 
+        if (!$this->getOptions()->updateConfig()) {
+            return false;
+        }
+        return $this->getConfig()->save();
     }
     
     public function getId()
@@ -31,5 +52,10 @@ class AmEntityApp extends AmEntityModule
     protected function resolvePath()
     {
         return Yii::getPathOfAlias('application');
+    }
+    
+    protected function getConfig()
+    {
+        return AppManagerModule::config();
     }
 }

@@ -17,7 +17,7 @@ class AmEntity extends AmModel
     private $_path;
     private $_fileName;
     private $_parser;
-    private $_config;
+    private $_configHelper;
     private $_parent;
     
     public function __get($name)
@@ -68,7 +68,7 @@ class AmEntity extends AmModel
         if (!$this->canActivate()) {
             return false;
         }
-        return $this->getConfig()->activate();
+        return $this->getConfigHelper()->activate();
     }
     
     /**
@@ -79,7 +79,7 @@ class AmEntity extends AmModel
         if (!$this->canDeactivate()) {
             return false;
         }
-        return $this->getConfig()->deactivate();
+        return $this->getConfigHelper()->deactivate();
     }
     
     /**
@@ -91,7 +91,7 @@ class AmEntity extends AmModel
         if (!$this->canUpdate() || !$this->validate()) {
             return false;
         }
-        $config = $this->getConfig()->update(); 
+        $config = $this->getConfigHelper()->update(); 
         if (!$this->getOptions()->updateConfig()) {
             return false;
         }
@@ -107,7 +107,7 @@ class AmEntity extends AmModel
         if (!$this->canRestore()) {
             return false;
         } 
-        return $this->getConfig()->restore();
+        return $this->getConfigHelper()->restore();
     }
     
     /**
@@ -127,7 +127,7 @@ class AmEntity extends AmModel
     public function getIsActive() 
     { 
         if (null === $this->isActive) {
-            $this->isActive = !$this->getConfig()->isEmpty();
+            $this->isActive = !$this->getConfigHelper()->isEmpty();
         } 
         return $this->isActive;
     }
@@ -138,7 +138,7 @@ class AmEntity extends AmModel
      */
     public function canActivate()
     {
-        return (!$this->getIsActive() && $this->getConfig()->isWritable());
+        return (!$this->getIsActive() && $this->getConfigHelper()->isWritable());
     }
     
     /**
@@ -154,7 +154,7 @@ class AmEntity extends AmModel
      */
     public function canUpdate()
     {
-        return ($this->getIsActive() && $this->getConfig()->isWritable());
+        return ($this->getIsActive() && $this->getConfigHelper()->isWritable());
     }
     
     /**
@@ -162,7 +162,7 @@ class AmEntity extends AmModel
      */
     public function canRestore()
     {
-        return ($this->canUpdate() && $this->getConfig()->isChanged());
+        return ($this->canUpdate() && $this->getConfigHelper()->isChanged());
     }
     
     /**
@@ -181,7 +181,7 @@ class AmEntity extends AmModel
     public function getName()
     {
         if (null === $this->name) {
-            $this->name = $this->getConfig()->getName();
+            $this->name = $this->getConfigHelper()->getName();
         }
         return $this->name;
     }
@@ -336,7 +336,7 @@ class AmEntity extends AmModel
         if (null === $this->options) {
             $options = new AmOptions;
             $options->setParser($this->getParser());
-            $options->setConfig($this->getConfig()->get());
+            $options->setConfig($this->getConfig());
             $this->options = $options;
         }
         return $this->options;
@@ -364,15 +364,24 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Gets a configue manager (helper).
-     * @return AmConfigEntity
+     * Gets a configue manager.
+     * @return AmConfigHelper
+     */
+    protected function getConfigHelper()
+    {
+        if (null === $this->_configHelper) {
+            $this->_configHelper = new AmConfigHelper($this);
+        }
+        return $this->_configHelper;
+    }
+    
+    /**
+     * Gets the configue.
+     * @return AmConfig
      */
     protected function getConfig()
     {
-        if (null === $this->_config) {
-            $this->_config = new AmConfigEntity($this);
-        }
-        return $this->_config;
+        return $this->getConfigHelper()->get();
     }
     
     /**
