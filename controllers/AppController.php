@@ -14,16 +14,20 @@ class AppController extends AmEntityController
     
     public function actionSettings()
     { 
-        $model = new AmSettingsForm;
-        if ($data = $this->getPost('AmSettingsForm')) {
-            $model->attributes = $data;
-            if ($model->save()) {
-                $this->setFlash('success', 'Settings have been saved.');
+        $entity = $this->getModel();
+        
+        if ($options = $this->getPost('AmOptions')) {
+            $entity->options    = $options;
+            
+            if ($entity->save()) {
+                $this->setEntityFlash('success', 'Settings has been updated.');
+            } else {
+                $this->setEntityFlash('error', 'Unable to update. Incorrect input.');
             }
         }
-        
+
         $this->render('settings', array(
-            'model' => $model,
+            'entity' => $entity,
         ));
     }
     

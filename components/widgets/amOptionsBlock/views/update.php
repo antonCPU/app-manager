@@ -6,7 +6,9 @@
     ');
 ?>
 <fieldset>
-    <legend><?php echo AppManagerModule::t('Options'); ?></legend>
+    <?php if ($this->title): ?>
+        <legend><?php echo AppManagerModule::t($this->title); ?></legend>
+    <?php endif; ?>
     <?php 
         $split = ceil($options->count / 2); 
         $index = 0;

@@ -4,6 +4,7 @@ class AmOptionsBlock extends CWidget
 {
     public $options;
     public $form;
+    public $title = 'Options';
     
     public function init()
     {

@@ -12,55 +12,12 @@ $this->breadcrumbs=array(
         'enableClientValidation' => false,
     )); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'name'); ?>
-        <?php echo $form->textField($model, 'name', array('class' => 'textfield')); ?>
-    </div>
-    
-    <div class="row">
-        <?php echo $form->labelEx($model, 'preload'); ?>
-        <div class="hint">
-            <?php echo AppManagerModule::t('Components that should be activated before application initialization.'); ?>
-        </div>
-        <div class="note">
-            <?php echo AppManagerModule::t('Comma-separated list of names from the configue.'); ?>
-        </div>
-        <?php echo $form->textField($model, 'preload', array('class' => 'textfield')); ?>
-    </div>
-    
-    <div class="row">
-        <?php echo $form->labelEx($model, 'import'); ?>
-        <div class="hint">
-            <?php echo AppManagerModule::t('List of aliases that are used during class autoloading.'); ?>
-        </div>
-        <div class="note">
-            <?php echo AppManagerModule::t('One path per line.'); ?>
-        </div>
-        <?php echo $form->textArea($model, 'import'); ?>
-    </div>
-    
-    <div class="row">
-        <?php echo $form->labelEx($model, 'aliases'); ?>
-        <div class="hint">
-            <?php echo AppManagerModule::t('Short names for any path inside the application.'); ?>
-        </div>
-        <div class="note">
-            <?php echo AppManagerModule::t('One alias per line (name:path.to.alias).'); ?>
-        </div>
-        <?php echo $form->textArea($model, 'aliases'); ?>
-    </div>
-    
-    <div class="row">
-        <?php echo $form->labelEx($model, 'params'); ?>
-        <div class="hint">
-            <?php echo AppManagerModule::t('Application-level parameters that can be accessed using Yii::app()->params[\'paramName\'].'); ?>
-        </div>
-        <div class="note">
-            <?php echo AppManagerModule::t('One option per line (name:value).'); ?>
-        </div>
-        <?php echo $form->textArea($model, 'params'); ?>
-    </div>
-    
+    <?php $this->widget('AmWidgets.amOptionsBlock.AmOptionsBlock', array(
+        'form'      => $form,
+        'title'     => null,
+        'options'   => $entity->options,
+    )); ?>
+   
     <div class="row buttons">
 		<?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
     </div>
