@@ -145,11 +145,12 @@ class AmEntity extends AmModel
         if (!$this->canUpdate() || !$this->validate()) {
             return false;
         }
-        $config = $this->getConfigHelper()->update(); 
-        if (!$this->getOptions()->updateConfig()) {
+        $helper  = $this->getConfigHelper()->update(); 
+        $options = $this->getOptions()->setConfig($this->getConfig());
+        if (!$options->updateConfig()) {
             return false;
         }
-        return $config->save();
+        return $helper->save();
     }
     
     /**
@@ -390,8 +391,8 @@ class AmEntity extends AmModel
     { 
         if (null === $this->options) {
             $options = new AmOptions;
-            $options->setParser($this->getParser());
-            $options->setConfig($this->getConfig());
+            $options->setParser($this->getParser())
+                    ->setConfig($this->getConfig());
             $this->options = $options;
         }
         return $this->options;

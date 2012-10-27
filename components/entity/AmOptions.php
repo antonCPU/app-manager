@@ -144,6 +144,7 @@ class AmOptions extends AmModel
     public function setParser($parser)
     {
         $this->_parser = $parser;
+        return $this;
     }
     
     /**
@@ -160,6 +161,7 @@ class AmOptions extends AmModel
     public function setConfig($config)
     {
         $this->_config = $config;
+        return $this;
     }
     
     /**
