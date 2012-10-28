@@ -9,15 +9,10 @@ class AmOptions extends AmModel
      * @var AmOption[]. 
      */
     protected $options;
-    
     /**
-     * @var AmParser 
+     * @var AmEntity
      */
-    private $_parser;
-    /**
-     * @var AmConfig 
-     */
-    private $_config;
+    protected $entity;
     
     /**
      * Validation rules.
@@ -59,6 +54,24 @@ class AmOptions extends AmModel
                 $options[$name]->setTextValue($value);
             }
         }
+    }
+    
+    /**
+     * @param AmEntity $entity
+     * @return AmOptions
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+        return $this;
+    }
+    
+    /**
+     * @return AmEntity
+     */
+    public function getEntity()
+    {
+        return $this->entity;
     }
     
     /**
@@ -139,37 +152,27 @@ class AmOptions extends AmModel
     }
     
     /**
-     * @param AmParser $parser 
-     */
-    public function setParser($parser)
-    {
-        $this->_parser = $parser;
-        return $this;
-    }
-    
-    /**
      * @return AmParser
      */
-    public function getParser()
+    protected function getParser()
     {
-        return $this->_parser;
-    }
-    
-    /**
-     * @param AmConfig $config
-     */
-    public function setConfig($config)
-    {
-        $this->_config = $config;
-        return $this;
+        return $this->getEntity()->getParser();
     }
     
     /**
      * @return AmConfig
      */
-    public function getConfig()
+    protected function getConfig()
     {
-        return $this->_config;
+        return $this->getEntity()->getConfig();
+    }
+    
+    /**
+     * @return array
+     */
+    protected function getExclude()
+    {
+        return $this->getEntity()->getExcludeOptions();
     }
     
     /**
@@ -180,7 +183,11 @@ class AmOptions extends AmModel
     {
         $properties = $this->getParser()->getProperties();
         $options = array();
+        $exclude = $this->getExclude();
         foreach ($properties as $property) {
+            if (in_array($property->name, $exclude)) {
+                continue;
+            }
             $option = new AmOption;
             $value = $this->getConfigValue($property->name);
             if ($value instanceof AmNode) {

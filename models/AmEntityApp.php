@@ -54,8 +54,15 @@ class AmEntityApp extends AmEntityModule
         return Yii::getPathOfAlias('application');
     }
     
-    protected function getConfig()
+    public function getConfig()
     {
         return AppManagerModule::config();
+    }
+    
+    public function getExcludeOptions()
+    {
+        return array(
+            'controller',
+        );
     }
 }

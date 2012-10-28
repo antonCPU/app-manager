@@ -146,8 +146,7 @@ class AmEntity extends AmModel
             return false;
         }
         $helper  = $this->getConfigHelper()->update(); 
-        $options = $this->getOptions()->setConfig($this->getConfig());
-        if (!$options->updateConfig()) {
+        if (!$this->getOptions()->updateConfig()) {
             return false;
         }
         return $helper->save();
@@ -391,9 +390,7 @@ class AmEntity extends AmModel
     { 
         if (null === $this->options) {
             $options = new AmOptions;
-            $options->setParser($this->getParser())
-                    ->setConfig($this->getConfig());
-            $this->options = $options;
+            $this->options = $options->setEntity($this);
         }
         return $this->options;
     }
@@ -411,7 +408,7 @@ class AmEntity extends AmModel
      * Gets a parser for the class attributes.
      * @return AppManagerParser 
      */
-    protected function getParser()
+    public function getParser()
     { 
         if (null === $this->_parser) {
             $this->_parser = new AmParser($this->getFileName());
@@ -435,7 +432,7 @@ class AmEntity extends AmModel
      * Gets the configue.
      * @return AmConfig
      */
-    protected function getConfig()
+    public function getConfig()
     {
         return $this->getConfigHelper()->get();
     }
@@ -471,6 +468,15 @@ class AmEntity extends AmModel
      * @return AmEntity[]
      */
     public function getChildren()
+    {
+        return array();
+    }
+    
+    /**
+     * Gets list of options that should not be visible.
+     * @return array list of string names.
+     */
+    public function getExcludeOptions()
     {
         return array();
     }
