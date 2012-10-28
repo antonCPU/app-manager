@@ -17,9 +17,10 @@ $this->breadcrumbs=array(
         'form'      => $form,
         'options'   => $entity->options,
     )); ?>
-   
-    <div class="row buttons">
-		<?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
-    </div>
+    <?php if ($entity->canUpdate()): ?>
+        <div class="row buttons">
+            <?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
+        </div>
+    <?php endif; ?>
 </div>
 <?php $this->endWidget(); ?>
