@@ -25,7 +25,8 @@ class AmPropertyFactory
     {
          if (0 === strpos($method->name, 'set')) {
             if (1 == count($method->getParameters())) {
-                $name = lcfirst(str_replace('set', '', $method->name));
+                $name    = preg_replace('/^set/', '', $method->name);
+                $name[0] = strtolower($name[0]);
                 if ($class->hasProperty($name)) {
                     return new AmPropertyMagic($class, $class->getProperty($name));
                 } else {
