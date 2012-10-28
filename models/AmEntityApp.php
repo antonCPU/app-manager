@@ -63,6 +63,9 @@ class AmEntityApp extends AmEntityModule
     {
         return array(
             'controller',
+            'components',
+            'modules',
+            'behaviors',
         );
     }
 }
