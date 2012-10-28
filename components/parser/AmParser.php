@@ -133,6 +133,9 @@ class AmParser extends CComponent
         return $this->link;
     }
     
+    /**
+     * @return strig
+     */
     public function getVersion()
     {
         if ((null === $this->version) && $tag = $this->getTag('version')) {
