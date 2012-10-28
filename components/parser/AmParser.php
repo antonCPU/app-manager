@@ -163,10 +163,14 @@ class AmParser extends CComponent
         $result = array_merge(
                 $this->parsePublicProperties(), 
                 $this->parseMagicProperties()
-        );
+        ); 
         return $result;
     }
 
+    /**
+     * Searches for public properties.
+     * @return AmProperty[]
+     */
     protected function parsePublicProperties()
     {
         $result = array();
@@ -177,6 +181,10 @@ class AmParser extends CComponent
         return $result;
     }
     
+    /**
+     * Searches for non public properties that has setters. 
+     * @return AmProperty[]
+     */
     protected function parseMagicProperties()
     {
         $result = array();

@@ -1,25 +1,36 @@
 <?php
-
+/**
+ * Creates properties.
+ */
 class AmPropertyFactory
 {
+    /**
+     * Creates public property.
+     * @param Zend_Reflection_Class $class
+     * @param Zend_Reflection $property
+     * @return AmProperty
+     */
     public static function create($class, $property)
     {
-        if (is_string($property)) {
-            if ($class->hasProperty($property)) {
-                return new AmMagicProperty($class, $property);
-            } else {
-                return new AmVirtualProperty($class, $property);
-            }
-        } 
         return new AmProperty($class, $property);
     }
     
+    /**
+     * Creates property from its setter.
+     * @param Zend_Reflection_Class $class
+     * @param string                $method
+     * @return AmProperty|false false if the method is not setter.
+     */
     public static function createFromMethod($class, $method)
     {
          if (0 === strpos($method->name, 'set')) {
             if (1 == count($method->getParameters())) {
                 $name = lcfirst(str_replace('set', '', $method->name));
-                return self::create($class, $name);
+                if ($class->hasProperty($name)) {
+                    return new AmMagicProperty($class, $name);
+                } else {
+                    return new AmVirtualProperty($class, $name);
+                }
             }
          }
          return false;

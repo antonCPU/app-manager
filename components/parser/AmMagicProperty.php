@@ -1,7 +1,12 @@
 <?php
-
+/**
+ * Handles properties that has setters.
+ */
 class AmMagicProperty extends AmProperty
 {
+    /**
+     * @return string 
+     */
     public function getType()
     {
         $type = parent::getType();
@@ -11,6 +16,10 @@ class AmMagicProperty extends AmProperty
         return $type;
     }
     
+    /**
+     * Gets type from the method parameters.
+     * @return string 
+     */
     protected function parseMethodType()
     {
         $type = null;
@@ -21,6 +30,9 @@ class AmMagicProperty extends AmProperty
         return $type;
     }
     
+    /**
+     * @return string 
+     */
     public function getDescription()
     {
         $desc = parent::getDescription();
@@ -30,6 +42,21 @@ class AmMagicProperty extends AmProperty
         return $desc;
     }
     
+    /**
+     * @return Zend_Reflection_Property
+     */
+    public function getProperty()
+    {
+        if (is_string($this->property)) {
+            $this->property = new Zend_Reflection_Property($this->getClass(), $this->property);
+        }
+        return $this->property;
+    }
+    
+    /**
+     * Gets description from the method parameters.
+     * @return string 
+     */
     protected function parseMethodDescription()
     {
         $desc = null;

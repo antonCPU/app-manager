@@ -7,15 +7,11 @@ class AmProperty extends CComponent
     /**
      * @var Zend_Reflection_Class 
      */
-    private $_class;
+    protected $class;
     /**
      * @var Zend_Reflection_Property 
      */
-    private $_property;
-    /**
-     * @var bool if property has magic set method. 
-     */
-    private $_isMagic;
+    protected $property;
     
     /**
      * @param Zend_Reflection_Property $property 
@@ -23,15 +19,10 @@ class AmProperty extends CComponent
     public function __construct($class, $property)
     {
         require_once 'Zend/Reflection/Docblock/Tag/Return.php';
-        $this->setClass($class)->setProperty($property);
+        $this->class    = $class;
+        $this->property = $property;
     }
     
-    public function setClass($class)
-    {
-        $this->_class = $class;
-        return $this;
-    }
-
     /**
      * @return string 
      */
@@ -82,6 +73,12 @@ class AmProperty extends CComponent
         return $desc;
     }
     
+    /**
+     * Filters description.
+     * @param string $pattern regexp.
+     * @param string $content
+     * @return string
+     */
     protected function parseDescription($pattern, $content)
     {
         return ucfirst(trim(preg_replace($pattern, '', $content)));
@@ -92,18 +89,7 @@ class AmProperty extends CComponent
      */
     public function getClass()
     {
-        if (null === $this->_class) {
-            $this->_class = $this->getProperty()->getDeclaringClass();
-        } 
-        return $this->_class;
-    }
-    
-    /**
-     * @param Zend_Reflection_Property $property 
-     */
-    public function setProperty($property)
-    {
-        $this->_property = $property;
+        return $this->class;
     }
     
     /**
@@ -111,7 +97,7 @@ class AmProperty extends CComponent
      */
     public function getProperty()
     {
-        return $this->_property;
+        return $this->property;
     }
     
     /**
