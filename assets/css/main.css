@@ -234,6 +234,7 @@ div.search-form
 
 .grid-view h3 {float: left; margin-bottom: 0;}
 .form .note pre {display: inline; font: inherit; margin: 0;}
+.form .row {overflow: hidden;}
 code {white-space: pre;}
 .code {white-space: pre;}
 .view-title {height: 2.3em;}
