@@ -70,9 +70,9 @@ class AmController extends CController
      * @param mixed  $default
      * @return mixed 
      */
-    protected function getParam($name, $default = null)
+    protected function getQuery($name, $default = null)
     {
-        return Yii::app()->getRequest()->getParam($name, $default);
+        return Yii::app()->getRequest()->getQuery($name, $default);
     }
     
     /**
