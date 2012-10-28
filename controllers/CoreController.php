@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Handles requests for entities that belong ot Yii core.
+ */
 class CoreController extends AmEntityController
 {
     protected $title = 'Core';

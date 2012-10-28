@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Handles requests for entities that belong to the application.
+ */
 class AppController extends AmEntityController
 {
     protected $title = 'App';
