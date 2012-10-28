@@ -2,7 +2,7 @@
 /**
  * Handles properties that has setters.
  */
-class AmMagicProperty extends AmProperty
+class AmPropertyMagic extends AmProperty
 {
     /**
      * @return string 
