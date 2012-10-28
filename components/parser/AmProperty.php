@@ -36,7 +36,7 @@ class AmProperty extends CComponent
      */
     public function getValue()
     {
-        $name = $this->getName();
+        $name     = $this->getName();
         $defaults = $this->getDefaults();
         return isset($defaults[$name]) ? $defaults[$name] : null;
     }
@@ -53,7 +53,7 @@ class AmProperty extends CComponent
             ) {
                 $type = $tag->getDescription();
                 if ($filtered = strstr($type, ' ', true)) {
-                    return $filtered;
+                    $type = $filtered;
                 }
             }
         } 
