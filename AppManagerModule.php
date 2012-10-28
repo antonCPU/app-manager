@@ -7,7 +7,7 @@
  * @license BSD
  */
 /**
- * App manager provides user interface to the Yii application configue.
+ * AppManager provides user interface to the Yii application configue.
  * 
  * AppManager provides ability to browse all installed components, modules, extensions,
  * activate/deactivate them and update their settings. Also the Yii core components
@@ -28,6 +28,9 @@ class AppManagerModule extends CWebModule
     public $defaultController = 'app';
     public $layout = '/layouts/main';
     
+    /**
+     * @var AmConfig 
+     */
     protected static $settings;
     private $_assetsUrl;
  
@@ -54,6 +57,11 @@ class AppManagerModule extends CWebModule
         return self::t('App Manager');
     }
 
+    /**
+     * Gets the configue or its section.
+     * @param string $path path.to.section
+     * @return AmNode
+     */
     public static function config($path = null)
     {
         if (null === self::$settings) {
@@ -63,21 +71,37 @@ class AppManagerModule extends CWebModule
         return self::$settings->itemAtPath($path);
     }
     
+    /**
+     * @return AppManagerModule
+     */
     public static function getInstance()
     {
         return Yii::app()->controller->module;
     }
 
+    /**
+     * @param string $message
+     * @param array  $params
+     * @return string
+     * @see Yii::t()
+     */
     public static function t($message, $params = array())
     {
         return Yii::t('AppManagerModule.core', $message, $params);
     }
 
+    /**
+     * Absolute path to the Yii configue.
+     * @return string
+     */
     public function getConfigLocation()
     {
         return Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config/main.php';
     }
 
+    /**
+     * @return string
+     */
     public function getAssetsUrl()
     {
         if (null === $this->_assetsUrl) {
@@ -87,6 +111,10 @@ class AppManagerModule extends CWebModule
         return $this->_assetsUrl;
     }
 
+    /**
+     * @param string $name
+     * @return string
+     */
     public function getCssUrl($name)
     {
         return $this->getAssetsUrl() . '/css/' . $name . '.css';
