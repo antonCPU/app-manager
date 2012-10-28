@@ -27,7 +27,7 @@ class AmPropertyFactory
             if (1 == count($method->getParameters())) {
                 $name = lcfirst(str_replace('set', '', $method->name));
                 if ($class->hasProperty($name)) {
-                    return new AmPropertyMagic($class, $name);
+                    return new AmPropertyMagic($class, $class->getProperty($name));
                 } else {
                     return new AmPropertyVirtual($class, $name);
                 }

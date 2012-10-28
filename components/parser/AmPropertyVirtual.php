@@ -13,14 +13,6 @@ class AmPropertyVirtual extends AmPropertyMagic
     }
     
     /**
-     * @return string
-     */
-    public function getProperty()
-    {
-        return $this->property;
-    }
-    
-    /**
      * @return string 
      */
     public function getType()

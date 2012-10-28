@@ -25,7 +25,9 @@ class AmPropertyMagic extends AmProperty
         $type = null;
         $parameters = $this->getMethod()->getParameters();
         if (!empty($parameters[0])) {
-            $type = $parameters[0]->getType();
+            try {
+                $type = $parameters[0]->getType();
+            } catch (Exception $e) {};
         }
         return $type;
     }
@@ -37,20 +39,9 @@ class AmPropertyMagic extends AmProperty
     {
         $desc = parent::getDescription();
         if (null === $desc) {
-            $desc = $this->parseMethodDescription($pattern, $doc->getContents());
+            $desc = $this->parseMethodDescription();
         }
         return $desc;
-    }
-    
-    /**
-     * @return Zend_Reflection_Property
-     */
-    public function getProperty()
-    {
-        if (is_string($this->property)) {
-            $this->property = new Zend_Reflection_Property($this->getClass(), $this->property);
-        }
-        return $this->property;
     }
     
     /**
@@ -60,10 +51,13 @@ class AmPropertyMagic extends AmProperty
     protected function parseMethodDescription()
     {
         $desc = null;
-        if ($doc = $this->getMethod()->getDocblock()) {
-            $pattern = '/@param \b[\w\|]+\b \$[\w]+\b/';
-            $desc = $this->parseDescription($pattern, $doc->getContents());
-        }
+        try {
+            if ($doc = $this->getMethod()->getDocblock()) {
+                $pattern = '/@param \b[\w\|]+\b \$[\w]+\b/';
+                $desc = $this->parseDescription($pattern, $doc->getContents());
+            }
+        } catch (Exception $e) {};
+        
         return $desc;
     }
     
