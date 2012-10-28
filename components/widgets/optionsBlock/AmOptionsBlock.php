@@ -1,9 +1,20 @@
 <?php
-
+/**
+ * Displays options block.
+ */
 class AmOptionsBlock extends CWidget
 {
+    /**
+     * @var AmOptions 
+     */
     public $options;
+    /**
+     * @var CActiveForm 
+     */
     public $form;
+    /**
+     * @var string 
+     */
     public $title = 'Options';
     
     public function init()
