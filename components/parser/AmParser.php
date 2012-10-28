@@ -134,7 +134,7 @@ class AmParser extends CComponent
     }
     
     /**
-     * @return strig
+     * @return string
      */
     public function getVersion()
     {
