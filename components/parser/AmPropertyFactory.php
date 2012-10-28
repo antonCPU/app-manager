@@ -23,7 +23,7 @@ class AmPropertyFactory
      */
     public static function createFromMethod($class, $method)
     {
-         if (0 === strpos($method->name, 'set')) {
+         if ((0 === strpos($method->name, 'set')) && (strlen($method->name) > 3)) {
             if (1 == count($method->getParameters())) {
                 $name    = preg_replace('/^set/', '', $method->name);
                 $name[0] = strtolower($name[0]);
