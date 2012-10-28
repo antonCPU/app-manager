@@ -34,43 +34,6 @@ class AmWriter extends CComponent
     }
     
     /**
-     * Gets settings with stable order.
-     * @return CMap
-     */
-    public function getOrderedSettings()
-    {
-        $list = array();
-        $settings = $this->getSettings();
-        foreach ($this->getSettingsList() as $name) {
-            if ($value = $settings->itemAt($name)) {
-                if (($value instanceof CMap) && !$value->count()) {
-                    continue;
-                }
-                $list[$name] = $value;
-            }
-        }
-        return $list;
-    }   
-    
-    /**
-     * Gets list of all first-level keys that appear in the configue.
-     * @return array
-     */
-    protected function getSettingsList()
-    {
-        return array(
-            'basePath',
-            'name',
-            'preload',
-            'aliases',
-            'import',
-            'components',
-            'modules',
-            'params',
-        );
-    }
-    
-    /**
      * Generates content for the config file.
      * @return string 
      */
