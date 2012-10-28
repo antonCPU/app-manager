@@ -53,10 +53,6 @@ Yii::app()->clientScript->registerScript('appManager-view', '
                     'label' => AppManagerModule::t('Location'),
                     'name'  => 'fileName',
                 ),
-                array(
-                    'label' => AppManagerModule::t('Link'),
-                    'name'  => 'link',
-                ),
             ),
         ), true),
         AppManagerModule::t('Description') => $entity->summary . '<br /><br />' . $entity->description,
