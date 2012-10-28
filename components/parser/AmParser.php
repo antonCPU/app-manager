@@ -22,6 +22,10 @@ class AmParser extends CComponent
      */
     protected $link;
     /**
+     * @var string 
+     */
+    protected $version;
+    /**
      * @var string full path to file.
      */
     protected $fileName;
@@ -127,6 +131,14 @@ class AmParser extends CComponent
             $this->link = $tag->getDescription();
         } 
         return $this->link;
+    }
+    
+    public function getVersion()
+    {
+        if ((null === $this->version) && $tag = $this->getTag('version')) {
+            $this->version = $tag->getDescription();
+        } 
+        return $this->version;
     }
     
     /**

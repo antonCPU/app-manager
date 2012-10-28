@@ -58,6 +58,10 @@ Yii::app()->clientScript->registerScript('appManager-view', '
                     'name'  => 'author',
                 ),
                 array(
+                    'label' => AppManagerModule::t('Version'),
+                    'name'  => 'version',
+                ),
+                array(
                     'label' => AppManagerModule::t('Link'),
                     'type'  => 'url',
                     'name'  => 'link',
