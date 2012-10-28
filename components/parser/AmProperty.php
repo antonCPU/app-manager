@@ -20,26 +20,24 @@ class AmProperty extends CComponent
     /**
      * @param Zend_Reflection_Property $property 
      */
-    public function __construct($property)
+    public function __construct($class, $property)
     {
         require_once 'Zend/Reflection/Docblock/Tag/Return.php';
-        $this->setProperty($property);
+        $this->setClass($class)->setProperty($property);
     }
     
-    /**
-     * @return bool 
-     */
-    public function isPublic()
+    public function setClass($class)
     {
-        return $this->getProperty()->isPublic() || $this->isMagic();
+        $this->_class = $class;
+        return $this;
     }
-    
+
     /**
      * @return string 
      */
     public function getName()
     {
-        return preg_replace('/^_/', '', $this->getProperty()->getName());
+        return $this->getProperty()->getName();
     }
     
     /**
@@ -47,7 +45,7 @@ class AmProperty extends CComponent
      */
     public function getValue()
     {
-        $name = $this->getProperty()->getName();
+        $name = $this->getName();
         $defaults = $this->getDefaults();
         return isset($defaults[$name]) ? $defaults[$name] : null;
     }
@@ -57,6 +55,7 @@ class AmProperty extends CComponent
      */
     public function getType()
     {
+        $type = null;
         if ($doc = $this->getProperty()->getDocComment()) { 
             if (($tag = $doc->getTag('var')) 
                 || ($tag = $doc->getTag('property'))
@@ -65,16 +64,9 @@ class AmProperty extends CComponent
                 if ($filtered = strstr($type, ' ', true)) {
                     return $filtered;
                 }
-                return $type;
             }
-        } elseif ($this->isMagic()) {
-            $parameters = $this->getMagicMethod()->getParameters();
-            if (!empty($parameters[0])) {
-                return $parameters[0]->getType();
-            }
-        }
-        
-        return null;
+        } 
+        return $type;
     }
     
     /**
@@ -82,17 +74,17 @@ class AmProperty extends CComponent
      */
     public function getDescription()
     {
+        $desc = null;
         if ($doc = $this->getProperty()->getDocComment()) {
             $pattern = '/(@var \b[\w\|]+\b)|(@property \b[\w\|]+\b)/';
-        } elseif ($this->isMagic()) {
-            $doc = $this->getMagicMethod()->getDocblock();
-            $pattern = '/@param \b[\w\|]+\b \$[\w]+\b/';
-        }
-        
-        if (!$doc) {
-            return null;
-        }
-        return ucfirst(trim(preg_replace($pattern, '', $doc->getContents())));
+            $desc = $this->parseDescription($pattern, $doc->getContents());
+        } 
+        return $desc;
+    }
+    
+    protected function parseDescription($pattern, $content)
+    {
+        return ucfirst(trim(preg_replace($pattern, '', $content)));
     }
     
     /**
@@ -123,40 +115,11 @@ class AmProperty extends CComponent
     }
     
     /**
-     * @return bool 
-     */
-    public function isMagic()
-    {
-        if (null === $this->_isMagic) {
-            $this->_isMagic = $this->getClass()
-                                   ->hasMethod($this->getMagicMethodName());
-        }
-        return $this->_isMagic; 
-    }
-    
-    /**
      * Gets values for properties.
      * @return array 
      */
     protected function getDefaults()
     {
         return $this->getClass()->getDefaultProperties();
-    }
-    
-    /**
-     * @return string 
-     */
-    protected function getMagicMethodName()
-    {
-        return  'set' . ucfirst($this->getName());
-    }
-    
-    /**
-     * @return Zend_Reflection_Method 
-     */
-    protected function getMagicMethod()
-    {
-        require_once 'Zend/Reflection/Docblock/Tag/Param.php';
-        return $this->getClass()->getMethod($this->getMagicMethodName());
     }
 }

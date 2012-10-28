@@ -160,16 +160,35 @@ class AmParser extends CComponent
      */
     public function getProperties()
     {
+        $result = array_merge(
+                $this->parsePublicProperties(), 
+                $this->parseMagicProperties()
+        );
+        return $result;
+    }
+
+    protected function parsePublicProperties()
+    {
         $result = array();
-        foreach ($this->getClass()->getProperties() as $property) {
-            $property = new AmProperty($property);
-            if ($property->isPublic()) {
+        $class = $this->getClass();
+        foreach ($class->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
+            $result[] = AmPropertyFactory::create($class, $property);
+        }
+        return $result;
+    }
+    
+    protected function parseMagicProperties()
+    {
+        $result = array();
+        $class = $this->getClass();
+        foreach ($class->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
+            if ($property = AmPropertyFactory::createFromMethod($class, $method)) {
                 $result[] = $property;
             }
         }
         return $result;
     }
-
+    
     /**
      * @return Zend_Reflection_File 
      */
