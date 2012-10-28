@@ -200,7 +200,10 @@ class AmOption extends AmModel
             foreach($keys as $key)
             {
                 $key2 = str_replace("'", "\\'", $key);
-                $result.= "\n" . $spaces . "    '$key2' => ";
+                $result.= "\n" . $spaces . '    '; 
+                if (!is_numeric($key2)) {
+                    $result.= "'$key2' => ";
+                } 
                 $result.= $this->formTextValue($value[$key], $level+1) . ',';
             }
             $result.= "\n" . $spaces . ')';
