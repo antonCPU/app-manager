@@ -17,6 +17,7 @@ $this->breadcrumbs=array(
     <?php $this->widget('AmWidgets.optionsBlock.AmOptionsBlock', array(
         'form'      => $form,
         'options'   => $entity->options,
+        'title'     => null,
     )); ?>
     <div class="row buttons">
 		<?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
