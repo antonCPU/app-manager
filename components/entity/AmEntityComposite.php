@@ -10,8 +10,7 @@ class AmEntityComposite extends AmEntity
      */
     protected function scan()
     {
-        $results = scandir($this->getPath());
-        unset($results[0], $results[1]);
+        $results = glob($this->getPath() . '/*');
         foreach ($results as &$result) {
             $result = basename($result, '.php');
         }
