@@ -9,7 +9,7 @@ class AmEntityCoreModules extends AmEntityModules
         if (false === $name) {
             return null;
         }
-        return $this->createChild($id);
+        return $this->createChild($id, $name);
     }
     
     protected function scan()
@@ -32,7 +32,7 @@ class AmEntityCoreModules extends AmEntityModules
     {
         $entity = parent::createChild($id);
         $entity->setName($name);
-        $entity->setFullClassName($id);
+        $entity->setFullClassName($this->getParent()->getId() . '.' . $id);
         return $entity;
     }
 }
