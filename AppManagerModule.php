@@ -3,7 +3,7 @@
  * AppManager module class file.
  *
  * @author Anton Yakushin <yakushinanton@gmail.com>
- * @version 1.0a
+ * @version 0.5
  * @license BSD
  */
 /**
