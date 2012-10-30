@@ -38,7 +38,10 @@ class AmEntityComposite extends AmEntity
     {
         $entities = array();
         foreach ($results as $result) {
-            $entities[] = $this->createChild($result);
+            $child = $this->createChild($result);
+            if ($child->isCorrect()) {
+                $entities[] = $child;
+            }
         }
         return $entities;
     }

@@ -310,41 +310,52 @@ class AmEntity extends AmModel
         return $this;
     }
     
+    public function isCorrect()
+    {
+        return (bool)$this->getFullClassName();
+    }
+    
     /**
      * Finds a full Yii alias for the class.
      * @return string
      */
     protected function resolveFullClassName()
     {
-        $name = $this->getId();
-        $path = $this->getPath(); 
-        if (!is_file($path . '.php')) {
-            $className = $this->formClassName($path);
-            $file = $path . DIRECTORY_SEPARATOR . $className . '.php';
-            if (is_file($file)) {
-                $name .= '.' . $className;
-            } elseif ($files = glob($path . '/*.php')) {
-                $name .= '.' . basename($files[0], '.php');
-            } 
-        } 
-        return $name;
+        return AmSearchEntity::resolve($this);
     }
     
     /**
-     * Creates a class name from the source name.
-     * @param string $name
-     * @return string 
+     * Gets list of patterns for searching a file that contains entity.
+     * @return array
      */
-    protected function formClassName($path)
+    public function getSearchPattern()
     {
-        return ucfirst(basename($path, '.php'));
+        return array('*.php');
+    }
+    
+    /**
+     * Gets entity parent class.
+     * @return string|null
+     */
+    public function getSearchClass()
+    {
+        return null;
+    }
+    
+    /**
+     * Gets classes that should be excluded from search.
+     * @return array list of class names.
+     */
+    public function getSearchClassExclude()
+    {
+        return array();
     }
     
     /**
      * Gets an absolute path to the source (file or directory).
      * @return string 
      */
-    protected function getPath()
+    public function getPath()
     {
         if (null === $this->_path) {
             $this->_path = $this->resolvePath();

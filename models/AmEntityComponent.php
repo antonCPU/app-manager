@@ -6,4 +6,14 @@ class AmEntityComponent extends AmEntity
     {
         return 'components';
     }
+    
+    public function getSearchClass()
+    {
+        return 'CComponent';
+    }
+    
+    public function getSearchClassExclude()
+    {
+        return array('CWidget', 'CValidator', 'CController', 'CUserIdentity');
+    }
 }

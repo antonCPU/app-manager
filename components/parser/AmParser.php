@@ -150,7 +150,12 @@ class AmParser extends CComponent
      */
     public function isSubclassOf($class) 
     {
-        return $this->getClass()->isSubclassOf($class);
+        $result = false;
+        try {
+            $result = $this->getClass()->isSubclassOf($class);
+        } catch (Exception $e) {}
+        
+        return $result;
     }
     
     /**
