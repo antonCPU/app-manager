@@ -5,6 +5,7 @@
 class CoreController extends AmEntityController
 {
     protected $title = 'Core';
+    protected $defaultId = 'system.components';
     
     protected function createModel()
     {

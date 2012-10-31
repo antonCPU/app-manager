@@ -5,6 +5,7 @@
 class AppController extends AmEntityController
 {
     protected $title = 'App';
+    protected $defaultId = 'application.components';
     
     protected function createModel()
     {

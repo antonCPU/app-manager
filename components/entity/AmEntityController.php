@@ -4,8 +4,10 @@
  */
 class AmEntityController extends AmController
 {
-    public $defaultAction = 'components';
+    public $defaultAction = 'list';
     public $layout = '/layouts/column1';
+    protected $defaultId;
+    
     /**
      * @var AmEntity 
      */
@@ -17,6 +19,13 @@ class AmEntityController extends AmController
     public function getPageTitle()
     {
         return parent::getPageTitle() . ' - ' . $this->getSectionTitle();
+    }
+    
+    public function actionList()
+    {
+        $this->render('list', array(
+           'list' => $this->getEntity()->getChildrenProvider(), 
+        ));
     }
     
     public function actionComponents()
@@ -73,7 +82,7 @@ class AmEntityController extends AmController
             
             if ($entity->save()) {
                 $this->setEntityFlash('success', '{name} has been updated.');
-                $this->redirect(array($this->getSection()));
+                $this->redirect(array('list', 'id' => $entity->getParent()->getId()));
             } else {
                 $this->setEntityFlash('error', 'Unable to update. Incorrect input.');
             }
@@ -138,19 +147,7 @@ class AmEntityController extends AmController
      */
     public function getEntity()
     { 
-        return $this->getModel()->getChild($this->getQuery('id')); 
-    }
-    
-    /**
-     * @return string
-     */
-    public function getSection()
-    {
-        $section = $this->action->id;
-        if (!in_array($section, array('components', 'modules', 'extensions'))) {
-            $section = $this->getEntity()->getParent()->getName();
-        }
-        return $section;
+        return $this->getModel()->getChild($this->getQuery('id', $this->defaultId)); 
     }
     
     /**
@@ -158,7 +155,7 @@ class AmEntityController extends AmController
      */
     public function getSectionTitle()
     {
-        return ucfirst($this->getSection());
+        return $this->getEntity()->getParent()->getName();
     }
     
     /**
@@ -168,7 +165,8 @@ class AmEntityController extends AmController
      */
     public function isSection($section)
     {
-        return ($this->getSection() === $section);
+        $parts = explode('.', $this->getEntity()->getParent()->getId());
+        return (array_pop($parts) === $section);
     }
     
     /**
@@ -176,20 +174,21 @@ class AmEntityController extends AmController
      */
     public function getMenu()
     {
+        $id = $this->getEntity()->getParent()->getId();
         return array(
             array(
                 'label'  => AppManagerModule::t('Components'), 
-                'url'    => array('components'), 
+                'url'    => array('list', 'id' => $id . '.components'), 
                 'active' => $this->isSection('components'),
             ),
             array(
                 'label'  => AppManagerModule::t('Modules'), 
-                'url'    => array('modules'), 
+                'url'    => array('list', 'id' => $id . '.modules'), 
                 'active' => $this->isSection('modules'),
             ),
             array(
                 'label'  => AppManagerModule::t('Extensions'), 
-                'url'    => array('extensions'), 
+                'url'    => array('list', 'id' => $id . '.extensions'), 
                 'active' => $this->isSection('extensions'),
             ),
         );
@@ -211,9 +210,9 @@ class AmEntityController extends AmController
      * @param string $section
      * @return CArrayDataProvider
      */
-    protected function getChildrenProvider($section)
+    protected function getChildrenProvider()
     {
-        return $this->getModel()->getChild($section)->getChildrenProvider();
+        return $this->getEntity()->getChildrenProvider();
     }
 }
 
