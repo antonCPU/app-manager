@@ -5,11 +5,7 @@ class AmEntityCoreModules extends AmEntityModules
     public function getChild($id)
     {  
         $modules = $this->scan();
-        $name = array_search($id, $modules);
-        if (false === $name) {
-            return null;
-        }
-        return $this->createChild($id, $name);
+        return $this->createChild($modules['gii'], 'gii');
     }
     
     protected function scan()

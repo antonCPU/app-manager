@@ -11,6 +11,13 @@ class CoreController extends AmEntityController
         return new AmEntityCore;
     }
     
+    public function actionModules()
+    {
+        $this->render('view', array(
+           'entity' => $this->getModel()->getChild('modules.gii'),
+        ));
+    }
+    
     public function getMenu()
     {
         $menu = parent::getMenu();
