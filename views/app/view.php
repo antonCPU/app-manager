@@ -1,10 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-    $this->getTitle() => array('/appManager/app'),
-    $this->getSectionTitle() => array('list', 'id' => $entity->parent->id),
-    $entity->title,
-);
-
 Yii::app()->clientScript->registerScript('appManager-view', '
     $(".confirm").click(function(){
         if (!confirm("' . AppManagerModule::t('Are you sure?') . '")) {

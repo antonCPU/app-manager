@@ -1,12 +1,3 @@
-<?php
-$this->breadcrumbs=array(
-    $this->getTitle() => array('/appManager/core'),
-    $this->getSectionTitle() => array($this->getSection()),
-    $entity->title => array('view', 'id' => $entity->id),
-    AppManagerModule::t('Update')
-); 
-
-?>
 <h1><?php echo $entity->title; ?></h1>
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(

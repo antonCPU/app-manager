@@ -17,13 +17,29 @@ class AmController extends CController
      * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
      * for more details on how to specify this property.
      */
-    public $breadcrumbs=array();
+    private $_breadcrumbs=array();
     
     /**
      * @var string section title. 
      */
     protected $title;
         
+    /**
+     * @param array $list
+     */
+    public function setBreadcrumbs($list)
+    {
+        $this->_breadcrumbs = $list;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getBreadcrumbs()
+    {
+        return $this->_breadcrumbs;
+    }
+    
     /**
      * Forms page title.
      * @return string 

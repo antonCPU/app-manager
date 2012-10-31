@@ -2,6 +2,11 @@
 
 class AmEntityApp extends AmEntityModule
 {
+    public function getTitle()
+    {
+        return AppManagerModule::t('App');
+    }
+    
     public function rules()
     {
         return array();

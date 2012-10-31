@@ -1,9 +1,3 @@
-<?php
-    $this->breadcrumbs=array(
-        $this->getTitle() => array('/appManager/core'),
-        $this->getSectionTitle(),
-    );
-?>
 <?php 
 $confirm = 'function(){if(!confirm(' 
          . CJavaScript::encode(AppManagerModule::t('Are you sure?'))

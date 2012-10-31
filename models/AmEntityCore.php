@@ -2,6 +2,11 @@
 
 class AmEntityCore extends AmEntityComposite
 {
+    public function getTitle()
+    {
+        return AppManagerModule::t('Core');
+    }
+    
     public function getId()
     {
         return 'system';

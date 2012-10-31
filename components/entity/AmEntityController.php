@@ -21,34 +21,35 @@ class AmEntityController extends AmController
         return parent::getPageTitle() . ' - ' . $this->getSectionTitle();
     }
     
+    /**
+     * @return array
+     */
+    public function getBreadcrumbs()
+    {
+        $entity = $this->getEntity();
+        if ('update' === $this->action->id) {
+            $breadcrumbs[] = 'Update';
+            $breadcrumbs[$entity->getTitle()] = array('view', 'id' => $entity->getId());
+        } else {
+            $breadcrumbs[] = $entity->getTitle();
+        }
+        
+        while ($parent = $entity->getParent()) {
+            $breadcrumbs[$parent->getTitle()] = array('list', 'id' => $parent->getId());
+            $entity = $parent;
+        }
+        $breadcrumbs[$entity->getTitle()] = array('list');
+        
+        return array_reverse($breadcrumbs);
+    }
+    
     public function actionList()
     {
         $this->render('list', array(
            'list' => $this->getEntity()->getChildrenProvider(), 
         ));
     }
-    
-    public function actionComponents()
-    {
-        $this->render('list', array(
-           'list' => $this->getChildrenProvider('components'), 
-        ));
-    }
-    
-    public function actionModules()
-    {
-        $this->render('list', array(
-           'list' => $this->getChildrenProvider('modules'),
-        ));
-    }
-    
-    public function actionExtensions()
-    {
-        $this->render('list', array(
-           'list' => $this->getChildrenProvider('extensions'), 
-        ));
-    }
-    
+   
     /**
      * @param string $id
      */
