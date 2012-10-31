@@ -24,7 +24,7 @@ class AmEntityModule extends AmEntityComposite
         return array('*Module.php');
     }
     
-    public function getSearchClass()
+    public function getBaseClass()
     {
         return 'CModule';
     }

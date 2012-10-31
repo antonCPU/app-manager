@@ -54,17 +54,9 @@ class AmSearchEntity extends CComponent
     {
         $parser = new AmParser($file);
         
-        if ($include = self::$entity->getSearchClass()) {
+        if ($include = self::$entity->getBaseClass()) {
             if (!$parser->isSubclassOf($include)) {
                 return false;
-            }
-        }
-
-        if ($exclude = self::$entity->getSearchClassExclude()) {
-            foreach ($exclude as $class) {
-                if ($parser->isSubclassOf($class)) {
-                    return false;
-                }
             }
         }
         return true;

@@ -334,21 +334,12 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Gets entity parent class.
+     * Gets entity base class.
      * @return string|null
      */
-    public function getSearchClass()
+    public function getBaseClass()
     {
         return null;
-    }
-    
-    /**
-     * Gets classes that should be excluded from search.
-     * @return array list of class names.
-     */
-    public function getSearchClassExclude()
-    {
-        return array();
     }
     
     /**

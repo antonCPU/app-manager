@@ -7,13 +7,8 @@ class AmEntityComponent extends AmEntity
         return 'components';
     }
     
-    public function getSearchClass()
+    public function getBaseClass()
     {
-        return 'CComponent';
-    }
-    
-    public function getSearchClassExclude()
-    {
-        return array('CWidget', 'CValidator', 'CController', 'CUserIdentity');
+        return 'IApplicationComponent';
     }
 }
