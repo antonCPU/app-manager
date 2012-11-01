@@ -1,11 +1,16 @@
+<?php
+$this->breadcrumbs=array(
+    $entity->title,
+); 
+?>
 <?php 
 $confirm = 'function(){if(!confirm(' 
          . CJavaScript::encode(AppManagerModule::t('Are you sure?'))
          . ')) return false;}'; 
 ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-    'dataProvider' => $list,
-    'template' => "<h3>{$this->getSectionTitle()}</h3>{summary}\n{items}\n{pager}",
+    'dataProvider' => $entity->childrenProvider,
+    'template' => "<h3>{$entity->title}</h3>{summary}\n{items}\n{pager}",
     'selectableRows' => 0,
     'columns' => array(
         array(

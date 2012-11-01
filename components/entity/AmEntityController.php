@@ -14,39 +14,23 @@ class AmEntityController extends AmController
     protected $model;
     
     /**
-     * @return string
-     */
-    public function getPageTitle()
-    {
-        return parent::getPageTitle() . ' - ' . $this->getSectionTitle();
-    }
-    
-    /**
      * @return array
      */
     public function getBreadcrumbs()
     {
+        $breadcrumbs = array_reverse(parent::getBreadcrumbs());
         $entity = $this->getEntity();
-        if ('update' === $this->action->id) {
-            $breadcrumbs[] = 'Update';
-            $breadcrumbs[$entity->getTitle()] = array('view', 'id' => $entity->getId());
-        } else {
-            $breadcrumbs[] = $entity->getTitle();
+        while ($entity = $entity->getParent()) {
+            $breadcrumbs[$entity->getTitle()] = array('list', 'id' => $entity->getId());
         }
-        
-        while ($parent = $entity->getParent()) {
-            $breadcrumbs[$parent->getTitle()] = array('list', 'id' => $parent->getId());
-            $entity = $parent;
-        }
-        $breadcrumbs[$entity->getTitle()] = array('list');
-        
+
         return array_reverse($breadcrumbs);
     }
     
     public function actionList()
     {
         $this->render('list', array(
-           'list' => $this->getEntity()->getChildrenProvider(), 
+            'entity' => $this->getEntity(),
         ));
     }
    
@@ -148,15 +132,15 @@ class AmEntityController extends AmController
      */
     public function getEntity()
     { 
-        return $this->getModel()->getChild($this->getQuery('id', $this->defaultId)); 
-    }
-    
-    /**
-     * @return string
-     */
-    public function getSectionTitle()
-    {
-        return $this->getEntity()->getParent()->getName();
+        $model = $this->getModel();
+        if ($id = $this->getQuery('id')) {
+            if ($model->getId() == $id) {
+                $id = $this->defaultId;
+            }
+        } else {
+            $id = $this->defaultId;
+        }
+        return $model->getChild($id); 
     }
     
     /**
@@ -166,8 +150,8 @@ class AmEntityController extends AmController
      */
     public function isSection($section)
     {
-        $parts = explode('.', $this->getEntity()->getParent()->getId());
-        return (array_pop($parts) === $section);
+        $parts = explode('.', $this->getEntity()->getId());
+        return (false !== array_search($section, $parts));
     }
     
     /**
@@ -175,7 +159,7 @@ class AmEntityController extends AmController
      */
     public function getMenu()
     {
-        $id = $this->getEntity()->getParent()->getId();
+        $id = $this->getModel()->getId();
         return array(
             array(
                 'label'  => AppManagerModule::t('Components'), 
@@ -205,15 +189,6 @@ class AmEntityController extends AmController
     {
         $this->setFlash($flashType, $message, 
                         array('{name}' => $this->getEntity()->title));
-    }
-    
-    /**
-     * @param string $section
-     * @return CArrayDataProvider
-     */
-    protected function getChildrenProvider()
-    {
-        return $this->getEntity()->getChildrenProvider();
     }
 }
 
