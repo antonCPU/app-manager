@@ -235,8 +235,9 @@ class AmConfigHelper extends CComponent
             $section = $this->loadSection();
             $section->remove($default);
             foreach ($section as $name => $value) {
+                $fullClass = $this->getEntity()->getFullClassName();
                 if (isset($value['class']) 
-                    && $value['class'] == $this->getEntity()->getFullClassName()) {
+                    && (false !== strpos($fullClass, $value['class']))) {
                     return $name;
                 }
             }
