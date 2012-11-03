@@ -5,7 +5,7 @@
 class AppController extends AmEntityController
 {
     protected $title = 'App';
-    protected $defaultId = 'application.components';
+    public $defaultAction = 'settings';
     
     protected function createModel()
     {
@@ -14,7 +14,7 @@ class AppController extends AmEntityController
     
     public function actionSettings()
     { 
-        $entity = $this->getModel();
+        $entity = $this->getBaseEntity();
         
         if ($options = $this->getPost('AmOptions')) {
             $entity->options    = $options;
@@ -33,12 +33,18 @@ class AppController extends AmEntityController
     
     public function getMenu()
     {
-        $menu = parent::getMenu();
-        $menu[] = array(
-            'label'  => AppManagerModule::t('Settings'), 
-            'url'    => array('settings'), 
-            'active' => ('settings' === $this->action->id),
-        );
-        return $menu;
+        $id = $this->getBaseEntity()->getId();
+        return array_merge(parent::getMenu(), array(
+            array(
+                'label'  => AppManagerModule::t('Extensions'), 
+                'url'    => array('list', 'id' => $id . '.extensions'), 
+                'active' => $this->isSection('extensions'),
+            ),
+            array(
+                'label'  => AppManagerModule::t('Settings'), 
+                'url'    => array('settings', 'id' => $id), 
+                'active' => ('settings' === $this->action->id),
+            ),
+        ));
     }
 }

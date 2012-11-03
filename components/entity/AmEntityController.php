@@ -6,7 +6,6 @@ class AmEntityController extends AmController
 {
     public $defaultAction = 'list';
     public $layout = '/layouts/column1';
-    protected $defaultId;
     
     /**
      * @var AmEntity 
@@ -126,21 +125,29 @@ class AmEntityController extends AmController
         return new AmEntity;
     }
     
+    protected function getBaseEntity()
+    {
+        $entity = $this->getEntity();
+        $base = $entity->getParent();
+        if (!$base) {
+            $base = $entity;
+        } elseif ('list' !== $this->action->id) {
+            $base = $base->getParent();
+        } 
+        return $base;
+    }
+    
     /**
      * Gets requested by id entity.
      * @return AmEntity
      */
     public function getEntity()
     { 
-        $model = $this->getModel();
-        if ($id = $this->getQuery('id')) {
-            if ($model->getId() == $id) {
-                $id = $this->defaultId;
-            }
-        } else {
-            $id = $this->defaultId;
-        }
-        return $model->getChild($id); 
+        $entity = $this->getModel();
+        if (($id = $this->getQuery('id')) && $id !== $entity->getId()) {
+            $entity = $entity->getChild($id);
+        } 
+        return $entity; 
     }
     
     /**
@@ -159,7 +166,7 @@ class AmEntityController extends AmController
      */
     public function getMenu()
     {
-        $id = $this->getModel()->getId();
+        $id = $this->getBaseEntity()->getId();
         return array(
             array(
                 'label'  => AppManagerModule::t('Components'), 
@@ -170,11 +177,6 @@ class AmEntityController extends AmController
                 'label'  => AppManagerModule::t('Modules'), 
                 'url'    => array('list', 'id' => $id . '.modules'), 
                 'active' => $this->isSection('modules'),
-            ),
-            array(
-                'label'  => AppManagerModule::t('Extensions'), 
-                'url'    => array('list', 'id' => $id . '.extensions'), 
-                'active' => $this->isSection('extensions'),
             ),
         );
     }
