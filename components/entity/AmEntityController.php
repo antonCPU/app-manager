@@ -11,6 +11,8 @@ class AmEntityController extends AmController
      * @var AmEntity 
      */
     protected $model;
+    protected $entity;
+    protected $baseEntity;
     
     /**
      * @return array
@@ -125,16 +127,23 @@ class AmEntityController extends AmController
         return new AmEntity;
     }
     
-    protected function getBaseEntity()
+    /**
+     * Gets an entity according to which the menu is built.
+     * @return AmEntity
+     */
+    protected function getBase()
     {
-        $entity = $this->getEntity();
-        $base = $entity->getParent();
-        if (!$base) {
-            $base = $entity;
-        } elseif ('list' !== $this->action->id) {
-            $base = $base->getParent();
-        } 
-        return $base;
+        if (null === $this->baseEntity) {
+            $entity = $this->getEntity();
+            $base = $entity->getParent();
+            if (!$base) {
+                $base = $entity;
+            } elseif ('list' !== $this->action->id) {
+                $base = $base->getParent();
+            } 
+            $this->baseEntity = $base;
+        }
+        return $this->baseEntity;
     }
     
     /**
@@ -143,22 +152,25 @@ class AmEntityController extends AmController
      */
     public function getEntity()
     { 
-        $entity = $this->getModel();
-        if (($id = $this->getQuery('id')) && $id !== $entity->getId()) {
-            $entity = $entity->getChild($id);
-        } 
-        return $entity; 
+        if (null === $this->entity) {
+            $entity = $this->getModel();
+            if (($id = $this->getQuery('id')) && $id !== $entity->getId()) {
+                $entity = $entity->getChild($id);
+            }
+            $this->entity = $entity;
+        }
+        return $this->entity; 
     }
     
     /**
-     * Checks if current section equals $section.
-     * @param string $section
+     * Checks a base entity name.
+     * @param string $name
      * @return bool
      */
-    public function isSection($section)
+    public function isSection($name)
     {
-        $parts = explode('.', $this->getEntity()->getId());
-        return (false !== array_search($section, $parts));
+        $parts = explode('.', $this->getEntity()->getId()); 
+        return ($name === array_pop($parts));
     }
     
     /**
@@ -166,7 +178,7 @@ class AmEntityController extends AmController
      */
     public function getMenu()
     {
-        $id = $this->getBaseEntity()->getId();
+        $id = $this->getBase()->getId();
         return array(
             array(
                 'label'  => AppManagerModule::t('Components'), 

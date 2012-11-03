@@ -14,26 +14,13 @@ class AppController extends AmEntityController
     
     public function actionSettings()
     { 
-        $entity = $this->getBaseEntity();
-        
-        if ($options = $this->getPost('AmOptions')) {
-            $entity->options    = $options;
-            
-            if ($entity->save()) {
-                $this->setEntityFlash('success', 'Settings has been updated.');
-            } else {
-                $this->setEntityFlash('error', 'Unable to update. Incorrect input.');
-            }
-        }
-
-        $this->render('settings', array(
-            'entity' => $entity,
-        ));
+        $this->baseEntity = $this->getEntity();
+        $this->actionUpdate($this->getEntity()->getId());
     }
     
     public function getMenu()
     {
-        $id = $this->getBaseEntity()->getId();
+        $id = $this->getBase()->getId();
         return array_merge(parent::getMenu(), array(
             array(
                 'label'  => AppManagerModule::t('Extensions'), 
