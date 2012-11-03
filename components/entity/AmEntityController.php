@@ -163,7 +163,7 @@ class AmEntityController extends AmController
     }
     
     /**
-     * Checks a base entity name.
+     * Checks to which collection belongs entity. (components, modules...)
      * @param string $name
      * @return bool
      */
