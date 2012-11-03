@@ -158,7 +158,7 @@ class AmEntityController extends AmController
                 $entity = $entity->getChild($id);
             }
             $this->entity = $entity;
-        }
+        } 
         return $this->entity; 
     }
     

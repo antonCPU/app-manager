@@ -5,7 +5,6 @@
 class CoreController extends AmEntityController
 {
     protected $title = 'Core';
-    protected $defaultId = 'system.components';
     
     protected function createModel()
     {
@@ -19,10 +18,11 @@ class CoreController extends AmEntityController
         ));
     }
     
-    public function getMenu()
+    public function getEntity()
     {
-        $menu = parent::getMenu();
-        array_pop($menu);
-        return $menu;
+        if (!$this->getQuery('id')) {
+            $_GET['id'] = 'system.components';
+        }
+        return parent::getEntity();
     }
 }
