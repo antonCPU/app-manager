@@ -31,6 +31,7 @@ Yii::app()->clientScript->registerScript('appManager-view', '
     )); ?>
 </div>
 <?php $this->widget('zii.widgets.jui.CJuiTabs', array(
+    'htmlOptions' => array('class' => 'entity-details'),
     'tabs'=>array(
         AppManagerModule::t('Details') => $this->widget('zii.widgets.CDetailView', array(
             'data'=>$entity,
