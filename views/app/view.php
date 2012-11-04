@@ -32,10 +32,6 @@ Yii::app()->clientScript->registerScript('appManager-view', '
                     'visible' => $entity->canDeactivate(),
                     'itemOptions' => array('class' => 'confirm'),
                 ),
-                array(
-                    'label' => AppManagerModule::t('Sub'),
-                    'url' => array('list', 'id' => $entity->id . '.modules'),
-                )
             )
     )); ?>
 </div>
