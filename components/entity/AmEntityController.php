@@ -5,7 +5,7 @@
 class AmEntityController extends AmController
 {
     public $defaultAction = 'list';
-    public $layout = '/layouts/column1';
+    public $layout = '/layouts/entity';
     
     /**
      * @var AmEntity 
