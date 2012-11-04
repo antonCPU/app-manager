@@ -21,6 +21,12 @@ class AmEntityController extends AmController
     {
         $breadcrumbs = array_reverse(parent::getBreadcrumbs());
         $entity = $this->getEntity();
+        if ('update' === $this->action->id) {
+            $breadcrumbs[] = 'Update';
+            $breadcrumbs[$entity->getTitle()] = array('view', 'id' => $entity->getId());
+        } elseif ('view' === $this->action->id) {
+            $breadcrumbs[] = $entity->getTitle();
+        }
         $model = $this->getModel();
         while ($entity = $entity->getParent()) {
             if ($entity->getId() === $model->getId()) {

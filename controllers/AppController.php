@@ -15,6 +15,10 @@ class AppController extends AmEntityController
     public function actionSettings()
     { 
         $this->baseEntity = $this->getEntity();
+        $this->setBreadcrumbs(array(
+            $this->getEntity()->getTitle() => array($this->defaultAction),
+            AppManagerModule::t('Settings'),
+        ));
         $this->actionUpdate($this->getEntity()->getId());
     }
     

@@ -1,9 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-    $entity->title,
-); 
-?>
-<?php
 Yii::app()->clientScript->registerScript('appManager-view', '
     $(".confirm").click(function(){
         if (!confirm("' . AppManagerModule::t('Are you sure?') . '")) {
