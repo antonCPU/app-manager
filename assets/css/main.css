@@ -255,3 +255,13 @@ code {white-space: pre;}
 .config-error { color: #000000; float: right; font-weight: bold; padding: 5px 10px; }
 
 .entity-details {overflow: auto;}
+.entity-details pre {
+    background: none repeat scroll 0 0 #FCFCFC;
+    border-bottom: 1px solid #EEEEEE;
+    border-top: 1px solid #EEEEEE;
+    display: block;
+    font-family: Menlo,Consolas,"Courier New",Courier,mono;
+    font-size: 10pt;
+    margin: 1em 0;
+    padding: 1em;
+}
