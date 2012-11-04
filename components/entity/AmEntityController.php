@@ -70,7 +70,7 @@ class AmEntityController extends AmController
     public function actionUpdate($id)
     { 
         $entity = $this->getEntity();
-        if (!$entity->canUpdate()) {
+        if (!$entity->canUpdate() && $entity->getParent()) {
             $this->setEntityFlash('error', 'Unable to update {name}.');
             $this->redirectParent();
         }

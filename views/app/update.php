@@ -24,16 +24,18 @@
         'form'      => $form,
         'options'   => $entity->options,
     )); ?>
-    <div class="row buttons">
-		<?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
-        <?php if ($entity->canRestore()): ?>
-            <?php echo CHtml::submitButton(AppManagerModule::t('Restore'), array(
-                'name' => 'restore',
-                'onclick' => 'if(!confirm(' 
-                             . CJavaScript::encode(AppManagerModule::t('Are you sure?'))
-                             . ')) return false;',
-            )); ?>
-        <?php endif; ?>
-	</div>
+    <?php if ($entity->canUpdate()): ?>
+        <div class="row buttons">
+            <?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
+            <?php if ($entity->canRestore()): ?>
+                <?php echo CHtml::submitButton(AppManagerModule::t('Restore'), array(
+                    'name' => 'restore',
+                    'onclick' => 'if(!confirm(' 
+                                 . CJavaScript::encode(AppManagerModule::t('Are you sure?'))
+                                 . ')) return false;',
+                )); ?>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
 <?php $this->endWidget(); ?>
 </div>
