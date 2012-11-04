@@ -7,18 +7,18 @@
  * @license BSD
  */
 /**
- * AppManager provides user interface to the Yii application configue.
+ * AppManager provides user interface to the Yii application config.
  * 
  * AppManager provides ability to browse all installed components, modules, extensions,
  * activate/deactivate them and update their settings. Also the Yii core components
  * and modules have the same abilities.
  * 
  * To activate manager add to Yii configuration 'appManager' under 'modules' section.
- * For proper work the application configue file (config/main.php) should be 
+ * For proper work the application config file (config/main.php) should be 
  * writable by the server. If it is not, only browsing will be available.
- * NOTICE: it's recommended to backup your configue file before performing any
+ * NOTICE: it's recommended to backup your config file before performing any
  * actions (except browsing) with AppManager as it will completely override 
- * the configue during work.
+ * the config during work.
  * 
  * @author Anton Yakushin <yakushinanton@gmail.com>
  * @link https://github.com/antonCPU/app-manager
@@ -58,7 +58,7 @@ class AppManagerModule extends CWebModule
     }
 
     /**
-     * Gets the configue or its section.
+     * Gets the config or its section.
      * @param string $path path.to.section
      * @return AmNode
      */
@@ -91,7 +91,7 @@ class AppManagerModule extends CWebModule
     }
 
     /**
-     * Absolute path to the Yii configue.
+     * Absolute path to the Yii config.
      * @return string
      */
     public function getConfigLocation()

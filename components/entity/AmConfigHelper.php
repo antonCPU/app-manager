@@ -5,7 +5,7 @@
 class AmConfigHelper extends CComponent
 {
     /**
-     * @var string entity key in configue. 
+     * @var string entity key in config. 
      */
     protected $name;
     /**
@@ -65,7 +65,7 @@ class AmConfigHelper extends CComponent
     }
     
     /**
-     * Adds entity to the configue.
+     * Adds entity to the config.
      * @return bool
      */
     public function activate()
@@ -77,7 +77,7 @@ class AmConfigHelper extends CComponent
     }
     
     /**
-     * Removes entity from the configue.
+     * Removes entity from the config.
      * @return bool
      */
     public function deactivate()
@@ -110,7 +110,7 @@ class AmConfigHelper extends CComponent
     }
     
     /**
-     * Saves the configue.
+     * Saves the config.
      * @return bool
      */
     public function save()
@@ -119,7 +119,7 @@ class AmConfigHelper extends CComponent
     }
     
     /**
-     * Changes entity name in the configue.
+     * Changes entity name in the config.
      */
     protected function updateName()
     {
@@ -133,7 +133,7 @@ class AmConfigHelper extends CComponent
     }
     
     /**
-     * Gets configue instance.
+     * Gets config instance.
      * @return AmConfig
      */
     public function get()
@@ -145,7 +145,7 @@ class AmConfigHelper extends CComponent
     }
     
     /**
-     * Checks if configue can be updated.
+     * Checks if config can be updated.
      * @return bool
      */
     public function isWritable()
@@ -154,7 +154,7 @@ class AmConfigHelper extends CComponent
     }
     
     /**
-     * Verifies if the entity has data in the configue.
+     * Verifies if the entity has data in the config.
      * @return bool
      */
     public function isEmpty()
@@ -172,7 +172,7 @@ class AmConfigHelper extends CComponent
     }
     
     /**
-     * Loads a configue section related to the entity.
+     * Loads a config section related to the entity.
      * @return AmNode
      */
     public function loadSection()
@@ -224,7 +224,7 @@ class AmConfigHelper extends CComponent
     }
     
     /**
-     * Finds entity name in the configue.
+     * Finds entity name in the config.
      * @return string
      */
     protected function resolveConfigName()

@@ -28,11 +28,11 @@ class AmEntity extends AmModel
      */
     protected $title;
     /**
-     * @var AmOptions class properties with the configue values. 
+     * @var AmOptions class properties with the config values. 
      */
     protected $options;
     /**
-     * @var string name as it appears in the configue.
+     * @var string name as it appears in the config.
      */
     protected $name;
     /**
@@ -113,7 +113,7 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Adds the entity to the configue.
+     * Adds the entity to the config.
      * @return bool 
      */
     public function activate() 
@@ -125,7 +125,7 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Removes from the configue.
+     * Removes from the config.
      * @return bool 
      */
     public function deactivate() 
@@ -242,7 +242,7 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Gets a name for the configue file.
+     * Gets a name for the config file.
      * @return string
      */
     public function getName()
@@ -264,7 +264,7 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Generates a name for the configue file.
+     * Generates a name for the config file.
      * @return string
      */
     public function getDefaultName()
@@ -435,7 +435,7 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Gets a configue manager.
+     * Gets a config manager.
      * @return AmConfigHelper
      */
     protected function getConfigHelper()
@@ -447,7 +447,7 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Gets the configue.
+     * Gets the config.
      * @return AmConfig
      */
     public function getConfig()
@@ -456,7 +456,7 @@ class AmEntity extends AmModel
     }
     
     /**
-     * Gets name of the configue section.
+     * Gets name of the config section.
      * @return string|null 
      */
     public function getConfigSection()

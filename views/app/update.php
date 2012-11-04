@@ -9,7 +9,7 @@
         <fieldset>
             <div class="row">
                 <?php echo $form->labelEx($entity,'name'); ?>
-                <div class="hint"><?php echo AppManagerModule::t('This name is used in the configue.'); ?></div>
+                <div class="hint"><?php echo AppManagerModule::t('This name is used in the config.'); ?></div>
                 <div class="note">
                     <?php if (!$entity->isDefaultName): ?><span>*</span><?php endif; ?>
                     <?php echo AppManagerModule::t('default'); ?>: 
