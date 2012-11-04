@@ -1,8 +1,3 @@
-<?php
-$this->breadcrumbs=array(
-    $entity->title,
-); 
-?>
 <?php 
 $confirm = 'function(){if(!confirm(' 
          . CJavaScript::encode(AppManagerModule::t('Are you sure?'))
