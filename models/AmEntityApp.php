@@ -7,6 +7,16 @@ class AmEntityApp extends AmEntityModule
         return AppManagerModule::t('App');
     }
     
+    public function getName()
+    {
+        return null;
+    }
+    
+    public function getDefaultName()
+    {
+        return null;
+    }
+    
     public function rules()
     {
         return array();
@@ -25,6 +35,16 @@ class AmEntityApp extends AmEntityModule
     public function canDeactivate()
     {
         return false;
+    }
+    
+    public function canRestore()
+    {
+        return false;
+    }
+    
+    public function canUpdate()
+    {
+        return $this->getConfig()->isWritable();
     }
     
     public function canView()
