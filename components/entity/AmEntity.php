@@ -221,7 +221,7 @@ class AmEntity extends AmModel
      */
     public function canView()
     {
-        return true;
+        return $this->isCorrect();
     }
     
     /**

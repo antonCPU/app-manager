@@ -12,6 +12,26 @@ class AmEntityModules extends AmEntityComposite
         return true;
     }
     
+    public function canView()
+    {
+        return false;
+    }
+    
+    public function canUpdate()
+    {
+        return false;
+    }
+    
+    public function canActivate()
+    {
+        return false;
+    }
+    
+    public function canDeactive()
+    {
+        return false;
+    }
+    
     protected function createChild($id)
     {
         $entity = new AmEntityModule;

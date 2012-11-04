@@ -16,8 +16,13 @@ class AmEntityController extends AmController
     
     public function actionList()
     {
+        $entity = $this->getEntity();
+        if (!$entity->canList()) {
+            $this->setEntityFlash('error', 'Unable to list {name}.');
+            $this->redirect(array($this->defaultAction));
+        }
         $this->render('list', array(
-            'entity' => $this->getEntity(),
+            'entity' => $entity,
         ));
     }
    
@@ -26,6 +31,11 @@ class AmEntityController extends AmController
      */
     public function actionView($id)
     { 
+        $entity = $this->getEntity();
+        if (!$entity->canView()) {
+            $this->setEntityFlash('error', 'Unable to view {name}.');
+            $this->redirect(array($this->defaultAction));
+        }
         $this->render('view', array(
            'entity' => $this->getEntity(), 
         ));
@@ -39,7 +49,7 @@ class AmEntityController extends AmController
         $entity = $this->getEntity();
         if (!$entity->canUpdate()) {
             $this->setEntityFlash('error', 'Unable to update {name}.');
-            $this->redirect(array($this->getSection()));
+            $this->redirect(array($this->defaultAction));
         }
         
         if ($this->getPost('restore')) {
@@ -193,7 +203,7 @@ class AmEntityController extends AmController
     protected function setEntityFlash($flashType, $message)
     {
         $this->setFlash($flashType, $message, 
-                        array('{name}' => $this->getEntity()->title));
+                        array('{name}' => $this->getEntity()->getTitle()));
     }
 }
 

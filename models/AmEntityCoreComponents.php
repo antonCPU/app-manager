@@ -10,7 +10,7 @@ class AmEntityCoreComponents extends AmEntityComponents
         }
         return $this->createChild($id);
     }
-    
+
     protected function scan()
     {
         return array(
