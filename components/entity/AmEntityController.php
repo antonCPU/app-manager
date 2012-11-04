@@ -21,10 +21,16 @@ class AmEntityController extends AmController
     {
         $breadcrumbs = array_reverse(parent::getBreadcrumbs());
         $entity = $this->getEntity();
+        $model = $this->getModel();
         while ($entity = $entity->getParent()) {
-            $breadcrumbs[$entity->getTitle()] = array('list', 'id' => $entity->getId());
+            if ($entity->getId() === $model->getId()) {
+                $url = array($this->defaultAction);
+            } else {
+                $action = $entity->canList() ? 'list' : 'view';
+                $url = array($action, 'id' => $entity->getId());
+            }
+            $breadcrumbs[$entity->getTitle()] = $url;
         }
-
         return array_reverse($breadcrumbs);
     }
     

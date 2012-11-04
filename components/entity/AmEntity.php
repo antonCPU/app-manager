@@ -217,6 +217,22 @@ class AmEntity extends AmModel
     }
     
     /**
+     * @return bool if the entity has details.
+     */
+    public function canView()
+    {
+        return true;
+    }
+    
+    /**
+     * @return bool if the entity could be listed.
+     */
+    public function canList()
+    {
+        return false;
+    }
+    
+    /**
      * @return string
      * @see CButtonColumn 
      */

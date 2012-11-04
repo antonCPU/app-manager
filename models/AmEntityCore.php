@@ -12,6 +12,11 @@ class AmEntityCore extends AmEntityComposite
         return 'system';
     }
     
+    public function canView()
+    {
+        return false;
+    }
+    
     public function getChild($id)
     {
         $id = str_replace($this->getId() . '.', '', $id);

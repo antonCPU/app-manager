@@ -27,6 +27,11 @@ class AmEntityApp extends AmEntityModule
         return false;
     }
     
+    public function canView()
+    {
+        return false;
+    }
+    
     public function save() 
     {
         if (!$this->canUpdate()) {

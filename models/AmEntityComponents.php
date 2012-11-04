@@ -7,6 +7,11 @@ class AmEntityComponents extends AmEntityComposite
         return AppManagerModule::t('Components');
     }
     
+    public function canList()
+    {
+        return true;
+    }
+    
     protected function createChild($id)
     {
         $entity = new AmEntityComponent;
