@@ -54,7 +54,12 @@ class AmEntityController extends AmController
             
             if ($entity->save()) {
                 $this->setEntityFlash('success', '{name} has been updated.');
-                $this->redirect(array('list', 'id' => $entity->getParent()->getId()));
+                if ($parent = $entity->getParent()) {
+                    $url = array('list', 'id' => $parent->getId());
+                } else {
+                    $url = array($this->defaultAction);
+                }
+                $this->redirect($url);
             } else {
                 $this->setEntityFlash('error', 'Unable to update. Incorrect input.');
             }
