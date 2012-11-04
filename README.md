@@ -4,9 +4,9 @@ App Manager
 User interface for Yii configuration. Allows to manage components, extensions, modules.
 
 The main goal of this extension is to utilize documentation, default options and many other things created 
-with the source code, but usually not presented in a convenient form for day-to-day operations. For example,
+with a source code, but usually not presented in a convenient form for day-to-day operations. For example,
 when need to configue a newly added extension and switch between its source code and Yii configue for proper
-setup. App Manager eliminates such cases by providing abilities to configue and see useful comments in one place.
+setup. App Manager eliminates such cases by providing abilities to configure and see useful comments in one place.
 Also it decreases posibility of misconfiguration by providing some basic validation rules. 
 
 Not the last goal of actual extension is to show **all** available for configuration properties. Lots of them
