@@ -14,32 +14,6 @@ class AmEntityController extends AmController
     protected $entity;
     protected $baseEntity;
     
-    /**
-     * @return array
-     */
-    public function getBreadcrumbs()
-    {
-        $breadcrumbs = array_reverse(parent::getBreadcrumbs());
-        $entity = $this->getEntity();
-        if ('update' === $this->action->id) {
-            $breadcrumbs[] = 'Update';
-            $breadcrumbs[$entity->getTitle()] = array('view', 'id' => $entity->getId());
-        } elseif ('view' === $this->action->id) {
-            $breadcrumbs[] = $entity->getTitle();
-        }
-        $model = $this->getModel();
-        while ($entity = $entity->getParent()) {
-            if ($entity->getId() === $model->getId()) {
-                $url = array($this->defaultAction);
-            } else {
-                $action = $entity->canList() ? 'list' : 'view';
-                $url = array($action, 'id' => $entity->getId());
-            }
-            $breadcrumbs[$entity->getTitle()] = $url;
-        }
-        return array_reverse($breadcrumbs);
-    }
-    
     public function actionList()
     {
         $this->render('list', array(
