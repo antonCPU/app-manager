@@ -14,6 +14,9 @@ class AmEntityController extends AmController
     protected $entity;
     protected $baseEntity;
     
+    /**
+     * @return array
+     */
     public function getBreadcrumbs()
     {
         $entity = $this->getEntity();
@@ -29,12 +32,15 @@ class AmEntityController extends AmController
         return array_reverse($breadcrumbs);
     }
     
+    /**
+     * Shows list of entities.
+     */
     public function actionList()
     {
         $entity = $this->getEntity();
         if (!$entity->canList()) {
             $this->setEntityFlash('error', 'Unable to list {name}.');
-            $this->redirect($this->getParentUrl());
+            $this->redirectParent();
         }
         $this->render('list', array(
             'entity' => $entity,
@@ -42,6 +48,7 @@ class AmEntityController extends AmController
     }
    
     /**
+     * Shows an entity details.
      * @param string $id
      */
     public function actionView($id)
@@ -49,7 +56,7 @@ class AmEntityController extends AmController
         $entity = $this->getEntity();
         if (!$entity->canView()) {
             $this->setEntityFlash('error', 'Unable to view {name}.');
-            $this->redirect($this->getParentUrl());
+            $this->redirectParent();
         }
         $this->render('view', array(
            'entity' => $this->getEntity(), 
@@ -57,6 +64,7 @@ class AmEntityController extends AmController
     }
     
     /**
+     * Handles an entity update.
      * @param string $id
      */
     public function actionUpdate($id)
@@ -64,7 +72,7 @@ class AmEntityController extends AmController
         $entity = $this->getEntity();
         if (!$entity->canUpdate()) {
             $this->setEntityFlash('error', 'Unable to update {name}.');
-            $this->redirect($this->getParentUrl());
+            $this->redirectParent();
         }
         
         if ($this->getPost('restore')) {
@@ -79,7 +87,7 @@ class AmEntityController extends AmController
             
             if ($entity->save()) {
                 $this->setEntityFlash('success', '{name} has been updated.');
-                $this->redirect($this->getParentUrl());
+                $this->redirectParent();
             } else {
                 $this->setEntityFlash('error', 'Unable to update. Incorrect input.');
             }
@@ -91,12 +99,39 @@ class AmEntityController extends AmController
     }
     
     /**
+     * @param string $id 
+     */
+    public function actionActivate($id)
+    {
+        if ($this->getEntity()->activate()) {
+            $this->setEntityFlash('success', '{name} has been activated.');
+            $this->redirect(array('update', 'id' => $id));
+        } else {
+            $this->setEntityFlash('error', 'Unable to activate {name}.');
+            $this->redirectParent();
+        }
+    }
+    
+    /**
+     * @param string $id 
+     */
+    public function actionDeactivate($id)
+    {
+        if ($this->getEntity()->deactivate()) {
+            $this->setEntityFlash('success', '{name} has been deactivated.');
+        } else {
+            $this->setEntityFlash('error', 'Unable to deactivate {name}.');
+        }
+        $this->redirectParent();
+    }
+    
+    /**
      * Gets a url for the parent of current entity.
      * @return array
      */
-    protected function getParentUrl()
+    protected function redirectParent()
     {
-        return $this->getEntityUrl($this->getEntity()->getParent());
+        $this->redirect($this->getEntityUrl($this->getEntity()->getParent()));
     }
     
     /**
@@ -116,33 +151,6 @@ class AmEntityController extends AmController
             $url = array('view', 'id' => $entity->getId());
         }
         return $url;
-    }
-    
-    /**
-     * @param string $id 
-     */
-    public function actionActivate($id)
-    {
-        if ($this->getEntity()->activate()) {
-            $this->setEntityFlash('success', '{name} has been activated.');
-            $this->redirect(array('update', 'id' => $id));
-        } else {
-            $this->setEntityFlash('error', 'Unable to activate {name}.');
-            $this->redirect($this->getParentUrl($this->getEntity()));
-        }
-    }
-    
-    /**
-     * @param string $id 
-     */
-    public function actionDeactivate($id)
-    {
-        if ($this->getEntity()->deactivate()) {
-            $this->setEntityFlash('success', '{name} has been deactivated.');
-        } else {
-            $this->setEntityFlash('error', 'Unable to deactivate {name}.');
-        }
-        $this->redirect($this->getParentUrl());
     }
     
     /**
