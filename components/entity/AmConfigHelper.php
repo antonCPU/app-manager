@@ -158,7 +158,7 @@ class AmConfigHelper extends CComponent
      * @return bool
      */
     public function isEmpty()
-    {
+    { 
         return !$this->get()->count();
     }
     
@@ -188,7 +188,7 @@ class AmConfigHelper extends CComponent
      */
     protected function load($name, $create = true)
     {
-        $config  = $this->loadSection();
+        $config  = $this->loadSection(); 
         $current = $config->itemAt($name);
         if (null === $current) {
             if (!$this->normalizeConfig($config, $name)) {
@@ -235,6 +235,9 @@ class AmConfigHelper extends CComponent
             $section = $this->loadSection();
             $section->remove($default);
             foreach ($section as $name => $value) {
+                if (!is_array($value)) {
+                    continue;
+                }
                 $fullClass = $this->getEntity()->getFullClassName();
                 if (isset($value['class']) 
                     && (false !== strpos($fullClass, $value['class']))) {
