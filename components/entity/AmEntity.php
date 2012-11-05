@@ -271,7 +271,9 @@ class AmEntity extends AmModel
     {
         $id = $this->getId();
         $tmp = explode('.', $id);
-        return lcfirst(array_pop($tmp));
+        $name = array_pop($tmp);
+        $name[0] = strtolower($name[0]);
+        return $name;
     }
     
     /**
