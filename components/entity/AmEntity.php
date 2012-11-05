@@ -69,8 +69,10 @@ class AmEntity extends AmModel
     {
         if(isset($this->_attributes[$name])) {
 			return $this->_attributes[$name];
-        } elseif (property_exists($this->getParser(), $name)) {
-            return $this->_attributes[$name] = $this->getParser()->$name;
+        }
+        $method = 'get' . ucfirst($name);
+        if (method_exists($this->getParser(), $method)) {
+            return $this->_attributes[$name] = $this->getParser()->$method();
         } 
         return parent::__get($name);
     }
