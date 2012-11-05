@@ -52,7 +52,7 @@ class AmProperty extends CComponent
                 || ($tag = $doc->getTag('property'))
             ) {
                 $type = $tag->getDescription();
-                if ($filtered = strstr($type, ' ', true)) {
+                if ($filtered = substr($type, 0, strpos($type, ' '))) {
                     $type = $filtered;
                 }
             }
