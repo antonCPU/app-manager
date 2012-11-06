@@ -36,6 +36,10 @@ class AmEntity extends AmModel
      */
     protected $name;
     /**
+     * @var string
+     */
+    protected $defaultName;
+    /**
      * @var string Yii alias to the entity class.
      */
     protected $fullClassName;
@@ -271,11 +275,24 @@ class AmEntity extends AmModel
      */
     public function getDefaultName()
     {
-        $id = $this->getId();
-        $tmp = explode('.', $id);
-        $name = array_pop($tmp);
-        $name[0] = strtolower($name[0]);
-        return $name;
+        if (null === $this->defaultName) {
+            $id = $this->getId();
+            $tmp = explode('.', $id);
+            $name = array_pop($tmp);
+            $name[0] = strtolower($name[0]);
+            $this->defaultName = $name;
+        }
+        return $this->defaultName;
+    }
+    
+    /**
+     * @param string $name
+     * @return AmEntity
+     */
+    public function setDefaultName($name)
+    {
+        $this->defaultName = $name;
+        return $this;
     }
     
     /**

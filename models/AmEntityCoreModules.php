@@ -27,7 +27,7 @@ class AmEntityCoreModules extends AmEntityModules
     protected function createChild($id, $name = null)
     {
         $entity = parent::createChild($id);
-        $entity->setName($name);
+        $entity->setDefaultName($name);
         $entity->setFullClassName($this->getParent()->getId() . '.' . $id);
         return $entity;
     }

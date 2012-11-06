@@ -4,11 +4,11 @@ class AmEntityCoreComponents extends AmEntityComponents
 {
     public function getChild($id)
     { 
-        $components = $this->scan();
-        if (false === array_search($id, $components)) { 
+        $name = array_search($id, $this->scan());
+        if (false === $name) { 
             return null;
         }
-        return $this->createChild($id);
+        return $this->createChild($id, $name);
     }
 
     protected function scan()
@@ -45,7 +45,7 @@ class AmEntityCoreComponents extends AmEntityComponents
     protected function createChild($id, $name = null)
     {
         $entity = parent::createChild($id);
-        $entity->setName($name);
+        $entity->setDefaultName($name);
         $entity->setFullClassName($this->getParent()->getId() . '.' . $id);
         return $entity;
     }
