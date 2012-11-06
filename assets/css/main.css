@@ -239,7 +239,7 @@ code {white-space: pre;}
 .code {white-space: pre;}
 .view-title {height: 2.3em;}
 .view-title h1 {float: left; margin: 0 10px;}
-.view-title ul {list-style-type: none; line-height: 2;}
+.view-title ul {list-style-type: none; line-height: 2; margin:0;}
 .view-title li {float: left; margin-right: 5px;}
 .form legend {font-size: 1.4em; padding: 0 2px;}
 
