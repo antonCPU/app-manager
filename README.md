@@ -38,3 +38,9 @@ Actions that can be performed with components:
 
 **NOTICE**: it's recommended to backup the original config before performing any of
 mentioned actions.
+
+##Resources
+
+* [Demo](http://am.net63.net/)
+* [Yii extensions](http://www.yiiframework.com/extension/app-manager/)
+* [Yii forum](http://www.yiiframework.com/forum/index.php/topic/37209-module-app-manager/)
