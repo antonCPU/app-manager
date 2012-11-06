@@ -54,6 +54,14 @@
       
 	<div class="clear"></div>
 </div><!-- page -->
-
+<?php
+Yii::app()->clientScript->registerScript('appManager-confirm', '
+    $(".confirm").click(function() {
+        if (!confirm("' . AppManagerModule::t('Are you sure?') . '")) {
+            return false;
+        }
+    });
+');
+?>
 </body>
 </html>

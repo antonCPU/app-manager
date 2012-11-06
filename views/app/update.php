@@ -1,4 +1,21 @@
-<h1><?php echo $entity->title; ?></h1>
+<div class="view-title">
+    <h1><?php echo $entity->title; ?></h1>
+    <?php $this->widget('zii.widgets.CMenu',array(
+            'items'=>array(
+                array(
+                    'label'  => AppManagerModule::t('View'), 
+                    'url'    => array('view', 'id' => $entity->id), 
+                    'visible' => $entity->canView(),
+                ),
+                array(
+                    'label'  => AppManagerModule::t('Deactivate'), 
+                    'url'    => array('deactivate', 'id' => $entity->id), 
+                    'visible' => $entity->canDeactivate(),
+                    'itemOptions' => array('class' => 'confirm'),
+                ),
+            )
+    )); ?>
+</div>
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'settings-form',
@@ -29,10 +46,8 @@
             <?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
             <?php if ($entity->canRestore()): ?>
                 <?php echo CHtml::submitButton(AppManagerModule::t('Restore'), array(
-                    'name' => 'restore',
-                    'onclick' => 'if(!confirm(' 
-                                 . CJavaScript::encode(AppManagerModule::t('Are you sure?'))
-                                 . ')) return false;',
+                    'name'  => 'restore',
+                    'class' => 'confirm',
                 )); ?>
             <?php endif; ?>
         </div>

@@ -1,12 +1,3 @@
-<?php
-Yii::app()->clientScript->registerScript('appManager-view', '
-    $(".confirm").click(function(){
-        if (!confirm("' . AppManagerModule::t('Are you sure?') . '")) {
-            return false;
-        }
-    });
-');
-?>
 <div class="view-title">
     <h1><?php echo $entity->title; ?></h1>
     <?php $this->widget('zii.widgets.CMenu',array(
