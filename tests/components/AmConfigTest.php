@@ -41,14 +41,12 @@ class AmConfigTest extends CTestCase
             return;
         }
         
+        $isCaught = false;
         try {
             $this->config->save();
-        } catch (CException $e) {
-            chmod($file, 0775);
-            return;
-        } 
-        chmod($file, 0775);
-        $this->fail('Expected exception CException.');
+            $this->fail('Expected exception CException.');
+        } catch (CException $e) {}
+        chmod($file, 0775);     
     }
     
     public function testSaveIfWritable()
