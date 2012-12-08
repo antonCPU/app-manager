@@ -41,6 +41,6 @@ mentioned actions.
 
 ##Resources
 
-* [Demo](http://am.net63.net/)
+* [Demo](http://app-manager.eu5.org/)
 * [Yii extensions](http://www.yiiframework.com/extension/app-manager/)
 * [Yii forum](http://www.yiiframework.com/forum/index.php/topic/37209-module-app-manager/)
