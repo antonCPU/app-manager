@@ -6,7 +6,6 @@ class AmConfigTest extends CTestCase
 {   
     protected $config;
     protected $file;
-    protected $source;
     
     public function setUp()
     {
