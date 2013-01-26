@@ -3,7 +3,7 @@
 abstract class AmClassPropertyTestCase extends CTestCase
 {
     protected $class;
-    protected $type;
+    protected $name;
     
     public function setUp()
     {
@@ -17,28 +17,28 @@ abstract class AmClassPropertyTestCase extends CTestCase
     
     public function testName()
     {
-        $property = $this->getProperty($this->type);
-        $this->assertEquals($this->type, $property->getName());
+        $property = $this->getProperty();
+        $this->assertEquals($this->name, $property->getName());
     }
    
     public function testEmptyValue()
     {
-        $this->assertEmpty($this->getProperty($this->type)->getValue());
+        $this->assertEmpty($this->getProperty()->getValue());
     }
      
     public function testEmptyType()
     {
-        $this->assertEmpty($this->getProperty($this->type)->getType());
+        $this->assertEmpty($this->getProperty()->getType());
     }
     
     public function testSingleType()
     {
-        $this->assertEquals(AmClassProperty::TYPE_STRING, $this->getProperty($this->type . 'String')->getType());
+        $this->assertEquals(AmClassProperty::TYPE_STRING, $this->getProperty('string')->getType());
     }
    
     public function testMixedIfSeveralTypes()
     {
-        $this->assertEquals(AmClassProperty::TYPE_MIXED, $this->getProperty($this->type . 'Multi')->getType());
+        $this->assertEquals(AmClassProperty::TYPE_MIXED, $this->getProperty('multi')->getType());
     }
     
     public function testTypes()
@@ -48,13 +48,13 @@ abstract class AmClassPropertyTestCase extends CTestCase
             AmClassProperty::TYPE_BOOLEAN,
             AmClassProperty::TYPE_INTEGER,
         );
-        $this->assertEquals($types, $this->getProperty($this->type . 'Multi')->getTypes());
+        $this->assertEquals($types, $this->getProperty('multi')->getTypes());
     }
     
     public function testDescription()
     {
         $description = 'Some description';
-        $this->assertEquals($description, $this->getProperty($this->type . 'Description')->getDescription());
+        $this->assertEquals($description, $this->getProperty('description')->getDescription());
     }
     
     /**

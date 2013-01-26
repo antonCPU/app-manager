@@ -34,28 +34,34 @@ class AmClassInfoSource extends CComponent
      */
     public $propertyDescription;
     
-    public function setMethod($value)
-    {
-    }
+    public function setMethod($value) {}
     
     /**
      * @param string $value
      */
-    public function setMethodString($value)
-    {
-    }
+    public function setMethodString($value) {}
     
     /**
      * @param string|bool|int $value
      */
-    public function setMethodMulti($value)
-    {
-    }
+    public function setMethodMulti($value) {}
     
     /**
      * @param string $value some description
      */
-    public function setMethodDescription($value)
-    {
-    }
+    public function setMethodDescription($value) {}
+    
+    /**
+     * Top level description
+     * @param string $value
+     */
+    public function setMethodTopDescription($value) {}
+    
+    /**
+     * Top level description.
+     * @param string $value param description
+     * @since 1.0
+     * @see AmClassInfoSource::setMethod()
+     */
+    public function setMethodFullDescription($value) {}
 }
