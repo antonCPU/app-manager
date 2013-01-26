@@ -1,6 +1,6 @@
 <?php
-require_once 'Zend/Reflection/Docblock/Tag/Param.php';
 Yii::import('appManager.components.parser.property.AmClassProperty');
+require_once 'Zend/Reflection/Docblock/Tag/Param.php';
 
 /**
  * Handles properties that have setters.
