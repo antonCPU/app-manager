@@ -52,7 +52,7 @@ class AmSearchEntity extends CComponent
      */
     protected static function checkParent($file)
     {
-        $parser = new AmParser($file);
+        $parser = new AmClassInfo($file);
         
         if ($include = self::$entity->getBaseClass()) {
             if (!$parser->isSubclassOf($include)) {

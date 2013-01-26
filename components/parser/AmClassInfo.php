@@ -3,14 +3,18 @@
  * Gets information about class details.
  * Facade to Zend_Reflection library.
  */
-class AmParser extends CComponent
+class AmClassInfo extends CComponent
 {
     /**
-     * @var string full description.
+     * @var string the class name. 
+     */
+    protected $name;
+    /**
+     * @var string a full description.
      */
     protected $description;
     /**
-     * @var string short description.
+     * @var string a short description.
      */
     protected $summary;
     /**
@@ -29,10 +33,6 @@ class AmParser extends CComponent
      * @var string full path to file.
      */
     protected $fileName;
-    /**
-     * @var string current class. 
-     */
-    protected $className;
     
     /**
      * @var Zend_Reflection_File
@@ -52,8 +52,7 @@ class AmParser extends CComponent
     private $_classDoc;
     
     /**
-     * @param string $fileName 
-     * @see AppManagerParser::$fileName
+     * @param string $fileName
      */
     public function __construct($fileName)
     {
@@ -62,10 +61,13 @@ class AmParser extends CComponent
     
     /**
      * @param string $fileName
-     * @return AppManagerParser 
+     * @return AmClassInfo 
      */
-    public function setFileName($fileName)
+    protected function setFileName($fileName)
     {
+        if (!is_file($fileName)) {
+            throw new AmClassInfoException('File "' . $fileName . '" does not exist');
+        }
         $this->fileName = $fileName;
         return $this;
     }
@@ -81,12 +83,12 @@ class AmParser extends CComponent
     /**
      * @return string 
      */
-    public function getClassName()
+    public function getName()
     {
-        if (null === $this->className) {
-            $this->className = basename($this->getFileName(), '.php');
+        if (null === $this->name) {
+            $this->name = basename($this->getFileName(), '.php');
         }
-        return $this->className;
+        return $this->name;
     }
     
     /**
@@ -256,7 +258,11 @@ class AmParser extends CComponent
     protected function loadClass()
     {
         $classes = $this->getFile()->getClasses();
-        return isset($classes[0]) ? $classes[0] : null;
+        
+        if (!isset($classes[0])) {
+            throw new AmClassInfoException('The file has no classes');
+        }
+        return $classes[0];
     }
     
     /**
@@ -289,3 +295,5 @@ class AmParser extends CComponent
         return null;
     }
 }
+
+class AmClassInfoException extends CException {};

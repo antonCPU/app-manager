@@ -152,7 +152,7 @@ class AmOptions extends AmModel
     }
     
     /**
-     * @return AmParser
+     * @return AmClassInfo
      */
     protected function getParser()
     {

@@ -11,7 +11,7 @@
  * @property string $link
  * @property string $fileName
  * @property string $className
- * @see AmParser
+ * @see AmClassInfo
  */
 class AmEntity extends AmModel
 {
@@ -53,7 +53,7 @@ class AmEntity extends AmModel
      */
     private $_fileName;
     /**
-     * @var AmParser 
+     * @var AmClassInfo 
      */
     private $_parser;
     /**
@@ -418,7 +418,10 @@ class AmEntity extends AmModel
      */
     protected function resolveFileName()
     {
-        return Yii::getPathOfAlias($this->getFullClassName()) . '.php';
+        if ($path = $this->getFullClassName()) {
+            return Yii::getPathOfAlias($path) . '.php';
+        }
+        return null;
     }
     
     /**
@@ -445,14 +448,24 @@ class AmEntity extends AmModel
     
     /**
      * Gets a parser for the class attributes.
-     * @return AppManagerParser 
+     * @return AmClassInfo 
      */
     public function getParser()
     { 
         if (null === $this->_parser) {
-            $this->_parser = new AmParser($this->getFileName());
+            if ($file = $this->getFileName()) {
+                $this->_parser = new AmClassInfo($file);
+            }
         }
         return $this->_parser;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getClassName()
+    {
+        return $this->getParser()->getName();
     }
     
     /**
