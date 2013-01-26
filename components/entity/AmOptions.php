@@ -154,9 +154,9 @@ class AmOptions extends AmModel
     /**
      * @return AmClassInfo
      */
-    protected function getParser()
+    protected function getClassInfo()
     {
-        return $this->getEntity()->getParser();
+        return $this->getEntity()->getClassInfo();
     }
     
     /**
@@ -181,7 +181,7 @@ class AmOptions extends AmModel
      */
     protected function parseOptions()
     {
-        $properties = $this->getParser()->getProperties();
+        $properties = $this->getClassInfo()->getProperties();
         $options = array();
         $exclude = $this->getExclude();
         foreach ($properties as $property) {

@@ -55,7 +55,7 @@ class AmEntity extends AmModel
     /**
      * @var AmClassInfo 
      */
-    private $_parser;
+    private $_classInfo;
     /**
      * @var array class attributes that were parsed. 
      */
@@ -75,8 +75,8 @@ class AmEntity extends AmModel
 			return $this->_attributes[$name];
         }
         $method = 'get' . ucfirst($name);
-        if (method_exists($this->getParser(), $method)) {
-            return $this->_attributes[$name] = $this->getParser()->$method();
+        if (method_exists($this->getClassInfo(), $method)) {
+            return $this->_attributes[$name] = $this->getClassInfo()->$method();
         } 
         return parent::__get($name);
     }
@@ -450,14 +450,14 @@ class AmEntity extends AmModel
      * Gets a parser for the class attributes.
      * @return AmClassInfo 
      */
-    public function getParser()
+    public function getClassInfo()
     { 
-        if (null === $this->_parser) {
+        if (null === $this->_classInfo) {
             if ($file = $this->getFileName()) {
-                $this->_parser = new AmClassInfo($file);
+                $this->_classInfo = new AmClassInfo($file);
             }
         }
-        return $this->_parser;
+        return $this->_classInfo;
     }
     
     /**
@@ -465,7 +465,7 @@ class AmEntity extends AmModel
      */
     public function getClassName()
     {
-        return $this->getParser()->getName();
+        return $this->getClassInfo()->getName();
     }
     
     /**
