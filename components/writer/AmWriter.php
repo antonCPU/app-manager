@@ -5,34 +5,23 @@
 class AmWriter extends CComponent
 {
     /**
-     * @var AppManagerConfig 
+     * @var AmConfig 
      */
-    protected $settings;
+    protected $config;
     
     /**
-     * @param AppManagerConfig $settings 
+     * @var string
      */
-    public function __construct($settings)
-    {
-        $this->setSettings($settings);
-    }
+    public $indent = '    ';
     
     /**
-     * @param AppManagerConfig $settings 
+     * @param AmConfig $config 
      */
-    public function setSettings($settings)
+    public function __construct($config)
     {
-        $this->settings = $settings;
+        $this->config = $config;
     }
-    
-    /**
-     * @return AppManagerConfig 
-     */
-    public function getSettings()
-    {
-        return $this->settings;
-    }
-    
+
     /**
      * Generates content for the config file.
      * @return string 
@@ -50,19 +39,27 @@ class AmWriter extends CComponent
      * Returns generated content.
      * PHP magic method. 
      * @return string
-     * @see AppManagerWriter::getContent() 
+     * @see AmWriter::getContent() 
      */
     public function __toString()
     {
         return (string)$this->getContent();
     }
-        
+
+    /**
+     * @return AmConfig 
+     */
+    protected function getConfig()
+    {
+        return $this->config;
+    }
+     
     /**
      * Renders options list.
      * @param mixed $options
      * @param int   $level current level in the config tree. 
      */
-    public function renderOptions($options, $level = 0)
+    protected function renderOptions($options, $level = 0)
     { 
         if (!is_array($options) && !is_object($options)) {
             if (null === $options) {
@@ -79,15 +76,15 @@ class AmWriter extends CComponent
     /**
      * @param int $level 
      */
-    public function renderIndent($level)
+    protected function renderIndent($level)
     {
-        echo str_repeat('    ', $level);
+        echo str_repeat($this->indent, $level);
     }
     
     /**
      * Renders content for the header block.
      */
-    public function renderHeader()
+    protected function renderHeader()
     {
         include $this->getTemplate('header');
     }
@@ -108,7 +105,7 @@ class AmWriter extends CComponent
      */
     protected function getConfigDir()
     {
-        return dirname($this->getSettings()->getLocation());
+        return dirname($this->getConfig()->getLocation());
     }
     
     /**
