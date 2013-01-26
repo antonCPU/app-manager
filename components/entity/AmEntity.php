@@ -75,7 +75,9 @@ class AmEntity extends AmModel
 			return $this->_attributes[$name];
         }
         $method = 'get' . ucfirst($name);
-        if (method_exists($this->getClassInfo(), $method)) {
+        if (method_exists($this, $method)) {
+            return $this->_attributes[$name] = $this->$method();
+        } elseif (method_exists($this->getClassInfo(), $method)) {
             return $this->_attributes[$name] = $this->getClassInfo()->$method();
         } 
         return parent::__get($name);
