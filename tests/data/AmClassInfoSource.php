@@ -19,5 +19,43 @@
  */
 class AmClassInfoSource extends CComponent
 {
+    public $property;
+    /**
+     * @var string 
+     */
+    public $propertyString = 'string default';
+    public $propertyInt    = 10;
+    /**
+     * @var string|bool|int 
+     */
+    public $propertyMulti;
+    /**
+     * @var int some description
+     */
+    public $propertyDescription;
     
+    public function setMethod($value)
+    {
+    }
+    
+    /**
+     * @param string $value
+     */
+    public function setMethodString($value)
+    {
+    }
+    
+    /**
+     * @param string|bool|int $value
+     */
+    public function setMethodMulti($value)
+    {
+    }
+    
+    /**
+     * @param string $value some description
+     */
+    public function setMethodDescription($value)
+    {
+    }
 }
