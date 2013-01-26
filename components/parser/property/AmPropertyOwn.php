@@ -1,5 +1,6 @@
 <?php
 Yii::import('appManager.components.parser.property.AmClassProperty');
+require_once 'Zend/Reflection/Docblock/Tag/Return.php';
 
 /**
  * Handles own class properties.
