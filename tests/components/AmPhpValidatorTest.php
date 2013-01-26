@@ -40,7 +40,6 @@ class AmPhpValidatorTest extends CTestCase
             array('array("test"=>"ok")', true),
         );
     }
-    
 }
 
 class ModelMock extends CFormModel
