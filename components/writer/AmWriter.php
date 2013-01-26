@@ -12,7 +12,7 @@ class AmWriter extends CComponent
     /**
      * @var string
      */
-    public $indent = '    ';
+    protected $indent = '    ';
     
     /**
      * @param AmConfig $config 
@@ -44,6 +44,16 @@ class AmWriter extends CComponent
     public function __toString()
     {
         return (string)$this->getContent();
+    }
+    
+    /**
+     * @param string $indent
+     * @return AmWriter
+     */
+    public function setIndent($indent)
+    {
+        $this->indent = $indent;
+        return $this;
     }
 
     /**
