@@ -426,7 +426,7 @@ class AmEntity extends AmModel
     
     /**
      * Gets attributes for editing.
-     * @return AppManagerOptions 
+     * @return AmOptions 
      */
     public function getOptions() 
     { 

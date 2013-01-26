@@ -22,8 +22,7 @@ class AmNode extends CConfiguration
     /**
      * Gets an item using path.
      * @param string $path keys separated with '.'.
-     * @return mixed will be the last item that could be get using 
-     *               AppManagerNode::itemAt().
+     * @return mixed will be the last item that could be get using AmNode::itemAt().
      */
     public function itemAtPath($path)
     {

@@ -163,7 +163,7 @@ class AmClassInfo extends CComponent
     /**
      * Gets public class properties.
      * Also non public properties if they have related "set" magic method.
-     * @return AppManagerProperty 
+     * @return AmProperty 
      */
     public function getProperties()
     {

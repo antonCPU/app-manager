@@ -244,7 +244,7 @@ class AmEntityController extends AmController
      * Sets a flash message related to the entity.
      * @param string $flashType
      * @param string $message 
-     * @see AppManagerController::setFlash() for flash types.
+     * @see AmController::setFlash() for flash types.
      */
     protected function setEntityFlash($flashType, $message)
     {
