@@ -1,4 +1,6 @@
 <?php
+Yii::import('appManager.components.parser.property.AmClassProperty');
+
 /**
  * Handles own class properties.
  */

@@ -1,5 +1,5 @@
 <?php
-Yii::import('appManager.components.parser.properties.AmPropertyOwn');
+Yii::import('appManager.components.parser.property.AmPropertyOwn');
 Yii::import('appManager.tests.components.parser.AmClassPropertyTestCase');
 
 class AmPropertyOwnTest extends AmClassPropertyTestCase

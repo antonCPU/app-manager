@@ -1,5 +1,6 @@
 <?php
 require_once 'Zend/Reflection/Docblock/Tag/Param.php';
+Yii::import('appManager.components.parser.property.AmClassProperty');
 
 /**
  * Handles properties that have setters.
@@ -45,7 +46,6 @@ class AmPropertyMagic extends AmClassProperty
         $desc = null;
         try {
             if ($doc = $this->getReflector()->getDocblock()) {
-                return $doc->getTag('param')->getDescription();
                 $pattern = '/@param \b[\w\|]+\b \$[\w]+\b/';
                 $desc = $this->parseDescription($pattern, $doc->getContents());
             }
