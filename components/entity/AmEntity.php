@@ -349,6 +349,18 @@ class AmEntity extends AmModel
         return $this;
     }
     
+    /**
+     * @return string
+     */
+    public function getClassName()
+    {
+        return $this->getClassInfo()->getName();
+    }
+    
+    /**
+     * Checks whether the entity has a proper structure.
+     * @return boolean
+     */
     public function isCorrect()
     {
         return (bool)$this->getFullClassName();
@@ -460,14 +472,6 @@ class AmEntity extends AmModel
             }
         }
         return $this->_classInfo;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getClassName()
-    {
-        return $this->getClassInfo()->getName();
     }
     
     /**
