@@ -1,8 +1,8 @@
 <?php
 Yii::import('appManager.components.parser.property.AmPropertyMagic');
-Yii::import('appManager.tests.components.parser.property.AmClassPropertyTestCase');
+Yii::import('appManager.tests.components.parser.property.AmPropertyTestCase');
 
-class AmPropertyMagicTest extends AmClassPropertyTestCase
+class AmPropertyMagicTest extends AmPropertyTestCase
 {
     protected $name = 'method';
     

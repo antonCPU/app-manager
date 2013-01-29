@@ -2,7 +2,7 @@
 /**
  * Adapter that represents any class content as property.
  */
-abstract class AmClassProperty extends CComponent
+abstract class AmProperty extends CComponent
 {
     const TYPE_STRING   = 'string';
     const TYPE_INTEGER  = 'integer';

@@ -1,11 +1,11 @@
 <?php
-Yii::import('appManager.components.parser.property.AmClassProperty');
+Yii::import('appManager.components.parser.property.AmProperty');
 require_once 'Zend/Reflection/Docblock/Tag/Return.php';
 
 /**
  * Handles own class properties.
  */
-class AmPropertyOwn extends AmClassProperty
+class AmPropertyOwn extends AmProperty
 {
     public function __construct(Zend_Reflection_Class $class, Zend_Reflection_Property $reflector)
     {

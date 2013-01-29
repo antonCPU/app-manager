@@ -1,6 +1,6 @@
 <?php
 
-abstract class AmClassPropertyTestCase extends CTestCase
+abstract class AmPropertyTestCase extends CTestCase
 {
     protected $class;
     protected $name;
@@ -33,20 +33,20 @@ abstract class AmClassPropertyTestCase extends CTestCase
     
     public function testSingleType()
     {
-        $this->assertEquals(AmClassProperty::TYPE_STRING, $this->getProperty('string')->getType());
+        $this->assertEquals(AmProperty::TYPE_STRING, $this->getProperty('string')->getType());
     }
    
     public function testMixedIfSeveralTypes()
     {
-        $this->assertEquals(AmClassProperty::TYPE_MIXED, $this->getProperty('multi')->getType());
+        $this->assertEquals(AmProperty::TYPE_MIXED, $this->getProperty('multi')->getType());
     }
     
     public function testTypes()
     {
         $types = array(
-            AmClassProperty::TYPE_STRING, 
-            AmClassProperty::TYPE_BOOLEAN,
-            AmClassProperty::TYPE_INTEGER,
+            AmProperty::TYPE_STRING, 
+            AmProperty::TYPE_BOOLEAN,
+            AmProperty::TYPE_INTEGER,
         );
         $this->assertEquals($types, $this->getProperty('multi')->getTypes());
     }
