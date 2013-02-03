@@ -28,10 +28,6 @@ abstract class AmEntity extends AmModel
      */
     protected $title;
     /**
-     * @var AmOptions class properties with the config values. 
-     */
-    protected $options;
-    /**
      * @var string name as it appears in the config.
      */
     protected $name;
