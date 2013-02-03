@@ -15,11 +15,6 @@ class AmConfigBehavior extends CBehavior
         return (bool)$this->getConfig()->count();
     }
     
-    public function getIsActive()
-    {
-        return $this->isActive();
-    }
-    
     /**
      * @return boolean
      */
