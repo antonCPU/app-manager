@@ -44,23 +44,12 @@ class AmEntityApp extends AmEntityModule
     
     public function canUpdate()
     {
-        return $this->getConfig()->isWritable();
+        return $this->isWritable();
     }
     
     public function canView()
     {
         return false;
-    }
-    
-    public function save() 
-    {
-        if (!$this->canUpdate()) {
-            return false;
-        } 
-        if (!$this->getOptions()->updateConfig()) {
-            return false;
-        }
-        return $this->getConfig()->save();
     }
     
     public function getId()
@@ -82,11 +71,6 @@ class AmEntityApp extends AmEntityModule
     protected function resolvePath()
     {
         return Yii::getPathOfAlias('application');
-    }
-    
-    public function getConfig()
-    {
-        return AppManagerModule::config();
     }
     
     public function getExcludeOptions()

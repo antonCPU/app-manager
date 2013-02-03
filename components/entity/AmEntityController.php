@@ -83,9 +83,9 @@ class AmEntityController extends AmController
             }
         } elseif (Yii::app()->request->isPostRequest) {
             $entity->attributes = $this->getPost(get_class($entity));
-            $entity->options    = $this->getPost('AmOptions');
+            $entity->setOptions($this->getPost('AmOptions'));
             
-            if ($entity->save()) {
+            if ($entity->update()) {
                 $this->setEntityFlash('success', '{name} has been updated.');
                 $this->redirectParent();
             } else {

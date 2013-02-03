@@ -2,11 +2,16 @@
 
 class AmEntityComponent extends AmEntity
 {
-    public function getConfigSection()
+    public function behaviors()
     {
-        return 'components';
+        return array(
+            'config' => array(
+                'class'   => 'appManager.components.entity.AmConfigBehavior',
+                'section' => 'components',
+            )
+        );
     }
-    
+
     public function getBaseClass()
     {
         return 'IApplicationComponent';

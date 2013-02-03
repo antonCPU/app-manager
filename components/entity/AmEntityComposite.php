@@ -83,7 +83,7 @@ class AmEntityComposite extends AmEntity
     {
         $provider = parent::getChildrenProvider();
         $provider->sort = array(
-            'defaultOrder'=>'isActive DESC',
+            //'defaultOrder'=>'isActive DESC',
         );
         return $provider;
     }

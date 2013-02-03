@@ -2,6 +2,16 @@
 
 class AmEntityModule extends AmEntityComposite
 {
+    public function behaviors()
+    {
+        return array(
+            'config' => array(
+                'class'   => 'appManager.components.entity.AmConfigBehavior',
+                'section' => 'modules',
+            )
+        );
+    }
+    
     protected function createTitle()
     {
         return str_replace('Module', '', parent::createTitle());

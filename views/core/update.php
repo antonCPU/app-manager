@@ -24,7 +24,7 @@
 )); ?>
     <?php $this->widget('AmWidgets.optionsBlock.AmOptionsBlock', array(
         'form'      => $form,
-        'options'   => $entity->options,
+        'options'   => $entity->getOptions(),
         'title'     => null,
     )); ?>
     <?php if ($entity->canUpdate()): ?>

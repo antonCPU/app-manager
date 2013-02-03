@@ -2,8 +2,10 @@
 
 class AmConfigBehavior extends CBehavior
 {
+    public $section;
     protected $config;
     protected $name;
+    protected $options;
     
     /**
      * @return boolean
@@ -11,6 +13,11 @@ class AmConfigBehavior extends CBehavior
     public function isActive()
     {
         return (bool)$this->getConfig()->count();
+    }
+    
+    public function getIsActive()
+    {
+        return $this->isActive();
     }
     
     /**
@@ -138,7 +145,7 @@ class AmConfigBehavior extends CBehavior
     
     /**
      * Updates entity data.
-     * @return AmConfigHelper
+     * @return boolean
      */
     public function update()
     {
@@ -147,7 +154,10 @@ class AmConfigBehavior extends CBehavior
         }
         $this->updateName();
         $this->getConfig()->add('class', $this->getOwner()->getFullClassName());
-        return $this;
+        if (!$this->getOptions()->updateConfig()) {
+            return false;
+        }
+        return $this->save();
     }
     
     /**
@@ -190,8 +200,31 @@ class AmConfigBehavior extends CBehavior
      * @return AmNode
      */
     public function loadSection()
-    {
-        return AppManagerModule::config($this->getOwner()->getConfigSection());
+    { 
+        return AppManagerModule::config($this->section);
+    }
+    
+    /**
+     * Gets attributes for editing.
+     * @return AmOptions 
+     */
+    public function getOptions() 
+    { 
+        if (null === $this->options) {
+            $options = new AmOptions; 
+            $this->options = $options->setEntity($this->getOwner());
+
+        }
+        return $this->options;
+    }
+    
+    /**
+     * Sets options from input data.
+     * @param array $options 
+     */
+    public function setOptions($options)
+    { 
+        $this->getOptions()->attributes = $options;
     }
     
     /**
@@ -202,7 +235,7 @@ class AmConfigBehavior extends CBehavior
      */
     protected function load($name, $create = true)
     {
-        $config  = $this->loadSection(); 
+        $config  = $this->loadSection();
         $current = $config->itemAt($name);
         if (null === $current) {
             if (!$this->normalizeConfig($config, $name)) {

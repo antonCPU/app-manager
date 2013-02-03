@@ -60,10 +60,6 @@ abstract class AmEntity extends AmModel
      * @var array class attributes that were parsed. 
      */
     private $_attributes;
-    /**
-     * @var AmConfigHelper 
-     */
-    private $_configHelper;
     
     /**
      * @param string $name
@@ -124,58 +120,6 @@ abstract class AmEntity extends AmModel
     }
     
     /**
-     * Adds the entity to the config.
-     * @return bool 
-     */
-    public function activate() 
-    {
-        if (!$this->canActivate()) {
-            return false;
-        }
-        return $this->getConfigHelper()->activate();
-    }
-    
-    /**
-     * Removes from the config.
-     * @return bool 
-     */
-    public function deactivate() 
-    {
-        if (!$this->canDeactivate()) {
-            return false;
-        }
-        return $this->getConfigHelper()->deactivate();
-    }
-    
-    /**
-     * Saves the entity and all its options.
-     * @return bool 
-     */
-    public function save() 
-    {
-        if (!$this->canUpdate() || !$this->validate()) {
-            return false;
-        }
-        $helper  = $this->getConfigHelper()->update(); 
-        if (!$this->getOptions()->updateConfig()) {
-            return false;
-        }
-        return $helper->save();
-    }
-    
-    /**
-     * Restores options.
-     * @return bool
-     */
-    public function restore()
-    {
-        if (!$this->canRestore()) {
-            return false;
-        } 
-        return $this->getConfigHelper()->restore();
-    }
-    
-    /**
      * Validation rules.
      * @return array 
      */
@@ -184,47 +128,6 @@ abstract class AmEntity extends AmModel
         return array(
           array('name', 'required'),
         );
-    }
-    
-    /**
-     * @return bool 
-     */
-    public function getIsActive() 
-    { 
-        return !$this->getConfigHelper()->isEmpty();
-    }
-    
-    /**
-     * Determines if the entity can BE activated.
-     * @return bool
-     */
-    public function canActivate()
-    {
-        return (!$this->getIsActive() && $this->getConfigHelper()->isWritable());
-    }
-    
-    /**
-     * @return bool 
-     */
-    public function canDeactivate()
-    {
-        return $this->canUpdate();
-    }
-    
-    /**
-     * @return bool 
-     */
-    public function canUpdate()
-    {
-        return ($this->getIsActive() && $this->getConfigHelper()->isWritable());
-    }
-    
-    /**
-     * @return bool 
-     */
-    public function canRestore()
-    {
-        return ($this->canUpdate() && $this->getConfigHelper()->isChanged());
     }
     
     /**
@@ -250,28 +153,6 @@ abstract class AmEntity extends AmModel
     public function getPrimaryKey()
     {
         return $this->getId();
-    }
-    
-    /**
-     * Gets a name for the config file.
-     * @return string
-     */
-    public function getName()
-    {
-        if (null === $this->name) {
-            $this->name = $this->getConfigHelper()->getName();
-        }
-        return $this->name;
-    }
-    
-    /**
-     * @param string $name
-     * @return AmEntity
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
     }
     
     /**
@@ -442,28 +323,6 @@ abstract class AmEntity extends AmModel
     }
     
     /**
-     * Gets attributes for editing.
-     * @return AmOptions 
-     */
-    public function getOptions() 
-    { 
-        if (null === $this->options) {
-            $options = new AmOptions;
-            $this->options = $options->setEntity($this);
-        }
-        return $this->options;
-    }
-    
-    /**
-     * Sets options from input data.
-     * @param array $options 
-     */
-    public function setOptions($options)
-    { 
-        $this->getOptions()->attributes = $options;
-    }
-    
-    /**
      * Gets a parser for the class attributes.
      * @return AmClassInfo 
      */
@@ -476,37 +335,7 @@ abstract class AmEntity extends AmModel
         }
         return $this->_classInfo;
     }
-    
-    /**
-     * Gets a config manager.
-     * @return AmConfigHelper
-     */
-    protected function getConfigHelper()
-    {
-        if (null === $this->_configHelper) {
-            $this->_configHelper = new AmConfigHelper($this);
-        }
-        return $this->_configHelper;
-    }
-    
-    /**
-     * Gets the config.
-     * @return AmConfig
-     */
-    public function getConfig()
-    {
-        return $this->getConfigHelper()->get();
-    }
-    
-    /**
-     * Gets name of the config section.
-     * @return string|null 
-     */
-    public function getConfigSection()
-    {
-        return null;
-    }
-    
+
     /**
      * Finds a child.
      * @param string $id

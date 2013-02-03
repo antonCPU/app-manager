@@ -58,7 +58,7 @@
       ),
 ));?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-        'dataProvider' => $entity->options->provider,
+        'dataProvider' => $entity->getOptions()->provider,
         'template' => "<h3>". AppManagerModule::t('Options') . "</h3>{summary}\n{items}\n{pager}",
         'selectableRows' => 0,
         'columns' => array(

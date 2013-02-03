@@ -50,6 +50,11 @@ class AmConfigBehaviorTest extends CTestCase
         $this->entity->deactivate();
         $this->assertFalse($this->entity->isActive());
     }
+    
+    public function testOptions()
+    {
+        $this->assertNotEmpty($this->entity->getOptions());
+    }
 }
 
 class AmEntityMock extends CComponent
