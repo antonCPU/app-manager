@@ -32,7 +32,7 @@
                     <?php echo AppManagerModule::t('default'); ?>: 
                     <pre><?php echo $entity->getDefaultName(); ?></pre>
                 </div>
-                <?php echo $form->textField($entity,'name', array('class' => 'textfield')); ?>
+                <?php echo CHtml::textField('name', $entity->getName(), array('class' => 'textfield')); ?>
                 <?php echo $form->error($entity,'name'); ?>
             </div> 
         </fieldset>

@@ -82,7 +82,9 @@ class AmEntityController extends AmController
                 $this->setEntityFlash('error', 'Unable to restore {name}.');
             }
         } elseif (Yii::app()->request->isPostRequest) {
-            $entity->attributes = $this->getPost(get_class($entity));
+            if ($name = $this->getPost('name')) {
+                $entity->setName($name);
+            }
             $entity->setOptions($this->getPost('AmOptions'));
             
             if ($entity->update()) {

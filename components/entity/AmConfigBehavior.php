@@ -127,7 +127,7 @@ class AmConfigBehavior extends CBehavior
      * @param string $name
      * @return AmConfigBehavior
      */
-    protected function setName($name)
+    public function setName($name)
     {
         $this->name = $name;
         return $this;
