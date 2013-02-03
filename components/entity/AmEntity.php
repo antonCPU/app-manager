@@ -28,14 +28,8 @@ abstract class AmEntity extends AmModel
      */
     protected $title;
     /**
-     * @var string name as it appears in the config.
+     * @var string 
      */
-    protected $name;
-    /**
-     * @var string
-     */
-    protected $defaultName;
-
     protected $path;
     
     /**
@@ -113,42 +107,7 @@ abstract class AmEntity extends AmModel
     {
         return $this->getId();
     }
-    
-    /**
-     * Generates a name for the config file.
-     * @return string
-     */
-    public function getDefaultName()
-    {
-        if (null === $this->defaultName) {
-            $id = $this->getId();
-            $tmp = explode('.', $id);
-            $name = array_pop($tmp);
-            $name[0] = strtolower($name[0]);
-            $this->defaultName = $name;
-        }
-        return $this->defaultName;
-    }
-    
-    /**
-     * @param string $name
-     * @return AmEntity
-     */
-    public function setDefaultName($name)
-    {
-        $this->defaultName = $name;
-        return $this;
-    }
-    
-    /**
-     * Verifies if current name is a default.
-     * @return bool
-     */
-    public function getIsDefaultName()
-    {
-        return ($this->getName() === $this->getDefaultName());
-    }
-    
+
     /**
      * Gets well formatted title.
      * @return string

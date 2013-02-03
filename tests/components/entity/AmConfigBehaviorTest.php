@@ -61,9 +61,9 @@ class AmConfigBehaviorTest extends CTestCase
 
 class AmEntityConfigMock extends AmEntity
 {
-    public function getDefaultName()
+    public function getId()
     {
-        return 'mock';
+        return 'appManager.tests.data.app.components.AmAppComponentMock';
     }
     
     public function getFullClassName()

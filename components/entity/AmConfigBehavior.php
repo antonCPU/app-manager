@@ -3,8 +3,10 @@
 class AmConfigBehavior extends CBehavior
 {
     public $section;
+    
     protected $config;
     protected $name;
+    protected $defaultName;
     protected $options;
     
     /**
@@ -73,6 +75,42 @@ class AmConfigBehavior extends CBehavior
     {
         return $this->getConfig()->count() > 1;
     }
+    
+    /**
+     * Generates a name for the config file.
+     * @return string
+     */
+    public function getDefaultName()
+    {
+        if (null === $this->defaultName) {
+            $id = $this->getOwner()->getId();
+            $tmp = explode('.', $id);
+            $name = array_pop($tmp);
+            $name[0] = strtolower($name[0]);
+            $this->defaultName = $name;
+        }
+        return $this->defaultName;
+    }
+    
+    /**
+     * @param string $name
+     * @return AmEntity
+     */
+    public function setDefaultName($name)
+    {
+        $this->defaultName = $name;
+        return $this;
+    }
+    
+    /**
+     * Verifies if current name is a default.
+     * @return bool
+     */
+    public function isDefaultName()
+    {
+        return ($this->getName() === $this->getDefaultName());
+    }
+    
     
     /**
      * @return string
@@ -271,7 +309,7 @@ class AmConfigBehavior extends CBehavior
      */
     protected function resolveConfigName()
     {
-        $default = $this->getOwner()->getDefaultName();
+        $default = $this->getDefaultName();
         $config  = $this->load($default, false);
         if (!$config) {
             $section = $this->loadSection();

@@ -28,9 +28,9 @@
                 <?php echo $form->labelEx($entity,'name'); ?>
                 <div class="hint"><?php echo AppManagerModule::t('This name is used in the config.'); ?></div>
                 <div class="note">
-                    <?php if (!$entity->isDefaultName): ?><span>*</span><?php endif; ?>
+                    <?php if (!$entity->isDefaultName()): ?><span>*</span><?php endif; ?>
                     <?php echo AppManagerModule::t('default'); ?>: 
-                    <pre><?php echo $entity->defaultName; ?></pre>
+                    <pre><?php echo $entity->getDefaultName(); ?></pre>
                 </div>
                 <?php echo $form->textField($entity,'name', array('class' => 'textfield')); ?>
                 <?php echo $form->error($entity,'name'); ?>
