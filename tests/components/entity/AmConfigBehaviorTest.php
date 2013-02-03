@@ -41,14 +41,14 @@ class AmConfigBehaviorTest extends CTestCase
     
     public function testActivate()
     {
-        //$this->entity->activate();
+        $this->entity->activate();
         $this->assertTrue($this->entity->isActive());
     }
     
     public function testDeactivate()
     {
-        //$this->entity->deactivate();
-        //$this->assertFalse($this->entity->isActive());
+        $this->entity->deactivate();
+        $this->assertFalse($this->entity->isActive());
     }
 }
 
