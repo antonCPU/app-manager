@@ -53,7 +53,7 @@ class AmPropertyMagic extends AmProperty
                 if ($doc->hasTag('param')) {
                     $matches = array();
                     preg_match('#(@param.*?)(\n)(?:@|\r?\n|$)#s', $doc->getContents(), $matches);
-                    $pattern = '/@param \b[\w\|]+\b \$[\w]+\b/';
+                    $pattern = '/@param \b[\w\|]+\b(\s+)\$[\w]+\b/';
                     if ($param = $this->parseDescription($pattern, $matches[1])) {
                         $content[] = $param;
                     }
