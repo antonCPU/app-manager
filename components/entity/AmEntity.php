@@ -13,7 +13,7 @@
  * @property string $className
  * @see AmClassInfo
  */
-class AmEntity extends AmModel
+abstract class AmEntity extends AmModel
 {
     /**
      * @var string Yii alias to the entity file or directory.
@@ -98,7 +98,10 @@ class AmEntity extends AmModel
      */
     public function setId($id)
     {
-        $this->id = $this->getParent()->getId() . '.' . $id;
+        if ($parent = $this->getParent()) {
+            $id = $parent->getId() . '.' . $id;
+        }
+        $this->id = $id;
         return $this;
     }
     
