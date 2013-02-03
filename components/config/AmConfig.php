@@ -1,4 +1,6 @@
 <?php
+Yii::import('appManager.components.config.writer.*');
+        
 /**
  * Works with the Yii config.
  */
@@ -71,7 +73,6 @@ class AmConfig extends AmNode
      */
     protected function getWriter()
     {
-        Yii::import('appManager.components.writer.*');
         return new AmWriter($this);
     }
 }

@@ -1,6 +1,6 @@
 <?php
-Yii::import('appManager.components.AmConfig');
-Yii::import('appManager.components.writer.AmWriter');
+Yii::import('appManager.components.config.AmConfig');
+Yii::import('appManager.components.config.writer.AmWriter');
 
 class AmWriterTest extends CTestCase
 {

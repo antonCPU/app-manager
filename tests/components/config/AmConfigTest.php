@@ -1,6 +1,6 @@
 <?php
 
-Yii::import('appManager.components.AmConfig');
+Yii::import('appManager.components.config.AmConfig');
 
 class AmConfigTest extends CTestCase
 {   

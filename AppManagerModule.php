@@ -43,6 +43,7 @@ class AppManagerModule extends CWebModule
         $this->setImport(array(
             'appManager.models.*',
             'appManager.components.*',
+            'appManager.components.config.*',
             'appManager.components.parser.*',
             'appManager.components.entity.*',
         ));
