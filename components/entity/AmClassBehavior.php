@@ -108,7 +108,7 @@ class AmClassBehavior extends CBehavior
                     }
                 } 
             }
-        } elseif (self::checkParent($file)) {
+        } elseif ($this->checkParent($file)) {
             return $id;
         }
         return false;
