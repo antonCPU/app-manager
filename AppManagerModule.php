@@ -27,6 +27,7 @@ class AppManagerModule extends CWebModule
 {
     public $defaultController = 'app';
     public $layout = '/layouts/main';
+    public $configLocation;
     
     /**
      * @var AmConfig 
@@ -77,7 +78,7 @@ class AppManagerModule extends CWebModule
      */
     public static function getInstance()
     {
-        return Yii::app()->controller->module;
+        return Yii::app()->getModule('appManager');
     }
 
     /**
@@ -97,7 +98,10 @@ class AppManagerModule extends CWebModule
      */
     public function getConfigLocation()
     {
-        return Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config/main.php';
+        if (!$this->configLocation) {
+            $this->configLocation = 'config/main.php';
+        }
+        return Yii::app()->basePath . '/' . $this->configLocation;
     }
 
     /**
