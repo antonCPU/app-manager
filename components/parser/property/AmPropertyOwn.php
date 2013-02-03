@@ -56,8 +56,21 @@ class AmPropertyOwn extends AmProperty
     {
         $desc = null;
         if ($doc = $this->getReflector()->getDocComment()) {
-            $pattern = '/(@var \b[\w\|]+\b)|(@property \b[\w\|]+\b)/';
-            $desc = $this->parseDescription($pattern, $doc->getContents());
+            $content = array();
+            if ($short = $doc->getShortDescription()) {
+                $content[] = rtrim($short, '.') . '.';
+            }
+            $content[] = $doc->getLongDescription();
+           
+            if ($doc->hasTag('var') || $doc->hasTag('property')) {
+                $matches = array();
+                $pattern = '#(@var|@property)(\s+)(\b[\w\|]+\b)(.*?)(\n)(?:@|\r?\n|$)#s';
+                preg_match($pattern, $doc->getContents(), $matches);
+                if (isset($matches[4])) {
+                    $content[] = ucfirst(trim($matches[4]));
+                }
+            }
+            $desc = implode("\n", array_filter($content));
         } 
         return $desc;
     }

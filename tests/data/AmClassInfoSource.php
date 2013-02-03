@@ -30,9 +30,35 @@ class AmClassInfoSource extends CComponent
      */
     public $propertyMulti;
     /**
-     * @var int some description
+     * Short description
+     * @var int
      */
-    public $propertyDescription;
+    public $propertyShortDescription;
+    /**
+     * Short description
+     * 
+     * Long description.
+     * @var int
+     */
+    public $propertyLongDescription;
+    /**
+     * @var int var description.
+     */
+    public $propertyVarDescription;
+    /**
+     * @property int property description.
+     */
+    public $propertyPropertyDescription;
+    /**
+     * Short description
+     * 
+     * Long description.
+     * @var int|string var description.
+     * @since 1.0
+     * @see AmClassInfoSource::setMethod()
+     */
+    public $propertyFullDescription;
+    public $propertyEmptyDescription;
     
     public function setMethod($value) {}
     
@@ -45,11 +71,6 @@ class AmClassInfoSource extends CComponent
      * @param string|bool|int $value
      */
     public function setMethodMulti($value) {}
-    
-    /**
-     * @param string $value some description
-     */
-    public function setMethodDescription($value) {}
     
     /**
      * Short description

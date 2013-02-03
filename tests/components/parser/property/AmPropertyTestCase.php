@@ -51,12 +51,6 @@ abstract class AmPropertyTestCase extends CTestCase
         $this->assertEquals($types, $this->getProperty('multi')->getTypes());
     }
     
-    public function testDescription()
-    {
-        $description = 'Some description';
-        $this->assertEquals($description, $this->getProperty('description')->getDescription());
-    }
-    
     /**
      * @param string $name
      * @return AmClassProperty
