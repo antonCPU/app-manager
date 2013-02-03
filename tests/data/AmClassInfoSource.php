@@ -52,16 +52,33 @@ class AmClassInfoSource extends CComponent
     public function setMethodDescription($value) {}
     
     /**
-     * Top level description
+     * Short description
      * @param string $value
      */
-    public function setMethodTopDescription($value) {}
+    public function setMethodShortDescription($value) {}
     
     /**
-     * Top level description.
-     * @param string $value param description
+     * Short description
+     * 
+     * Full description.
+     * @param string $value
+     */
+    public function setMethodLongDescription($value) {}
+    
+    /**
+     * @param string $value param description.
+     */
+    public function setMethodParamDescription($value) {}
+    
+    /**
+     * Short description.
+     * 
+     * Full description.
+     * @param string $value param description.
      * @since 1.0
      * @see AmClassInfoSource::setMethod()
      */
     public function setMethodFullDescription($value) {}
+    
+    public function setMethodEmptyDescription($value) {}
 }

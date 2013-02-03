@@ -46,8 +46,24 @@ class AmPropertyMagic extends AmProperty
         $desc = null;
         try {
             if ($doc = $this->getReflector()->getDocblock()) {
-                $pattern = '/@param \b[\w\|]+\b \$[\w]+\b/';
-                $desc = $this->parseDescription($pattern, $doc->getContents());
+                $content = array();
+                if ($long = $doc->getLongDescription()) {
+                    $content[] = $long;
+                }
+                if ($doc->hasTag('param')) {
+                    $matches = array();
+                    preg_match('#(@param.*?)(\n)(?:@|\r?\n|$)#s', $doc->getContents(), $matches);
+                    $pattern = '/@param \b[\w\|]+\b \$[\w]+\b/';
+                    if ($param = $this->parseDescription($pattern, $matches[1])) {
+                        $content[] = $param;
+                    }
+                }
+                if (!$content && $short = $doc->getShortDescription()) {
+                    $content[] = $short;
+                }
+                if ($content) {
+                    $desc = implode("\n", $content);
+                }
             }
         } catch (Exception $e) {};
         

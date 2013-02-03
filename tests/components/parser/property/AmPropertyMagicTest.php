@@ -6,16 +6,33 @@ class AmPropertyMagicTest extends AmPropertyTestCase
 {
     protected $name = 'method';
     
-    public function testDescriptionInMainSection()
+    public function testShortDescription()
     {
-        $description = 'Top level description';
-        $this->assertEquals($description, $this->getProperty('topDescription')->getDescription());
+        $description = 'Short description';
+        $this->assertEquals($description, $this->getProperty('shortDescription')->getDescription());
+    }
+    
+    public function testLongDescription()
+    {
+        $description = "Full description.";
+        $this->assertEquals($description, $this->getProperty('longDescription')->getDescription());
+    }
+    
+    public function testParamDescription()
+    {
+        $description = "Param description.";
+        $this->assertEquals($description, $this->getProperty('paramDescription')->getDescription());
     }
     
     public function testFullDescription()
     {
-        $description = 'Top level description. Param description';
+        $description = "Full description.\nParam description.";
         $this->assertEquals($description, $this->getProperty('fullDescription')->getDescription());
+    }
+    
+    public function testEmptyDescription()
+    {
+        $this->assertNull($this->getProperty('emptyDescription')->getDescription());
     }
             
     /**
