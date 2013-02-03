@@ -8,11 +8,11 @@
             'header' => AppManagerModule::t('Title'),
         ),
         array(
-            'name'   => 'name',
+            'value'   => '$data->getName()',
             'header' => AppManagerModule::t('Name'),
         ),
         array(
-            'name'   => 'summary',
+            'value'   => '$data->getAttribute("summary")',
             'header' => AppManagerModule::t('Description'),
         ),
         array(            

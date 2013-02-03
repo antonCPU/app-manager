@@ -8,12 +8,11 @@ class AmEntityComponent extends AmEntity
             'config' => array(
                 'class'   => 'appManager.components.entity.AmConfigBehavior',
                 'section' => 'components',
-            )
+            ),
+            'class' => array(
+                'class' => 'appManager.components.entity.AmClassBehavior',
+                'baseClass' => 'IApplicationComponent',
+            ),
         );
-    }
-
-    public function getBaseClass()
-    {
-        return 'IApplicationComponent';
     }
 }

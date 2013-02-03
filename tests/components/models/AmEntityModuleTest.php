@@ -7,18 +7,18 @@ class AmEntityComponentTest extends CTestCase
     
     public function setUp()
     {
-        $this->entity = new AmEntityComponent();
-        $this->entity->setId('appManager.tests.data.app.components.AmAppMockComponent');
+        $this->entity = new AmEntityModule();
+        $this->entity->setId('appManager.tests.data.app.modules.amAppMock');
     }
     
     public function testId()
     {
-        $this->assertEquals('appManager.tests.data.app.components.AmAppMockComponent', $this->entity->getId());
+        $this->assertEquals('appManager.tests.data.app.modules.amAppMock', $this->entity->getId());
     }
     
     public function testTitle()
     {
-        $this->assertEquals('AmAppMockComponent', $this->entity->getTitle());
+        $this->assertEquals('AmAppMock', $this->entity->getTitle());
     }
     
     public function testParent()
@@ -38,7 +38,7 @@ class AmEntityComponentTest extends CTestCase
     
     public function testName()
     {
-        $this->assertEquals('amAppMockComponent', $this->entity->getName());
+        $this->assertEquals('amAppMock', $this->entity->getName());
     }
     
     public function testActivate()

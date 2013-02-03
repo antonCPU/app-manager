@@ -7,8 +7,8 @@ class AmClassBehavior extends CBehavior
     
     protected $classInfo;
     protected $fileName;
-    protected $path;
     protected $fullClassName;
+    protected $attributes;
     
     /**
      * Checks whether the entity has a proper structure.
@@ -17,6 +17,37 @@ class AmClassBehavior extends CBehavior
     public function isCorrect()
     {
         return (bool)$this->getFullClassName();
+    }
+    
+    /**
+     * @param string $name
+     * <ul>
+     *  <li>'author'</li>
+     *  <li>'summary'</li>
+     *  <li>'description'</li>
+     *  <li>'version'</li>
+     *  <li>'link'</li>
+     * </li>
+     * @return null
+     */
+    public function getAttribute($name)
+    {
+        if (isset($this->attributes[$name])) {
+            return $this->attributes[$name];
+        }
+        $method = 'get' . ucfirst($name);
+        if (method_exists($this->getClassInfo(), $method)) {
+            return $this->attributes[$name] = $this->getClassInfo()->$method();
+        }
+        return null;
+    }
+    
+    /**
+     * @return AmProperty[]
+     */
+    public function getProperties()
+    {
+        return $this->getClassInfo()->getProperties();
     }
     
     /**
@@ -65,18 +96,6 @@ class AmClassBehavior extends CBehavior
         return null;
     }
     
-     /**
-     * Gets an absolute path to the source (file or directory).
-     * @return string 
-     */
-    public function getPath()
-    {
-        if (null === $this->path) {
-            $this->path = Yii::getPathOfAlias($this->getOwner()->getId());
-        }
-        return $this->path;
-    }
-    
     /**
      * Gets full Yii alias to the class.
      * @return string
@@ -89,6 +108,11 @@ class AmClassBehavior extends CBehavior
         return $this->fullClassName;
     }
     
+    public function setFullClassName($name)
+    {
+        $this->fullClassName = $name;
+    }
+    
     /**
      * Finds related to entity class.
      * @param AmEntity $entity
@@ -97,7 +121,7 @@ class AmClassBehavior extends CBehavior
     public function resolveFullClassName()
     {
         $id = $this->getOwner()->getId();
-        $file = $this->getPath() . '.php';
+        $file = $this->getOwner()->getPath() . '.php';
         if (!is_file($file)) {
             foreach ($this->searchPatterns as $rule) {
                 if ($files = $this->getByRule($rule)) {
@@ -121,7 +145,7 @@ class AmClassBehavior extends CBehavior
      */
     protected function getByRule($rule)
     {
-        return glob($this->getPath() . DIRECTORY_SEPARATOR . $rule);
+        return glob($this->getOwner()->getPath() . DIRECTORY_SEPARATOR . $rule);
     }
     
     /**

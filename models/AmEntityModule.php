@@ -8,7 +8,12 @@ class AmEntityModule extends AmEntityComposite
             'config' => array(
                 'class'   => 'appManager.components.entity.AmConfigBehavior',
                 'section' => 'modules',
-            )
+            ),
+            'class' => array(
+                'class' => 'appManager.components.entity.AmClassBehavior',
+                'searchPatterns' => array('*Module.php'),
+                'baseClass' => 'CModule',
+            ),
         );
     }
     
@@ -22,20 +27,5 @@ class AmEntityModule extends AmEntityComposite
         $entityClass = 'AmEntity' . ucfirst($id);
         $entity = new $entityClass;
         return $entity->setParent($this)->setId($id);
-    }
-    
-    public function getConfigSection()
-    {
-        return 'modules';
-    }
-    
-    public function getSearchPattern()
-    {
-        return array('*Module.php');
-    }
-    
-    public function getBaseClass()
-    {
-        return 'CModule';
     }
 }

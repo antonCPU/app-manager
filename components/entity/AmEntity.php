@@ -35,45 +35,8 @@ abstract class AmEntity extends AmModel
      * @var string
      */
     protected $defaultName;
-    /**
-     * @var string Yii alias to the entity class.
-     */
-    protected $fullClassName;
-    
-    /**
-     * @var string absolute path to the entity file or directory. 
-     */
-    private $_path;
-    /**
-     * @var string absolute path to the file. 
-     */
-    private $_fileName;
-    /**
-     * @var AmClassInfo 
-     */
-    private $_classInfo;
-    /**
-     * @var array class attributes that were parsed. 
-     */
-    private $_attributes;
-    
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        if(isset($this->_attributes[$name])) {
-			return $this->_attributes[$name];
-        }
-        $method = 'get' . ucfirst($name);
-        if (method_exists($this, $method)) {
-            return $this->_attributes[$name] = $this->$method();
-        } elseif (method_exists($this->getClassInfo(), $method)) {
-            return $this->_attributes[$name] = $this->getClassInfo()->$method();
-        } 
-        return parent::__get($name);
-    }
+
+    protected $path;
     
     /**
      * @return string 
@@ -197,6 +160,18 @@ abstract class AmEntity extends AmModel
         }
         return $this->title;
     }
+    
+    /**
+     * Gets an absolute path to the source (file or directory).
+     * @return string 
+     */
+    public function getPath()
+    {
+        if (null === $this->path) {
+            $this->path = Yii::getPathOfAlias($this->getId());
+        }
+        return $this->path;
+    }
   
     /**
      * Creates title from a related file.
@@ -205,131 +180,6 @@ abstract class AmEntity extends AmModel
     protected function createTitle()
     {
         return ucfirst(basename($this->getFileName(), '.php'));
-    }
-    
-    /**
-     * Gets full Yii alias to the class.
-     * @return string
-     */
-    public function getFullClassName()
-    {
-        if (null === $this->fullClassName) {
-            $this->fullClassName = $this->resolveFullClassName();
-        }
-        return $this->fullClassName;
-    }
-    
-    /**
-     * @param string $name
-     * @return AmEntity
-     */
-    public function setFullClassName($name)
-    {
-        $this->fullClassName = $name; 
-        return $this;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getClassName()
-    {
-        return $this->getClassInfo()->getName();
-    }
-    
-    /**
-     * Checks whether the entity has a proper structure.
-     * @return boolean
-     */
-    public function isCorrect()
-    {
-        return (bool)$this->getFullClassName();
-    }
-    
-    /**
-     * Finds a full Yii alias for the class.
-     * @return string
-     */
-    protected function resolveFullClassName()
-    {
-        return AmSearchEntity::resolve($this);
-    }
-    
-    /**
-     * Gets list of patterns for searching a file that contains entity.
-     * @return array
-     */
-    public function getSearchPattern()
-    {
-        return array('*.php');
-    }
-    
-    /**
-     * Gets entity base class.
-     * @return string|null
-     */
-    public function getBaseClass()
-    {
-        return null;
-    }
-    
-    /**
-     * Gets an absolute path to the source (file or directory).
-     * @return string 
-     */
-    public function getPath()
-    {
-        if (null === $this->_path) {
-            $this->_path = $this->resolvePath();
-        }
-        return $this->_path;
-    }
-
-    /**
-     * Determines an absolute path.
-     * @return string
-     */
-    protected function resolvePath()
-    {
-        return Yii::getPathOfAlias($this->getId());
-    }
-    
-    /**
-     * Gets an absolute path to the entity class.
-     * @return string 
-     */
-    public function getFileName()
-    {
-        if (null === $this->_fileName) {
-            $this->_fileName = $this->resolveFileName();
-        }
-        return $this->_fileName;
-    }
-    
-    /**
-     * Determines an absolute file name.
-     * @return string
-     */
-    protected function resolveFileName()
-    {
-        if ($path = $this->getFullClassName()) {
-            return Yii::getPathOfAlias($path) . '.php';
-        }
-        return null;
-    }
-    
-    /**
-     * Gets a parser for the class attributes.
-     * @return AmClassInfo 
-     */
-    public function getClassInfo()
-    { 
-        if (null === $this->_classInfo) {
-            if ($file = $this->getFileName()) {
-                $this->_classInfo = new AmClassInfo($file);
-            }
-        }
-        return $this->_classInfo;
     }
 
     /**

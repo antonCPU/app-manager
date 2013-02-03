@@ -38,19 +38,19 @@ Yii::app()->clientScript->registerScript('appManager-view', '
             'attributes'=>array(
                 array(
                     'label' => AppManagerModule::t('Name'),
-                    'name'  => 'name',
+                    'value' => $entity->getName(),
                 ),
                 array(
                     'label' => AppManagerModule::t('Class'),
-                    'name'  => 'className',
+                    'value' => $entity->getClassName(),
                 ),
                 array(
                     'label' => AppManagerModule::t('Location'),
-                    'name'  => 'fileName',
+                    'value' => $entity->getFileName(),
                 ),
             ),
         ), true),
-        AppManagerModule::t('Description') => $entity->summary . '<br /><br />' . $entity->description,
+        AppManagerModule::t('Description') => $entity->getAttribute('summary') . '<br /><br />' . $entity->getAttribute('description'),
       ),
 ));?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(

@@ -2,6 +2,22 @@
 
 class AmEntityApp extends AmEntityModule
 {
+    public function behaviors()
+    {
+        return array(
+            'config' => array(
+                'class'   => 'appManager.components.entity.AmConfigBehavior',
+                'section' => 'modules',
+            ),
+            'class' => array(
+                'class' => 'appManager.components.entity.AmClassBehavior',
+                'searchPatterns' => array('*Module.php'),
+                'baseClass' => 'CModule',
+                'fullClassName' => 'system.web.CWebApplication',
+            ),
+        );
+    }
+    
     public function getTitle()
     {
         return AppManagerModule::t('App');

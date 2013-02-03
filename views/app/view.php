@@ -29,32 +29,32 @@
             'attributes'=>array(
                 array(
                     'label' => AppManagerModule::t('Name'),
-                    'name'  => 'name',
+                    'value' => $entity->getName(),
                 ),
                 array(
                     'label' => AppManagerModule::t('Class'),
-                    'name'  => 'className',
+                    'value' => $entity->getClassName(),
                 ),
                 array(
                     'label' => AppManagerModule::t('Location'),
-                    'name'  => 'fileName',
+                    'value' => $entity->getFileName(),
                 ),
                 array(
                     'label' => AppManagerModule::t('Author'),
-                    'name'  => 'author',
+                    'value' => $entity->getAttribute('author'),
                 ),
                 array(
                     'label' => AppManagerModule::t('Version'),
-                    'name'  => 'version',
+                    'value' => $entity->getAttribute('version'),
                 ),
                 array(
                     'label' => AppManagerModule::t('Link'),
                     'type'  => 'url',
-                    'name'  => 'link',
+                    'value' => $entity->getAttribute('link'),
                 ),
             ),
         ), true),
-        AppManagerModule::t('Description') => $entity->summary . '<br /><br />' . $entity->description,
+        AppManagerModule::t('Description') => $entity->getAttribute('summary') . '<br /><br />' . $entity->getAttribute('description'),
       ),
 ));?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
