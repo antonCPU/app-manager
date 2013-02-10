@@ -3,15 +3,6 @@
  * Base class for all entities. 
  * Entity represents a part of application or application itself.
  * Implements Composite design pattern.
- * 
- * Properties that available through AmParser.
- * @property string $author
- * @property string $description
- * @property string $summary
- * @property string $link
- * @property string $fileName
- * @property string $className
- * @see AmClassInfo
  */
 abstract class AmEntity extends AmModel
 {
@@ -32,6 +23,12 @@ abstract class AmEntity extends AmModel
      */
     protected $path;
     
+    public function __construct($id, $parent = null)
+    {
+        $this->id     = $id;
+        $this->parent = $parent;
+    }
+    
     /**
      * @return string 
      */
@@ -39,73 +36,13 @@ abstract class AmEntity extends AmModel
     {
         return $this->id;
     }
-    
-    /**
-     * Sets the entity unique identifier.
-     * @param string $id Yii alias to the source (file or directory).
-     * @return AmEntity
-     */
-    public function setId($id)
-    {
-        if ($parent = $this->getParent()) {
-            $id = $parent->getId() . '.' . $id;
-        }
-        $this->id = $id;
-        return $this;
-    }
-    
+
     /**
      * @return AmEntity
      */
     public function getParent()
     {
         return $this->parent;
-    }
-    
-    /**
-     * @param AmEntity $parent
-     * @return AmEntity
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-        return $this;
-    }
-    
-    /**
-     * Validation rules.
-     * @return array 
-     */
-    public function rules()
-    {
-        return array(
-          array('name', 'required'),
-        );
-    }
-    
-    /**
-     * @return bool if the entity has details.
-     */
-    public function canView()
-    {
-        return $this->isCorrect();
-    }
-    
-    /**
-     * @return bool if the entity could be listed.
-     */
-    public function canList()
-    {
-        return false;
-    }
-    
-    /**
-     * @return string
-     * @see CButtonColumn 
-     */
-    public function getPrimaryKey()
-    {
-        return $this->getId();
     }
 
     /**
@@ -121,6 +58,16 @@ abstract class AmEntity extends AmModel
     }
     
     /**
+     * Creates title from id.
+     * @return string 
+     */
+    protected function createTitle()
+    {
+        $id = explode('.', $this->getId());
+        return ucfirst(array_pop($id));
+    }
+    
+    /**
      * Gets an absolute path to the source (file or directory).
      * @return string 
      */
@@ -131,34 +78,7 @@ abstract class AmEntity extends AmModel
         }
         return $this->path;
     }
-  
-    /**
-     * Creates title from a related file.
-     * @return string 
-     */
-    protected function createTitle()
-    {
-        return ucfirst(basename($this->getFileName(), '.php'));
-    }
 
-    /**
-     * Finds a child.
-     * @param string $id
-     * @return AmEntity|null
-     */
-    public function getChild($id)
-    {
-        return null;
-    }
-    
-    /**
-     * @return CArrayDataProvider
-     */
-    public function getChildrenProvider()
-    {
-        return new CArrayDataProvider($this->getChildren());
-    }
-    
     /**
      * @return AmEntity[]
      */
@@ -168,11 +88,12 @@ abstract class AmEntity extends AmModel
     }
     
     /**
-     * Gets list of options that should not be visible.
-     * @return array list of string names.
+     * Finds a child.
+     * @param string $id
+     * @return AmEntity|null
      */
-    public function getExcludeOptions()
+    public function getChild($id)
     {
-        return array();
+        return null;
     }
 }

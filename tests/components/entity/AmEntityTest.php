@@ -7,8 +7,8 @@ class AmEntityTest extends CTestCase
     
     public function setUp()
     {
-        $this->entity = new AmEntityMock();
-        $this->entity->setId('appManager.tests.data.app.components.AmAppComponentMock');
+        $id = 'appManager.tests.data.app.components.AmAppComponentMock';
+        $this->entity = new AmEntityMock($id);
     }
     
     public function testId()
@@ -29,7 +29,7 @@ class AmEntityTest extends CTestCase
     public function testChildren()
     {
         $this->assertEquals(array(), $this->entity->getChildren());
-    }
+    }       
 }
 
 class AmEntityMock extends AmEntity
