@@ -8,9 +8,7 @@ class AmConfigBehaviorTest extends CTestCase
     public function setUp()
     {
         $this->createConfig();
-        $this->entity = new AmEntityConfigMock(array(
-            'section' => 'components',
-        ));
+        $this->entity = new AmEntityConfigMock('appManager.tests.data.app.components.AmAppComponentMock');
         $this->entity->attachBehavior('config', new AmConfigBehavior);
     }
     
@@ -61,11 +59,6 @@ class AmConfigBehaviorTest extends CTestCase
 
 class AmEntityConfigMock extends AmEntity
 {
-    public function getId()
-    {
-        return 'appManager.tests.data.app.components.AmAppComponentMock';
-    }
-    
     public function getFullClassName()
     {
         return 'appManager.tests.data.app.components.AmAppComponentMock';
