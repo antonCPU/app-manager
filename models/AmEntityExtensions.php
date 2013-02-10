@@ -7,14 +7,10 @@ class AmEntityExtensions extends AmEntityComposite
         return AppManagerModule::t('Extentions');
     }
     
-    public function canList()
-    {
-        return true;
-    }
-    
     protected function createChild($id)
     {
-        $entity = new AmEntityComponent;
-        return $entity->setParent($this)->setId($id);
+        $id = $this->getId() . '.' . $id;
+        $entity = new AmEntityComponent($id, $this);
+        return $entity->isCorrect() ? $entity : null;
     }
 }
