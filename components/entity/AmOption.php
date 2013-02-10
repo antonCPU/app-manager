@@ -28,21 +28,17 @@ class AmOption extends AmModel
      * @var string the value that could be used for displaying. 
      */
     protected $textValue;
+    /**
+     * @var AmProperty 
+     */
+    protected $property;
     
     /**
-     * @param string $name 
+     * @param AmProperty $property
      */
-    public function setName($name)
-    { 
-        $this->name = $name;
-    }
-    
-    /**
-     * @return string 
-     */
-    public function getName()
+    public function __construct($property)
     {
-        return $this->name;
+        $this->property = $property;
     }
     
     /**
@@ -54,12 +50,20 @@ class AmOption extends AmModel
     }
     
     /**
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->property->getName();
+    }
+
+    /**
      * @return mixed 
      */
     public function getValue()
     {
         if (null === $this->value) {
-            return $this->getDefault();
+            $this->value = $this->getDefault();
         }
         return $this->value;
     }
@@ -74,19 +78,11 @@ class AmOption extends AmModel
     }
     
     /**
-     * @param mixed $value 
-     */
-    public function setDefault($value)
-    {
-        $this->default = $value;
-    }
-    
-    /**
      * @return mixed 
      */
     public function getDefault()
     {
-        return $this->default;
+        return $this->property->getValue();
     }
     
     /**
@@ -118,27 +114,11 @@ class AmOption extends AmModel
     }
     
     /**
-     * @param string $desc 
-     */
-    public function setDescription($desc)
-    {
-        $this->description = $desc;
-    }
-    
-    /**
      * @return string
      */
     public function getDesc()
     {
-        return $this->description;
-    }
-    
-    /**
-     * @param string $type 
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
+        return $this->property->getDescription();
     }
     
     /**
@@ -146,7 +126,7 @@ class AmOption extends AmModel
      */
     public function getType()
     {
-        return $this->type;
+        return $this->property->getType();
     }
     
     /**
