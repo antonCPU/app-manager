@@ -32,5 +32,8 @@ class AmEntityComponentTest extends CTestCase
         
         $entity = new AmEntityComponent('appManager.tests.data.app.components.AmAppMockComponent');
         $this->assertFalse($entity->isCorrect());
+        
+        $entity = new AmEntityComponent('appManager.tests.data.app.components.complexComponent');
+        $this->assertTrue($entity->isCorrect());
     }
 }

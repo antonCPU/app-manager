@@ -11,6 +11,11 @@ class AmEntityComponentsTest extends CTestCase
         $this->entity = new AmEntityComponents($id);
     }
     
+    public function testChildrenCount()
+    {
+        $this->assertCount(2, $this->entity->getChildren());
+    }
+    
     public function testApplicationComponentChild()
     {
         $child = $this->entity->getChild('AmAppMockAppComponent');
