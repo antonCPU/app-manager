@@ -27,6 +27,8 @@ abstract class AmEntity extends AmModel
     {
         $this->id     = $id;
         $this->parent = $parent;
+        
+        $this->attachBehaviors($this->behaviors());
     }
     
     /**
