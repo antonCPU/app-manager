@@ -17,15 +17,19 @@ class AmEntityModule extends AmEntityComposite
         );
     }
     
-    protected function createTitle()
+    protected function scan()
     {
-        return str_replace('Module', '', parent::createTitle());
+        $results = parent::scan();
+        $index   = array_search($this->getClassName(), $results);
+        if (false !== $index) {
+            unset($results[$index]);
+        }
+        return $results;
     }
     
     protected function createChild($id)
     {
         $entityClass = 'AmEntity' . ucfirst($id);
-        $entity = new $entityClass;
-        return $entity->setParent($this)->setId($id);
+        return new $entityClass($id, $this);
     }
 }

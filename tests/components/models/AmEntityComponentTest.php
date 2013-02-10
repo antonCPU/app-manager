@@ -26,13 +26,10 @@ class AmEntityComponentTest extends CTestCase
         $this->assertFalse($this->entity->isActive());
     }
     
-    public function testCurrentCorrect()
+    public function testCorrect()
     {
         $this->assertTrue($this->entity->isCorrect());
-    }
-    
-    public function testAnotherEntityNotCorrect()
-    {
+        
         $entity = new AmEntityComponent('appManager.tests.data.app');
         $this->assertFalse($entity->isCorrect());
     }
