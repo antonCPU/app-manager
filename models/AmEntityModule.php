@@ -19,10 +19,14 @@ class AmEntityModule extends AmEntityComposite
     
     protected function scan()
     {
-        $results = parent::scan();
-        $index   = array_search($this->getClassName(), $results);
-        if (false !== $index) {
-            unset($results[$index]);
+        $list = array('components', 'modules', 'extensions');
+        $path = $this->getPath();
+        
+        $results = array();
+        foreach ($list as $entity) {
+            if (is_dir($path . '/' . $entity)) {
+                $results[] = $entity;
+            }
         }
         return $results;
     }
