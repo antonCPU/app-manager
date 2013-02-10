@@ -1,7 +1,7 @@
 <?php
 Yii::import('appManager.models.AmEntityModule');
 
-class AmEntityComponentTest extends CTestCase
+class AmEntityModuleTest extends CTestCase
 {
     protected $entity;
     

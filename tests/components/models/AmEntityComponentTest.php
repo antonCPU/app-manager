@@ -7,18 +7,18 @@ class AmEntityComponentTest extends CTestCase
     
     public function setUp()
     {
-        $id = 'appManager.tests.data.app.components.AmAppMockComponent';
+        $id = 'appManager.tests.data.app.components.AmAppMockAppComponent';
         $this->entity = new AmEntityComponent($id);
     }
     
     public function testTitle()
     {
-        $this->assertEquals('AmAppMockComponent', $this->entity->getTitle());
+        $this->assertEquals('AmAppMockAppComponent', $this->entity->getTitle());
     }
     
     public function testAttachClassBehavior()
     {
-        $this->assertEquals('AmAppMockComponent', $this->entity->getClassName());
+        $this->assertEquals('AmAppMockAppComponent', $this->entity->getClassName());
     }
     
     public function testAttachConfigBehavior()
@@ -30,7 +30,7 @@ class AmEntityComponentTest extends CTestCase
     {
         $this->assertTrue($this->entity->isCorrect());
         
-        $entity = new AmEntityComponent('appManager.tests.data.app');
+        $entity = new AmEntityComponent('appManager.tests.data.app.components.AmAppMockComponent');
         $this->assertFalse($entity->isCorrect());
     }
 }
