@@ -6,7 +6,7 @@
  * @author author
  * @link http://link
  */
-class AmAppMockComponent extends CComponent
+class AmAppMockAppComponent extends CApplicationComponent
 {
     
 }
