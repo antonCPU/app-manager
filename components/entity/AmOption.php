@@ -103,6 +103,7 @@ class AmOption extends AmModel
     public function setTextValue($value)
     {
         $this->textValue = $value;
+        $this->value = $this->evaluateExpression($value);
     }
     
     /**
@@ -136,14 +137,6 @@ class AmOption extends AmModel
     public function getIsArray()
     {
         return (false !== strpos($this->getType(), 'array'));
-    }
-    
-    /**
-     * Populates the value using text value.
-     */
-    public function processTextValue()
-    {   
-        $this->value = $this->evaluateExpression($this->getTextValue());
     }
     
     /**

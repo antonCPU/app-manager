@@ -10,9 +10,27 @@ class AmOptions extends AmModel
      */
     protected $options;
     /**
-     * @var AmEntity
+     * @var AmProperty[] 
      */
-    protected $entity;
+    protected $properties;
+    /**
+     * @var AmNode 
+     */
+    protected $config;
+    /**
+     * @var array list of options that should be excluded
+     */
+    protected $exclude = array();
+    
+    /**
+     * @param AmProperty[] $properties
+     * @param AmNode       $config
+     */
+    public function __construct($properties, $config)
+    {
+        $this->properties = $properties;
+        $this->config     = $config;
+    }
     
     /**
      * Validation rules.
@@ -24,6 +42,14 @@ class AmOptions extends AmModel
         return array(
             array($attributes, 'AmPhpValidator'),  
         );
+    }
+    
+    /**
+     * @return AmNode
+     */
+    public function getConfig()
+    {
+        return $this->config;
     }
     
     /**
@@ -57,25 +83,7 @@ class AmOptions extends AmModel
     }
     
     /**
-     * @param AmEntity $entity
-     * @return AmOptions
-     */
-    public function setEntity($entity)
-    {
-        $this->entity = $entity;
-        return $this;
-    }
-    
-    /**
-     * @return AmEntity
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-    
-    /**
-     * @return array 
+     * @return AmOption[] 
      */
     public function get()
     {
@@ -86,20 +94,12 @@ class AmOptions extends AmModel
     }
     
     /**
-     * @param array $options
-     */
-    public function set($options)
-    {
-        $this->options = $options;
-    }
-    
-    /**
      * @return CArrayDataProvider 
      */
     public function getProvider()
     {
         return new CArrayDataProvider(array_values($this->get()), 
-            array('keyField' => 'name'));
+                array('keyField' => 'name'));
     }
     
     /**
@@ -141,7 +141,6 @@ class AmOptions extends AmModel
         }
         $config = $this->getConfig();
         foreach ($this->get() as $option) {
-            $option->processTextValue();
             if ($option->isDefault()) {
                 $config->remove($option->getName());
             } else {
@@ -152,54 +151,23 @@ class AmOptions extends AmModel
     }
     
     /**
-     * @return AmClassInfo
-     */
-    protected function getClassInfo()
-    {
-        return $this->getEntity()->getClassInfo();
-    }
-    
-    /**
-     * @return AmConfig
-     */
-    protected function getConfig()
-    {
-        return $this->getEntity()->getConfig();
-    }
-    
-    /**
-     * @return array
-     */
-    protected function getExclude()
-    {
-        return $this->getEntity()->getExcludeOptions();
-    }
-    
-    /**
      * Generates options list.
      * @return array 
      */
     protected function parseOptions()
     {
-        $properties = $this->getClassInfo()->getProperties();
         $options = array();
-        $exclude = $this->getExclude();
-        foreach ($properties as $property) {
+        $exclude = $this->exclude;
+        foreach ($this->properties as $property) {
             if (in_array($property->name, $exclude)) {
                 continue;
             }
-            $option = new AmOption;
+            $option = new AmOption($property);
             $value = $this->getConfigValue($property->name);
             if ($value instanceof AmNode) {
                 $value = $value->toArray();
             }
-            $option->attributes = array(
-                'name'    => $property->name,
-                'default' => $property->value,
-                'value'   => $value,
-                'type'    => $property->type,
-                'description' => $property->description,
-            );
+            $option->setValue($value);
             $options[$property->name] = $option;
         }
         return $options;

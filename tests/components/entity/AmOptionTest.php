@@ -61,6 +61,20 @@ class AmOptionTest extends CTestCase
         $this->assertEquals('array()', $this->getOption('propertyArray')->getTextValue());
     }
     
+    public function testSetTextValue()
+    {
+        $option = $this->getOption('propertyInt');
+        $option->setTextValue('20');
+        $this->assertEquals('20', $option->getTextValue());
+    }
+    
+    public function testSetTextValueToInt()
+    {
+        $option = $this->getOption('propertyInt');
+        $option->setTextValue('20');
+        $this->assertEquals(20, $option->getValue());
+    }
+    
     protected function getOption($name)
     {
         $property = AmPropertyFactory::create($this->class, $this->class->getProperty($name));
