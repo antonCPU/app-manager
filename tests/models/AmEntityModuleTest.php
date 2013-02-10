@@ -1,5 +1,5 @@
 <?php
-Yii::import('appManager.models.AmEntityComponent');
+Yii::import('appManager.models.AmEntityModule');
 
 class AmEntityModuleTest extends CTestCase
 {
@@ -7,13 +7,8 @@ class AmEntityModuleTest extends CTestCase
     
     public function setUp()
     {
-        $this->entity = new AmEntityModule();
-        $this->entity->setId('appManager.tests.data.app.modules.amAppMock');
-    }
-    
-    public function testId()
-    {
-        $this->assertEquals('appManager.tests.data.app.modules.amAppMock', $this->entity->getId());
+        $id = 'appManager.tests.data.app.modules.amAppMock';
+        $this->entity = new AmEntityModule($id);
     }
     
     public function testTitle()
@@ -21,55 +16,36 @@ class AmEntityModuleTest extends CTestCase
         $this->assertEquals('AmAppMock', $this->entity->getTitle());
     }
     
-    public function testParent()
-    {
-        $this->assertNull($this->entity->getParent());
-    }
-    
     public function testChildren()
     {
-        $this->assertEquals(array(), $this->entity->getChildren());
+        $this->assertCount(2, $this->entity->getChildren());
     }
     
-    public function testIsActive()
+    public function testChildComponents()
+    {
+        $this->assertInstanceOf('AmEntityComponents', $this->entity->getChild('components'));
+    }
+    
+    public function testChildModules()
+    {
+        $this->assertInstanceOf('AmEntityModules', $this->entity->getChild('modules'));
+    }
+    
+    public function testAttachClassBehavior()
+    {
+        $this->assertEquals('AmAppMockModule', $this->entity->getClassName());
+    }
+    
+    public function testAttachConfigBehavior()
     {
         $this->assertFalse($this->entity->isActive());
     }
     
-    public function testName()
+    public function testCorrect()
     {
-        $this->assertEquals('amAppMock', $this->entity->getName());
-    }
+        $this->assertTrue($this->entity->isCorrect());
     
-    public function testActivate()
-    {
-        $this->entity->activate();
-        $this->assertTrue($this->entity->isActive());
-    }
-    
-    public function testDeactivate()
-    {
-        $this->entity->deactivate();
-        $this->assertFalse($this->entity->isActive());
-    }
-    
-    public function testAuthor()
-    {
-        $this->assertEquals('author', $this->entity->getAttribute('author'));
-    }
-    
-    public function testSummary()
-    {
-        $this->assertEquals('Summary', $this->entity->getAttribute('summary'));
-    }
-    
-    public function testDescription()
-    {
-        $this->assertEquals('Description.', $this->entity->getAttribute('description'));
-    }
-    
-    public function testLink()
-    {
-        $this->assertEquals('http://link', $this->entity->getAttribute('link'));
+        $entity = new AmEntityComponent('appManager.tests.data.app');
+        $this->assertFalse($entity->isCorrect());
     }
 }
