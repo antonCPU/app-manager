@@ -7,7 +7,7 @@ class AmClassBehaviorTest extends CTestCase
     
     public function setUp()
     {
-        $this->entity = new AmEntityClassMock();
+        $this->entity = new AmEntityClassMock('appManager.tests.data.app.components.AmAppMockComponent');
         $this->entity->attachBehavior('class', new AmClassBehavior);
     }
     
@@ -64,8 +64,4 @@ class AmClassBehaviorTest extends CTestCase
 
 class AmEntityClassMock extends AmEntity
 {
-    public function getId()
-    {
-        return 'appManager.tests.data.app.components.AmAppMockComponent';
-    }
 }

@@ -8,5 +8,5 @@
  */
 class AmAppMockComponent extends CComponent
 {
-    
+    public $property;
 }
