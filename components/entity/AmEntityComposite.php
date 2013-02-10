@@ -72,8 +72,7 @@ class AmEntityComposite extends AmEntity
      */
     protected function createChild($id)
     {
-        $entity = new self;
-        return $entity->setParent($this)->setId($id);
+        return new self($id, $this);
     }
 
     /**
