@@ -2,7 +2,7 @@
 /**
  * Represents entities that may have children.
  */
-class AmEntityComposite extends AmEntity
+abstract class AmEntityComposite extends AmEntity
 {
     /**
      * Performs scanning inside the base directory.
@@ -24,11 +24,10 @@ class AmEntityComposite extends AmEntity
      */
     public function getChildren()
     {
-        $results = array();
         if ($results = $this->scan()) {
-            $results = $this->createChildren($results);
+            return $this->createChildren($results);
         }
-        return $results;
+        return array();
     }
     
     /**
@@ -38,14 +37,13 @@ class AmEntityComposite extends AmEntity
      */
     protected function createChildren($results)
     {
-        $entities = array();
+        $children = array();
         foreach ($results as $result) {
-            $child = $this->createChild($result);
-            if ($child->isCorrect()) {
-                $entities[] = $child;
+            if ($child = $this->createChild($result)) {
+                $children[] = $child;
             }
         }
-        return $entities;
+        return $children;
     }
     
     /**
@@ -70,20 +68,5 @@ class AmEntityComposite extends AmEntity
      * @param string $id Yii alias.
      * @return AmEntity
      */
-    protected function createChild($id)
-    {
-        return new self($id, $this);
-    }
-
-    /**
-     * @return CArrayDataProvider
-     */
-    public function getChildrenProvider()
-    {
-        $provider = parent::getChildrenProvider();
-        $provider->sort = array(
-            //'defaultOrder'=>'isActive DESC',
-        );
-        return $provider;
-    }
+    abstract protected function createChild($id);
 }

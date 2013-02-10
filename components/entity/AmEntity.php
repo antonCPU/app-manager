@@ -96,9 +96,4 @@ abstract class AmEntity extends AmModel
     {
         return null;
     }
-    
-    public function isCorrect()
-    {
-        return true;
-    }
 }

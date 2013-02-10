@@ -27,5 +27,8 @@ class AmEntityCompositeTest extends CTestCase
 
 class AmEntityCompositeMock extends AmEntityComposite
 {
-    
+    protected function createChild($id)
+    {
+        return new self($id, $this);
+    }
 }
