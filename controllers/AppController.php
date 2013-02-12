@@ -7,9 +7,9 @@ class AppController extends AmEntityController
     protected $title = 'App';
     public $defaultAction = 'settings';
     
-    protected function createModel()
+    protected function createBase()
     {
-        return new AmEntityApp;
+        return $this->getProject()->getChild('application');
     }
     
     public function actionSettings()

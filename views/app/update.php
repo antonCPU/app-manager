@@ -5,7 +5,7 @@
                 array(
                     'label'  => AppManagerModule::t('View'), 
                     'url'    => array('view', 'id' => $entity->id), 
-                    'visible' => $entity->canView(),
+                    //'visible' => $entity->canView(),
                 ),
                 array(
                     'label'  => AppManagerModule::t('Deactivate'), 

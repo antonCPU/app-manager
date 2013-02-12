@@ -10,7 +10,7 @@ class AmEntityController extends AmController
     /**
      * @var AmEntity 
      */
-    protected $model;
+    protected $project;
     protected $entity;
     protected $baseEntity;
     
@@ -38,10 +38,10 @@ class AmEntityController extends AmController
     public function actionList()
     {
         $entity = $this->getEntity();
-        if (!$entity->canList()) {
+        /*if (!$entity instanceof AmEntityComposite) {
             $this->setEntityFlash('error', 'Unable to list {name}.');
             $this->redirectParent();
-        }
+        }*/
         $this->render('list', array(
             'entity' => $entity,
         ));
@@ -54,10 +54,10 @@ class AmEntityController extends AmController
     public function actionView($id)
     { 
         $entity = $this->getEntity();
-        if (!$entity->canView()) {
+        /*if (!$entity->canView()) {
             $this->setEntityFlash('error', 'Unable to view {name}.');
             $this->redirectParent();
-        }
+        }*/
         $this->render('view', array(
            'entity' => $this->getEntity(), 
         ));
@@ -147,7 +147,7 @@ class AmEntityController extends AmController
         if (!$entity) {
             return $url;
         }
-        if ($entity->canList()) {
+        if ($entity instanceof AmEntityComposite) {
             $url = array('list', 'id' => $entity->getId());
         } elseif ($entity->canView()) {
             $url = array('view', 'id' => $entity->getId());
@@ -159,21 +159,12 @@ class AmEntityController extends AmController
      * Gets base entity model.
      * @return AmEntity
      */
-    public function getModel()
+    public function getProject()
     {
-        if (null === $this->model) {
-            $this->model = $this->createModel();
+        if (null === $this->project) {
+            $this->project = new AmEntityProject();
         }
-        return $this->model;
-    }
-    
-    /**
-     * Factory method.
-     * @return AmEntity
-     */
-    protected function createModel()
-    {
-        return new AmEntity;
+        return $this->project;
     }
     
     /**
@@ -183,14 +174,7 @@ class AmEntityController extends AmController
     protected function getBase()
     {
         if (null === $this->baseEntity) {
-            $entity = $this->getEntity();
-            $base = $entity->getParent();
-            if (!$base) {
-                $base = $entity;
-            } elseif ('list' !== $this->action->id) {
-                $base = $base->getParent();
-            } 
-            $this->baseEntity = $base;
+            $this->baseEntity = $this->createBase();
         }
         return $this->baseEntity;
     }
@@ -202,11 +186,7 @@ class AmEntityController extends AmController
     public function getEntity()
     { 
         if (null === $this->entity) {
-            $entity = $this->getModel();
-            if (($id = $this->getQuery('id')) && $id !== $entity->getId()) {
-                $entity = $entity->getChild($id);
-            }
-            $this->entity = $entity;
+            $this->entity = $this->getProject()->getChild($this->getQuery('id', 'application'));
         } 
         return $this->entity; 
     }

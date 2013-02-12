@@ -9,10 +9,8 @@ class AmEntityProject extends AmEntityComposite
     
     protected function createChild($id)
     {
-        if ('application' === $id) {
-            $id = 'app';
-        }
-        $entityClass = 'AmEntity' . ucfirst($id);
+        $name = ('core' === $id) ? 'Core' : 'App';
+        $entityClass = 'AmEntity' . $name;
         return new $entityClass($id, $this);
     }
 }

@@ -12,7 +12,7 @@
             'header' => AppManagerModule::t('Name'),
         ),
         array(
-            'value'   => '$data->getAttribute("summary")',
+            'name'   => 'class.summary',
             'header' => AppManagerModule::t('Description'),
         ),
         array(            

@@ -90,6 +90,14 @@ abstract class AmEntity extends AmModel
     }
     
     /**
+     * @return CDataProvider
+     */
+    public function getChildrenProvider()
+    {
+        return new CArrayDataProvider($this->getChildren());
+    }
+    
+    /**
      * Finds a child.
      * @param string $id
      * @return AmEntity|null
@@ -97,5 +105,13 @@ abstract class AmEntity extends AmModel
     public function getChild($id)
     {
         return null;
+    }  
+        
+    /**
+     * @return string
+     */
+    public function getPrimaryKey()
+    {
+        return $this->getId();
     }
 }

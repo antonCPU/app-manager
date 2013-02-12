@@ -33,28 +33,28 @@
                 ),
                 array(
                     'label' => AppManagerModule::t('Class'),
-                    'value' => $entity->getClassName(),
+                    'name'  => 'class.className',
                 ),
                 array(
                     'label' => AppManagerModule::t('Location'),
-                    'value' => $entity->getFileName(),
+                    'name'  => 'class.fileName',
                 ),
                 array(
                     'label' => AppManagerModule::t('Author'),
-                    'value' => $entity->getAttribute('author'),
+                    'name'  => 'class.author',
                 ),
                 array(
                     'label' => AppManagerModule::t('Version'),
-                    'value' => $entity->getAttribute('version'),
+                    'name'  => 'class.version',
                 ),
                 array(
                     'label' => AppManagerModule::t('Link'),
                     'type'  => 'url',
-                    'value' => $entity->getAttribute('link'),
+                    'name'  => 'class.link',
                 ),
             ),
         ), true),
-        AppManagerModule::t('Description') => $entity->getAttribute('summary') . '<br /><br />' . $entity->getAttribute('description'),
+        AppManagerModule::t('Description') => $entity->class->summary . '<br /><br />' . $entity->class->description,
       ),
 ));?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(

@@ -14,7 +14,7 @@ class CoreController extends AmEntityController
     public function actionModules()
     {
         $this->render('view', array(
-           'entity' => $this->getModel()->getChild('modules.gii'),
+           'entity' => $this->getProject()->getChild('modules.gii'),
         ));
     }
     
