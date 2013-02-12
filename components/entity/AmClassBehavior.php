@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Properties availabe through AmClassInfo
+ * @property string $author
+ * @property string $summary
+ * @property string $description
+ * @property string $version
+ * @property string $link
+ */
 class AmClassBehavior extends CBehavior
 {
     public $searchPatterns = array('*.php');
@@ -11,26 +18,9 @@ class AmClassBehavior extends CBehavior
     protected $attributes;
     
     /**
-     * Checks whether the entity has a proper structure.
-     * @return boolean
-     */
-    public function isCorrect()
-    {
-        return (bool)$this->getFullClassName();
-    }
-    
-    /**
      * @param string $name
-     * <ul>
-     *  <li>'author'</li>
-     *  <li>'summary'</li>
-     *  <li>'description'</li>
-     *  <li>'version'</li>
-     *  <li>'link'</li>
-     * </li>
-     * @return null
      */
-    public function getAttribute($name)
+    public function __get($name)
     {
         if (isset($this->attributes[$name])) {
             return $this->attributes[$name];
@@ -39,7 +29,16 @@ class AmClassBehavior extends CBehavior
         if (method_exists($this->getClassInfo(), $method)) {
             return $this->attributes[$name] = $this->getClassInfo()->$method();
         }
-        return null;
+        return parent::__get($name);
+    }
+    
+    /**
+     * Checks whether the entity has a proper structure.
+     * @return boolean
+     */
+    public function isCorrect()
+    {
+        return (bool)$this->getFullClassName();
     }
     
     /**
