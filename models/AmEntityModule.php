@@ -34,6 +34,6 @@ class AmEntityModule extends AmEntityComposite
     protected function createChild($id)
     {
         $entityClass = 'AmEntity' . ucfirst($id);
-        return new $entityClass($id, $this);
+        return new $entityClass($this->formChildId($id), $this);
     }
 }

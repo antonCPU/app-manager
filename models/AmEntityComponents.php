@@ -9,8 +9,7 @@ class AmEntityComponents extends AmEntityComposite
     
     protected function createChild($id)
     {
-        $id = $this->getId() . '.' . $id;
-        $entity = new AmEntityComponent($id, $this);
+        $entity = new AmEntityComponent($this->formChildId($id), $this);
         return $entity->isCorrect() ? $entity : null;
     }
 }

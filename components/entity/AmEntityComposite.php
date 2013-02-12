@@ -69,4 +69,14 @@ abstract class AmEntityComposite extends AmEntity
      * @return AmEntity
      */
     abstract protected function createChild($id);
+    
+    /**
+     * Creates an id for a child.
+     * @param string $id
+     * @return string
+     */
+    protected function formChildId($id)
+    {
+        return $this->getId() . '.' . $id;
+    }
 }

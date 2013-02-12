@@ -9,7 +9,7 @@ class AmEntityModules extends AmEntityComposite
     
     protected function createChild($id)
     {
-        $child = new AmEntityModule($this->getId() . '.' . $id, $this);
+        $child = new AmEntityModule($this->formChildId($id), $this);
         return $child->isCorrect() ? $child : null;
     } 
 }

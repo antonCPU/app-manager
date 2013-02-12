@@ -11,6 +11,12 @@ class AmEntityModuleTest extends CTestCase
         $this->entity = new AmEntityModule($id);
     }
     
+    public function testChildId()
+    {
+        $id = 'appManager.tests.data.app.modules.amAppMock.components';
+        $this->assertEquals($id, $this->entity->getChild('components')->getId());
+    }
+    
     public function testTitle()
     {
         $this->assertEquals('AmAppMock', $this->entity->getTitle());
