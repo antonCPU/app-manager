@@ -1,19 +1,19 @@
 <?php
-Yii::import('appManager.models.AmEntityApp');
+Yii::import('appManager.models.AmEntityApplication');
 Yii::import('appManager.entity.*');
 
-class AmEntityAppTest extends CTestCase
+class AmEntityApplicationTest extends CTestCase
 {
     protected $entity;
     
     public function setUp()
     {
-        $this->entity = new AmEntityApp('appManager.tests.data.app');
+        $this->entity = new AmEntityApplication('appManager.tests.data.app');
     }
     
     public function testTitle()
     {
-        $this->assertEquals('App', $this->entity->getTitle());
+        $this->assertEquals('Application', $this->entity->getTitle());
     }
     
     public function testChildrenCount()

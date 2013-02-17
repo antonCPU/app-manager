@@ -17,11 +17,11 @@ class AmEntityProjectTest extends CTestCase
     
     public function testApplicationChild()
     {
-        $this->assertInstanceOf('AmEntityApp', $this->entity->getChild('application'));
+        $this->assertInstanceOf('AmEntityApplication', $this->entity->getChild('application'));
     }
     
     public function testCoreChild()
     {
-        $this->assertInstanceOf('AmEntityCore', $this->entity->getChild('core'));
+        $this->assertInstanceOf('AmEntitySystem', $this->entity->getChild('system'));
     }
 }

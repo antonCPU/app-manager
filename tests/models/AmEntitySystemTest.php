@@ -1,14 +1,14 @@
 <?php
-Yii::import('appManager.models.AmEntityCore');
+Yii::import('appManager.models.AmEntitySystem');
 Yii::import('appManager.entity.*');
 
-class AmEntityCoreTest extends CTestCase
+class AmEntitySystemTest extends CTestCase
 {
     protected $entity;
     
     public function setUp()
     {
-        $this->entity = new AmEntityCore('system');
+        $this->entity = new AmEntitySystem('system');
     }
     
     public function testTitle()
@@ -23,11 +23,11 @@ class AmEntityCoreTest extends CTestCase
     
     public function testChildrenComponents()
     {
-        $this->assertInstanceOf('AmEntityCoreComponents', $this->entity->getChild('components'));
+        $this->assertInstanceOf('AmEntitySystemComponents', $this->entity->getChild('components'));
     }
     
     public function testChildrenModules()
     {
-        $this->assertInstanceOf('AmEntityCoreModules', $this->entity->getChild('modules'));
+        $this->assertInstanceOf('AmEntitySystemModules', $this->entity->getChild('modules'));
     }
 }

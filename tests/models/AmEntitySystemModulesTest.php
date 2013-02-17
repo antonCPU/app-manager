@@ -1,13 +1,13 @@
 <?php
-Yii::import('appManager.models.AmEntityCoreModules');
+Yii::import('appManager.models.AmEntitySystemModules');
 
-class AmEntityCoreModulesTest extends CTestCase
+class AmEntitySystemModulesTest extends CTestCase
 {
     protected $entity;
     
     public function setUp()
     {
-        $this->entity = new AmEntityCoreModules('system.modules');
+        $this->entity = new AmEntitySystemModules('system.modules');
     }
     
     public function testChildrenCount()

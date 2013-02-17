@@ -10,15 +10,14 @@ class AmEntityProject extends AmEntityComposite
     public function scan()
     {
         return array(
-            'app',
-            'core',
+            'application',
+            'system',
         );
     }
     
     protected function createChild($id)
     {
-        $name = ('core' === $id) ? 'Core' : 'App';
-        $entityClass = 'AmEntity' . $name;
+        $entityClass = 'AmEntity' . ucfirst($id);
         return new $entityClass($id, $this);
     }
 }

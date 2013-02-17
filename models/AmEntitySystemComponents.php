@@ -1,6 +1,6 @@
 <?php
 
-class AmEntityCoreComponents extends AmEntityComposite
+class AmEntitySystemComponents extends AmEntityComposite
 {
     protected function scan()
     {

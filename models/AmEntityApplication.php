@@ -1,6 +1,6 @@
 <?php
 
-class AmEntityApp extends AmEntityModule
+class AmEntityApplication extends AmEntityModule
 {
     public function behaviors()
     {
@@ -22,6 +22,6 @@ class AmEntityApp extends AmEntityModule
     
     public function getTitle()
     {
-        return AppManagerModule::t('App');
+        return AppManagerModule::t('Application');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class AmEntityCoreModules extends AmEntityComposite
+class AmEntitySystemModules extends AmEntityComposite
 {
     public function getChild($id)
     {  

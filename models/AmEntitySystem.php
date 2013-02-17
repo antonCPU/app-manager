@@ -1,6 +1,6 @@
 <?php
 
-class AmEntityCore extends AmEntityComposite
+class AmEntitySystem extends AmEntityComposite
 {
     public function getTitle()
     {
@@ -22,7 +22,7 @@ class AmEntityCore extends AmEntityComposite
     
     protected function createChild($id)
     {
-        $entityClass = 'AmEntityCore' . ucfirst($id);
+        $entityClass = 'AmEntitySystem' . ucfirst($id);
         return new $entityClass($this->formChildId($id), $this);
     }
 }
