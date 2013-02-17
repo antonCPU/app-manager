@@ -27,7 +27,10 @@ class AppManagerModule extends CWebModule
 {
     public $defaultController = 'app';
     public $layout = '/layouts/main';
-    public $configLocation;
+    /**
+     * @var string 
+     */
+    public $configLocation = 'config/main.php';
     
     /**
      * @var AmConfig 
@@ -98,9 +101,6 @@ class AppManagerModule extends CWebModule
      */
     public function getConfigLocation()
     {
-        if (!$this->configLocation) {
-            $this->configLocation = 'config/main.php';
-        }
         return Yii::app()->basePath . '/' . $this->configLocation;
     }
 
