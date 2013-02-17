@@ -1,34 +1,22 @@
 <?php
 
-class AmEntityCoreModules extends AmEntityModules
+class AmEntityCoreModules extends AmEntityComposite
 {
     public function getChild($id)
     {  
-        $modules = $this->scan();
-        return $this->createChild($modules['gii'], 'gii');
+        return $this->createChild();
     }
     
-    protected function scan()
+    public function getChildren()
     {
-        return array(
-            'gii' => 'gii.GiiModule',
-        );
+        return array($this->createChild());
     }
     
-    protected function createChildren($results)
-    { 
-        $entities = array();
-        foreach ($results as $name => $id) {
-            $entities[] = $this->createChild($id, $name);
-        }
-        return $entities;
-    }
-    
-    protected function createChild($id, $name = null)
+    protected function createChild($id = 'gii')
     {
-        $entity = parent::createChild($id);
-        $entity->setDefaultName($name);
-        $entity->setFullClassName($this->getParent()->getId() . '.' . $id);
+        $entity = new AmEntityModule('system.modules.gii', $this);
+        $entity->config->setDefaultName('gii');
+        $entity->class->setFullClassName('system.gii.GiiModule');
         return $entity;
     }
 }
