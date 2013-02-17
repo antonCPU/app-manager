@@ -2,7 +2,7 @@
 Yii::import('appManager.models.AmEntityCore');
 Yii::import('appManager.entity.*');
 
-class AmEntityAppTest extends CTestCase
+class AmEntityCoreTest extends CTestCase
 {
     protected $entity;
     
