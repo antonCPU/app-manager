@@ -12,21 +12,17 @@ class AmEntityCore extends AmEntityComposite
         return 'system';
     }
     
-    public function canView()
+    public function scan()
     {
-        return false;
-    }
-    
-    public function getChild($id)
-    {
-        $id = str_replace($this->getId() . '.', '', $id);
-        return parent::getChild($id);
+        return array(
+            'components',
+            'modules',
+        );
     }
     
     protected function createChild($id)
     {
         $entityClass = 'AmEntityCore' . ucfirst($id);
-        $entity = new $entityClass;
-        return $entity->setParent($this)->setId($id);
+        return new $entityClass($this->formChildId($id), $this);
     }
 }
