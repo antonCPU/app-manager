@@ -1,5 +1,5 @@
 <?php
-Yii::import('appManager.models.AmEntityComponents');
+Yii::import('appManager.models.AmEntityCoreComponents');
 
 class AmEntityCoreComponentsTest extends CTestCase
 {
