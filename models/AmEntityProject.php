@@ -7,6 +7,14 @@ class AmEntityProject extends AmEntityComposite
         parent::__construct($id);
     }
     
+    public function scan()
+    {
+        return array(
+            'app',
+            'core',
+        );
+    }
+    
     protected function createChild($id)
     {
         $name = ('core' === $id) ? 'Core' : 'App';
