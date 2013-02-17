@@ -1,16 +1,7 @@
 <?php
 
-class AmEntityCoreComponents extends AmEntityComponents
+class AmEntityCoreComponents extends AmEntityComposite
 {
-    public function getChild($id)
-    { 
-        $name = array_search($id, $this->scan());
-        if (false === $name) { 
-            return null;
-        }
-        return $this->createChild($id, $name);
-    }
-
     protected function scan()
     {
         return array(
@@ -33,6 +24,15 @@ class AmEntityCoreComponents extends AmEntityComponents
         );
     }
     
+    public function getChild($id)
+    { 
+        $name = array_search($id, $this->scan());
+        if (false === $name) { 
+            return null;
+        }
+        return $this->createChild($id, $name);
+    }
+
     protected function createChildren($results)
     {
         $entities = array();
@@ -44,9 +44,10 @@ class AmEntityCoreComponents extends AmEntityComponents
     
     protected function createChild($id, $name = null)
     {
-        $entity = parent::createChild($id);
-        $entity->setDefaultName($name);
-        $entity->setFullClassName($this->getParent()->getId() . '.' . $id);
+        $id = $this->formChildId($id);
+        $entity = new AmEntityComponent($id, $this);
+        $entity->config->setDefaultName($name);
+        $entity->class->setFullClassName(str_replace('.components', '', $id));
         return $entity;
     }
 }
