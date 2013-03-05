@@ -35,6 +35,7 @@ class ProjectController extends AmController
                 'id'   => $child->getId(),
                 'text' => $child->getTitle(),
                 'hasChildren' => (bool)$child->getChildren(),
+                'classes' => ($child instanceof AmEntityComposite) ? 'folder' : 'file',
             );
         }
         return $tree;
