@@ -1,10 +1,3 @@
-<?php
-    Yii::app()->clientScript->registerScript('appManager-update', '
-        $("textarea").tabby({
-            "tabString" : "    "
-        });
-    ');
-?>
 <fieldset>
     <?php if ($this->title): ?>
         <legend><?php echo AppManagerModule::t($this->title); ?></legend>
@@ -41,3 +34,10 @@
         <?php endforeach; ?>
     </div>
 </fieldset>
+<script type="text/javascript">
+jQuery(function($) {
+   $("textarea").tabby({
+        "tabString" : "    "
+    }); 
+});
+</script>

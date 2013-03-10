@@ -19,9 +19,7 @@ class AmOptionsBlock extends CWidget
     
     public function init()
     {
-        if ($this->options) {
-            $this->initScripts();
-        }
+        $this->initScripts();
     }
     
     public function run()
