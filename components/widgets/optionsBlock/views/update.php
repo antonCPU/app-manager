@@ -13,10 +13,10 @@
         $split = ceil($options->count / 2); 
         $index = 0;
     ?>
-    <div class="block first">
+    <div class="first">
         <?php foreach ($options as $attribute => $option): ?>
             <?php if ($index == $split): ?>
-                </div><div class="block last">
+                </div><div class="last">
             <?php endif; ?>
             <div class="row">
                 <?php echo $form->labelEx($options, $attribute); ?>

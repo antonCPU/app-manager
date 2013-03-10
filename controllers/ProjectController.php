@@ -19,6 +19,14 @@ class ProjectController extends AmController
         echo CTreeView::saveDataAsJson($this->buildTree($entity));
     }
     
+    public function actionEntity()
+    {
+        $entity = $this->getProject()->getChild($_POST['id']);
+        $this->renderPartial('entity', array(
+            'entity' => $entity,
+        ));
+    }
+    
     protected function getProject()
     {
         if (null === $this->project) {
