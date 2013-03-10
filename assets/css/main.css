@@ -265,3 +265,6 @@ code {white-space: pre;}
     margin: 1em 0;
     padding: 1em;
 }
+
+.treeview .active {font-weight:bold;}
+.treeview .current {color: #0066CC;}

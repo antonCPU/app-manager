@@ -1,4 +1,5 @@
 <?php
+Yii::import('AmWidgets.AmProjectTree');
 
 class ProjectController extends AmController
 {
@@ -16,7 +17,7 @@ class ProjectController extends AmController
         $project = $this->getProject();
         $entity = ('source' === $id) ? $project : $project->getChild($id);
         
-        echo CTreeView::saveDataAsJson($this->buildTree($entity));
+        echo AmProjectTree::saveEntityAsJson($entity);
     }
     
     public function actionEntity()
@@ -34,18 +35,4 @@ class ProjectController extends AmController
         }
         return $this->project;
     }
-    
-    protected function buildTree($entity)
-    {
-        $tree = array();
-        foreach ($entity->getChildren() as $child) {
-            $tree[] = array(
-                'id'   => $child->getId(),
-                'text' => $child->getTitle(),
-                'hasChildren' => (bool)$child->getChildren(),
-                'classes' => ($child instanceof AmEntityComposite) ? 'folder' : 'file',
-            );
-        }
-        return $tree;
-    } 
 }

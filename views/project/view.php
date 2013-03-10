@@ -3,7 +3,7 @@
     .folder {cursor: pointer;}
 </style>
 <div style="width:30%; float:left;">
-<?php $this->widget('CTreeView', array(
+<?php $this->widget('AmWidgets.AmProjectTree', array(
     'url'  => array('project/children'),
     'animated' => 'normal',
     'htmlOptions' => array(
@@ -19,9 +19,7 @@
 
 $(function(){
 
-$('.filetree').on('click', 'span', function() {
-   var $elem = $(this);
-   var id = $elem.closest('li').attr('id');
+$('.filetree').on('entityClick', function(e, id) {
    $.post("<?php echo $this->createUrl('entity'); ?>", {'id' : id}, function(ans) {
       $('.entity-block').html(ans); 
    });
