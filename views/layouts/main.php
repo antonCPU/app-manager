@@ -25,30 +25,13 @@
 
 	<div id="header">
 		<div id="logo"><?php echo $this->module->name; ?></div>
-	</div><!-- header -->
-
-	<div id="mainmenu">
-         <?php if (!AppManagerModule::config()->isWritable()): ?>
+        <?php if (!AppManagerModule::config()->isWritable()): ?>
             <span class="config-error">
                 <?php echo AppManagerModule::t('Config file is not writable!'); ?>
             </span>
         <?php endif; ?>
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array(
-                    'label'  => AppManagerModule::t('App'), 
-                    'url'    => array('/appManager/app'), 
-                    'active' => $this->isId('app'),
-                ),
-				array(
-                    'label'  => AppManagerModule::t('Core'), 
-                    'url'    => array('/appManager/core'), 
-                    'active' => $this->isId('core'),
-                ),
-			),
-		)); ?>
-        
-    </div><!-- mainmenu -->
+	</div><!-- header -->
+    <hr />
     
     <?php echo $content; ?>
       

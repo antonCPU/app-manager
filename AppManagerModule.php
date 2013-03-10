@@ -25,7 +25,7 @@
  */
 class AppManagerModule extends CWebModule
 {
-    public $defaultController = 'app';
+    public $defaultController = 'project';
     public $layout = '/layouts/main';
     /**
      * @var string 
