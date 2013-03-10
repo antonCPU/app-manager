@@ -24,7 +24,7 @@
             ),
         )); ?>
     </div>
-    <div class="entity-form form">
+    <div class="form">
         <?php $form=$this->beginWidget('CActiveForm', array(
             'id'=>'entity-form',
             'enableAjaxValidation'=>false,
@@ -61,7 +61,7 @@
 <script type="text/javascript">
 jQuery(function($) {
    
-   $('form').on('submit', function(e) {
+   $('.entity-update form').on('submit', function(e) {
       var $form = $(this);
       $.post($form.attr('action'), $form.serialize(), function(ans) {
           updatePage(ans);
