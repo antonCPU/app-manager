@@ -39,17 +39,10 @@ class AmProjectTree extends CTreeView
                 $classes[] = 'active';
             }
 
-            $hasChildren = false;
-            foreach ($child->getChildren() as $subChild) {
-                if ($subChild->asa('config') || $subChild->getChildren()) {
-                    $hasChildren = true;
-                    break;
-                }
-            }
             $tree[] = array(
                 'id'		  => $child->getId(),
                 'text'		  => $child->getTitle(),
-                'hasChildren' => $hasChildren,
+                'hasChildren' => (bool)$child->getChildren(),
                 'classes'	  => implode(' ', $classes),
             );
         }
