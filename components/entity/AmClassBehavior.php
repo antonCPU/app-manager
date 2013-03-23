@@ -122,6 +122,7 @@ class AmClassBehavior extends CBehavior
         $id = $this->getOwner()->getId();
         $file = $this->getOwner()->getPath() . '.php';
         if (!is_file($file)) {
+			Yii::import($id . '.*');
             foreach ($this->searchPatterns as $rule) {
                 if ($files = $this->getByRule($rule)) {
                     foreach ($files as $file) {
