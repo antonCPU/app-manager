@@ -54,7 +54,7 @@ class AmConfigBehavior extends CBehavior
      */
     public function canChangeName()
     {
-        return $this->isActive();
+        return $this->isActive() && $this->isWritable();
     }
     
     /**
