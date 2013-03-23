@@ -202,7 +202,7 @@ class AmConfigBehavior extends CBehavior
         if (AppManagerModule::config()->save()) {
             $this->config = null;
             return true;
-		}
+        }
         return false;
     }
     
@@ -272,13 +272,13 @@ class AmConfigBehavior extends CBehavior
     protected function load($name, $create = true)
     {
         $config  = $this->loadSection();
-		$this->normalizeConfig($config, $name);
-		if (!$config->contains($name)) {
-			if ($create) {
-				$config->add($name, array());
-			}
-		}
-		return $config->itemAt($name);
+        $this->normalizeConfig($config, $name);
+        if (!$config->contains($name)) {
+            if ($create) {
+                $config->add($name, array());
+            }
+        }
+        return $config->itemAt($name);
     }
     
     /**
@@ -300,9 +300,9 @@ class AmConfigBehavior extends CBehavior
             ));
             return true;
         } elseif (($options = $config->itemAt($name)) 
-					&& !$options->count()
-		) {
-			$options->add('class', $this->getOwner()->getFullClassName());
+                    && !$options->count()
+        ) {
+            $options->add('class', $this->getOwner()->getFullClassName());
         }
         return false;
     }
