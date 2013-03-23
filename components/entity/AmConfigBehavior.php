@@ -248,7 +248,7 @@ class AmConfigBehavior extends CBehavior
     public function getOptions() 
     { 
         if (null === $this->options) {
-            $properties = $this->getOwner()->getClassInfo()->getProperties();
+            $properties = $this->getOwner()->getProperties();
             $this->options = new AmOptions($properties, $this->getConfig()); 
         }
         return $this->options;
