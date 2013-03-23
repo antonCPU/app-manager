@@ -27,25 +27,25 @@ class AmProjectTree extends CTreeView
         $tree = array();
         foreach ($entity->getChildren() as $child) {
             if (!$child->asa('config') && !$child->getChildren()) {
-				continue;
-			}
-			
-			$classes   = array();
+                continue;
+            }
+
+            $classes   = array();
             $classes[] = ($child instanceof AmEntityComposite) ? 'folder' : 'file';
-			$class = str_replace('AmEntity', '', get_class($child));
-			$classes[] = self::createHtmlClassName($class);
-			
+            $class = str_replace('AmEntity', '', get_class($child));
+            $classes[] = self::createHtmlClassName($class);
+
             if ($child->asa('config') && $child->isActive()) {
                 $classes[] = 'active';
             }
-            
-			$hasChildren = false;
-			foreach ($child->getChildren() as $subChild) {
-				if ($subChild->asa('config') || $subChild->getChildren()) {
-					$hasChildren = true;
-					break;
-				}
-			}
+
+            $hasChildren = false;
+            foreach ($child->getChildren() as $subChild) {
+                if ($subChild->asa('config') || $subChild->getChildren()) {
+                    $hasChildren = true;
+                    break;
+                }
+            }
             $tree[] = array(
                 'id'		  => $child->getId(),
                 'text'		  => $child->getTitle(),
@@ -56,12 +56,12 @@ class AmProjectTree extends CTreeView
         return self::saveDataAsJson($tree);
 	}
 	
-	/**
-	 * @string $class class name in the camel case format.
-	 * @link http://stackoverflow.com/a/1589535
-	 */
-	public static function createHtmlClassName($class)
-	{
-		return strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $class)); 
-	}
+    /**
+     * @string $class class name in the camel case format.
+     * @link http://stackoverflow.com/a/1589535
+     */
+    public static function createHtmlClassName($class)
+    {
+        return strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $class)); 
+    }
 }
