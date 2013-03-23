@@ -154,7 +154,7 @@ class AmConfigBehavior extends CBehavior
      */
     public function deactivate()
     {
-         if (!$this->canDeactivate()) {
+        if (!$this->canDeactivate()) {
             return false;
         }
         $this->loadSection()->remove($this->getName());
@@ -167,7 +167,7 @@ class AmConfigBehavior extends CBehavior
      */
     public function restore()
     {
-         if (!$this->canRestore()) {
+        if (!$this->canRestore()) {
             return false;
         }
         $config = $this->getConfig();
@@ -182,7 +182,7 @@ class AmConfigBehavior extends CBehavior
      */
     public function update()
     {
-         if (!$this->canUpdate()) {
+        if (!$this->canUpdate()) {
             return false;
         }
         $this->updateName();
@@ -200,10 +200,10 @@ class AmConfigBehavior extends CBehavior
     protected function save()
     {
         if (AppManagerModule::config()->save()) {
-			$this->config = null;
-			return true;
+            $this->config = null;
+            return true;
 		}
-		return false;
+        return false;
     }
     
     /**
