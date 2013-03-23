@@ -26,17 +26,28 @@ class AmProjectTree extends CTreeView
     {
         $tree = array();
         foreach ($entity->getChildren() as $child) {
-            $classes = array();
-            $classes[] = ($child instanceof AmEntityComposite) ? 'folder' : 'file';
+			$isComposite = $child instanceof AmEntityComposite;
+            if ($isComposite && !$child->getChildren() && !$child->asa('config')) {
+				continue;
+			}
+			$classes   = array();
+            $classes[] = ($isComposite) ? 'folder' : 'file';
             if ($child->asa('config') && $child->isActive()) {
                 $classes[] = 'active';
             }
             
+			$hasChildren = false;
+			foreach ($child->getChildren() as $subChild) {
+				if ($subChild->asa('config') || $subChild->getChildren()) {
+					$hasChildren = true;
+					break;
+				}
+			}
             $tree[] = array(
-                'id'   => $child->getId(),
-                'text' => $child->getTitle(),
-                'hasChildren' => (bool)$child->getChildren(),
-                'classes' => implode(' ', $classes),
+                'id'		  => $child->getId(),
+                'text'		  => $child->getTitle(),
+                'hasChildren' => $hasChildren,
+                'classes'	  => implode(' ', $classes),
             );
         }
         return self::saveDataAsJson($tree);
