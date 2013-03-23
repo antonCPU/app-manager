@@ -48,6 +48,14 @@ class AmConfigBehavior extends CBehavior
     {
         return $this->canUpdate() && $this->isChanged();
     }
+        
+    /**
+     * @return bool
+     */
+    public function canChangeName()
+    {
+        return $this->isActive();
+    }
     
     /**
      * Checks if config can be updated.
@@ -124,13 +132,24 @@ class AmConfigBehavior extends CBehavior
     }
     
     /**
+     * Changes entity name in the config.
      * @param string $name
      * @return AmConfigBehavior
      */
-    public function setName($name)
+    public function changeName($name)
     {
+        if (!$this->canChangeName() || empty($name)) {
+            return false;
+        }
+        $oldName = $this->getName();
+        if ($oldName === $name) {
+            return true;
+        }
+        $section = $this->loadSection();
+        $section->add($name, $this->getConfig()->toArray());
+        $section->remove($oldName);
         $this->name = $name;
-        return $this;
+        return $this->save();
     }
     
     /**
@@ -185,7 +204,6 @@ class AmConfigBehavior extends CBehavior
         if (!$this->canUpdate()) {
             return false;
         }
-        $this->updateName();
         $this->getConfig()->add('class', $this->getOwner()->getFullClassName());
         if (!$this->getOptions()->updateConfig()) {
             return false;
@@ -204,20 +222,6 @@ class AmConfigBehavior extends CBehavior
             return true;
         }
         return false;
-    }
-    
-    /**
-     * Changes entity name in the config.
-     */
-    protected function updateName()
-    {
-        $entity = $this->getOwner();
-        if ($entity->getName() === $this->getName()) {
-            return;
-        }
-        $this->loadSection()->remove($this->getName());
-        $this->setName($entity->getName());
-        $this->config = null;
     }
     
     /**

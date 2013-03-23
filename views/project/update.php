@@ -25,11 +25,7 @@
         )); ?>
     </div>
     <div class="form">
-        <?php $form=$this->beginWidget('CActiveForm', array(
-            'id'=>'entity-form',
-            'enableAjaxValidation'=>false,
-            'enableClientValidation' => false,
-        )); ?>
+        <?php $form=$this->beginWidget('CActiveForm'); ?>
             <input type="hidden" name="id" value="<?php echo $entity->id; ?>" />
             <?php if ($entity->asa('config') && $entity->defaultName): ?>
                 <fieldset>
@@ -46,6 +42,16 @@
                     </div> 
                 </fieldset>
             <?php endif; ?>
+           <?php if ($entity->asa('config') && $entity->canChangeName()): ?>
+                <div class="row buttons">
+                    <?php echo CHtml::submitButton(AppManagerModule::t('Save')); ?>
+                </div>
+            <?php endif; ?>
+        <?php $this->endWidget(); ?>
+    </div>
+    <div class="form">
+        <?php $form=$this->beginWidget('CActiveForm'); ?>
+            <input type="hidden" name="id" value="<?php echo $entity->id; ?>" />
             <?php $this->widget('AmWidgets.optionsBlock.AmOptionsBlock', array(
                 'form'      => $form,
                 'options'   => $entity->asa('config') ? $entity->getOptions() : null,
@@ -57,7 +63,6 @@
             <?php endif; ?>
         <?php $this->endWidget(); ?>
     </div>
-</div>
 <script type="text/javascript">
 jQuery(function($) {
    

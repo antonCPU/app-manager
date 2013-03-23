@@ -26,14 +26,14 @@ class ProjectController extends AmController
     {
         $entity = $this->getProject()->getChild($_REQUEST['id']);
         
+        if ($name = $this->getPost('name')) {
+            $entity->changeName($name);
+        }
+        
         if ($options = $this->getPost('AmOptions')) {
             if (!$entity->canUpdate() && $entity->getParent()) {
                 $this->setFlash('error', 'Unable to update entity.');
-            }
-
-            if ($name = $this->getPost('name')) {
-                $entity->setName($name);
-            }
+            }    
             $entity->setOptions($options);
 
             if ($entity->update()) {

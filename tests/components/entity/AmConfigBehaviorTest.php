@@ -17,6 +17,7 @@ class AmConfigBehaviorTest extends CTestCase
         $source = AM_DATA_DIR . '/config.php';
         $file   = AM_DATA_DIR . '/app/config/main.php';
         @copy($source, $file);
+        AppManagerModule::getInstance()->configLocation = 'modules/appManager/tests/data/app/config/main.php';
     }
     
     public function testCanActivate()
@@ -39,6 +40,11 @@ class AmConfigBehaviorTest extends CTestCase
         $this->assertFalse($this->entity->canRestore());
     }
     
+    public function testCanChangeName()
+    {
+        $this->assertFalse($this->entity->canChangeName());
+    }
+    
     public function testActivate()
     {
         $this->entity->activate();
@@ -49,6 +55,15 @@ class AmConfigBehaviorTest extends CTestCase
     {
         $this->entity->deactivate();
         $this->assertFalse($this->entity->isActive());
+    }
+    
+    public function testChangeName()
+    {
+        $entity = $this->entity;
+        $entity->activate();
+        $this->assertTrue($entity->changeName('test'));
+        $this->assertTrue($entity->isActive());
+        $this->assertEquals('test', $entity->getName());
     }
     
     public function testOptions()
@@ -62,5 +77,10 @@ class AmEntityConfigMock extends AmEntity
     public function getFullClassName()
     {
         return 'appManager.tests.data.app.components.AmAppComponentMock';
+    }
+    
+    public function getProperties()
+    {
+        return array();
     }
 }
