@@ -26,12 +26,18 @@ class AmProjectTree extends CTreeView
     {
         $tree = array();
         foreach ($entity->getChildren() as $child) {
-			$isComposite = $child instanceof AmEntityComposite;
-            if ($isComposite && !$child->getChildren() && !$child->asa('config')) {
+            if (!$child->asa('config') && !$child->getChildren()) {
 				continue;
 			}
+			
 			$classes   = array();
-            $classes[] = ($isComposite) ? 'folder' : 'file';
+            $classes[] = ($child instanceof AmEntityComposite) ? 'folder' : 'file';
+			$class = str_replace('AmEntity', '', get_class($child));
+			/**
+			 * @link http://stackoverflow.com/a/1589535
+			 */
+			$classes[] = strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $class));
+			
             if ($child->asa('config') && $child->isActive()) {
                 $classes[] = 'active';
             }
@@ -51,5 +57,5 @@ class AmProjectTree extends CTreeView
             );
         }
         return self::saveDataAsJson($tree);
-    }
+	}
 }
