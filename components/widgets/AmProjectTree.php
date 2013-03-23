@@ -33,10 +33,7 @@ class AmProjectTree extends CTreeView
 			$classes   = array();
             $classes[] = ($child instanceof AmEntityComposite) ? 'folder' : 'file';
 			$class = str_replace('AmEntity', '', get_class($child));
-			/**
-			 * @link http://stackoverflow.com/a/1589535
-			 */
-			$classes[] = strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $class));
+			$classes[] = self::createHtmlClassName($class);
 			
             if ($child->asa('config') && $child->isActive()) {
                 $classes[] = 'active';
@@ -57,5 +54,14 @@ class AmProjectTree extends CTreeView
             );
         }
         return self::saveDataAsJson($tree);
+	}
+	
+	/**
+	 * @string $class class name in the camel case format.
+	 * @link http://stackoverflow.com/a/1589535
+	 */
+	public static function createHtmlClassName($class)
+	{
+		return strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $class)); 
 	}
 }
