@@ -144,7 +144,7 @@ class AmConfigBehavior extends CBehavior
         }
         $this->loadSection()->add($this->getName(), array(
             'class' => $this->getOwner()->getFullClassName(),
-        ));
+        )); 
         return $this->save();
     }
     
@@ -199,7 +199,11 @@ class AmConfigBehavior extends CBehavior
      */
     protected function save()
     {
-        return AppManagerModule::config()->save();
+        if (AppManagerModule::config()->save()) {
+			$this->config = null;
+			return true;
+		}
+		return false;
     }
     
     /**
@@ -268,16 +272,13 @@ class AmConfigBehavior extends CBehavior
     protected function load($name, $create = true)
     {
         $config  = $this->loadSection();
-        $current = $config->itemAt($name);
-        if (null === $current) {
-            if (!$this->normalizeConfig($config, $name)) {
-                if ($create) {
-                    $config->add($name, array());
-                }
-            }
-            $current = $config->itemAt($name);
-        } 
-        return $current;
+		$this->normalizeConfig($config, $name);
+		if (!$config->contains($name)) {
+			if ($create) {
+				$config->add($name, array());
+			}
+		}
+		return $config->itemAt($name);
     }
     
     /**
@@ -298,6 +299,10 @@ class AmConfigBehavior extends CBehavior
                 'class' => $this->getOwner()->getFullClassName(),
             ));
             return true;
+        } elseif (($options = $config->itemAt($name)) 
+					&& !$options->count()
+		) {
+			$options->add('class', $this->getOwner()->getFullClassName());
         }
         return false;
     }
@@ -323,8 +328,6 @@ class AmConfigBehavior extends CBehavior
                     return $name;
                 }
             }
-        } elseif (!$config->count()) {
-            $config->add('class', $this->getOwner()->getFullClassName());
         }
         return $default;
     }

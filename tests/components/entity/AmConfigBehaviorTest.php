@@ -31,7 +31,7 @@ class AmConfigBehaviorTest extends CTestCase
     
     public function testCanUpdate()
     {
-        $this->assertTrue($this->entity->canUpdate());
+        $this->assertFalse($this->entity->canUpdate());
     }
     
     public function testCanRestore()
