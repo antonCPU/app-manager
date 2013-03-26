@@ -3,12 +3,11 @@ Yii::import('AmWidgets.AmProjectTree');
 
 class ProjectController extends AmController
 {
-    public $defaultAction = 'view';
     protected $project;
     
-    public function actionView()
+    public function actionIndex()
     {
-        $this->render('view', array(
+        $this->render('index', array(
             'entity' => $this->getProject(),
         ));
     }
