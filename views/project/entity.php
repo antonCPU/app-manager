@@ -30,7 +30,7 @@
 	</div>
 <?php endif; ?>
 <?php if ($entity->asa('class')): ?>
-	<div id="entity-class" class="tab">
+	<div id="entity-class" class="tab" style="display:none;">
 		<?php $this->renderPartial('entity_class', array('entity' => $entity)); ?>
 	</div>
 <?php endif; ?>
