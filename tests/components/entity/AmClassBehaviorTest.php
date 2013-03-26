@@ -60,6 +60,11 @@ class AmClassBehaviorTest extends CTestCase
     {
         $this->assertNotEmpty($this->entity->getProperties());
     }
+	
+	public function testClassPropertyIsset()
+	{
+		$this->assertTrue(isset($this->entity->class->description));
+	}
 }
 
 class AmEntityClassMock extends AmEntity

@@ -32,6 +32,22 @@ class AmClassBehavior extends CBehavior
         return parent::__get($name);
     }
     
+	/**
+	 * @param string $name
+	 * @return boolean
+	 */
+	public function __isset($name)
+	{
+		if (isset($this->attributes[$name])) {
+            return $this->attributes[$name];
+        }
+		$method = 'get' . ucfirst($name);
+        if (method_exists($this->getClassInfo(), $method)) {
+			return true;
+		}
+		return parent::__isset($name);
+	}
+	
     /**
      * Checks whether the entity has a proper structure.
      * @return boolean
