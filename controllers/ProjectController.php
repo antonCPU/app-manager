@@ -44,10 +44,17 @@ class ProjectController extends AmController
             $entity->$action();
         }
 
-        $this->renderPartial('update', array(
+        $this->renderPartial('entity_config', array(
             'entity' => $entity,
         ));
     }
+	
+	public function actionEntity()
+	{
+		$this->renderPartial('entity', array(
+			'entity' => $this->getProject()->getChild($_REQUEST['id']),
+		), false, true);
+	}
     
     protected function getProject()
     {

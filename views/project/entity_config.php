@@ -1,6 +1,5 @@
 <div class="entity-update">
     <div class="view-title">
-        <h1><?php echo $entity->title; ?></h1>
         <?php $this->widget('zii.widgets.CMenu',array(
             'htmlOptions' => array(
                 'class' => 'entity-actions',
@@ -63,12 +62,13 @@
             <?php endif; ?>
         <?php $this->endWidget(); ?>
     </div>
+</div>
 <script type="text/javascript">
 jQuery(function($) {
    
    $('.entity-update form').on('submit', function(e) {
       var $form = $(this);
-      $.post($form.attr('action'), $form.serialize(), function(ans) {
+      $.post("<?php echo $this->createUrl('update'); ?>", $form.serialize(), function(ans) {
           updatePage(ans);
       });
       return false; 
