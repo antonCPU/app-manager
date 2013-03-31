@@ -38,22 +38,22 @@ class AmClassBehaviorTest extends CTestCase
     
     public function testAuthor()
     {
-        $this->assertEquals('author', $this->entity->class->author);
+        $this->assertEquals('author', $this->entity->author);
     }
     
     public function testSummary()
     {
-        $this->assertEquals('Summary', $this->entity->class->summary);
+        $this->assertEquals('Summary', $this->entity->summary);
     }
     
     public function testDescription()
     {
-        $this->assertEquals('Description.', $this->entity->class->description);
+        $this->assertEquals('Description.', $this->entity->description);
     }
     
     public function testLink()
     {
-        $this->assertEquals('http://link', $this->entity->class->link);
+        $this->assertEquals('http://link', $this->entity->link);
     }
     
     public function testPropertiesNotEmpty()
@@ -63,7 +63,7 @@ class AmClassBehaviorTest extends CTestCase
 	
 	public function testClassPropertyIsset()
 	{
-		$this->assertTrue(isset($this->entity->class->description));
+		$this->assertTrue(isset($this->entity->description));
 	}
 }
 

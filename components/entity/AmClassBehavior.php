@@ -15,39 +15,7 @@ class AmClassBehavior extends CBehavior
     protected $classInfo;
     protected $fileName;
     protected $fullClassName;
-    protected $attributes;
-    
-    /**
-     * @param string $name
-     */
-    public function __get($name)
-    {
-        if (isset($this->attributes[$name])) {
-            return $this->attributes[$name];
-        }
-        $method = 'get' . ucfirst($name);
-        if (method_exists($this->getClassInfo(), $method)) {
-            return $this->attributes[$name] = $this->getClassInfo()->$method();
-        }
-        return parent::__get($name);
-    }
-    
-	/**
-	 * @param string $name
-	 * @return boolean
-	 */
-	public function __isset($name)
-	{
-		if (isset($this->attributes[$name])) {
-            return $this->attributes[$name];
-        }
-		$method = 'get' . ucfirst($name);
-        if (method_exists($this->getClassInfo(), $method)) {
-			return true;
-		}
-		return parent::__isset($name);
-	}
-	
+
     /**
      * Checks whether the entity has a proper structure.
      * @return boolean
@@ -63,14 +31,6 @@ class AmClassBehavior extends CBehavior
     public function getProperties()
     {
         return $this->getClassInfo()->getProperties();
-    }
-    
-    /**
-     * @return string
-     */
-    public function getClassName()
-    {
-        return $this->getClassInfo()->getName();
     }
     
     /**
@@ -181,4 +141,55 @@ class AmClassBehavior extends CBehavior
         return true;
     }
     
+    /**
+     * Map ClassInfo methods to make them accessible for entities as properties.
+     */
+    
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->getClassInfo()->getDescription();
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSummary()
+    {
+        return $this->getClassInfo()->getSummary();
+    }
+    
+    /**
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->getClassInfo()->getAuthor();
+    }
+    
+    /**
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->getClassInfo()->getLink();
+    }
+    
+    /**
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->getClassInfo()->getVersion();
+    }
+    
+    /**
+     * @return string
+     */
+    public function getClassName()
+    {
+        return $this->getClassInfo()->getName();
+    }
 }

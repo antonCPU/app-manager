@@ -11,17 +11,17 @@
 		),
 		array(
 			'label' => AppManagerModule::t('Author'),
-			'name'  => 'class.author',
+			'name'  => 'author',
             'type'  => 'ntext',
 		),
 		array(
 			'label' => AppManagerModule::t('Version'),
-			'name'  => 'class.version',
+			'name'  => 'version',
 		),
 		array(
 			'label' => AppManagerModule::t('Link'),
 			'type'  => 'raw',
-			'value'  => CHtml::link($entity->class->link, $entity->class->link, array(
+			'value'  => CHtml::link($entity->link, $entity->link, array(
 				'target' => '_blank',
 			)),
 		),
@@ -29,8 +29,8 @@
 )); ?>
 
 <div class="entity-details">
-	<?php echo $entity->class->summary; ?> 
+	<?php echo $entity->summary; ?> 
 	<br />
 	<br />
-	<?php echo $entity->class->description; ?>
+	<?php echo $entity->description; ?>
 </div>
