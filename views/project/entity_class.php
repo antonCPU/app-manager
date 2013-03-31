@@ -2,10 +2,6 @@
 	'data' => $entity,
 	'attributes' => array(
 		array(
-			'label' => AppManagerModule::t('Name'),
-			'name'  => 'name',
-		),
-		array(
 			'label' => AppManagerModule::t('Class'),
 			'name'  => 'className',
 		),
