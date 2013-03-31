@@ -119,7 +119,7 @@ class AmClassInfo extends CComponent
     public function getAuthor()
     {
         if ((null === $this->author) && $tag = $this->getTag('author')) {
-            $this->author = $tag->getDescription();
+            $this->author = utf8_encode($tag->getDescription());
         }
         return $this->author;
     }
