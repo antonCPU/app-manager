@@ -12,6 +12,7 @@
 		array(
 			'label' => AppManagerModule::t('Author'),
 			'name'  => 'class.author',
+            'type'  => 'html',
 		),
 		array(
 			'label' => AppManagerModule::t('Version'),
