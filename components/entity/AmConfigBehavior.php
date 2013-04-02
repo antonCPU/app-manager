@@ -1,16 +1,35 @@
 <?php
-
+/**
+ * Searches a related to an entity record in the config and allows to perform
+ * actions with it.
+ */
 class AmConfigBehavior extends CBehavior
 {
+    /**
+     * A section where to search for an entity record.
+     * @var string 
+     */
     public $section;
     
+    /**
+     * @var AmConfig 
+     */
     protected $config;
+    /**
+     * @var string 
+     */
     protected $name;
+    /**
+     * @var string 
+     */
     protected $defaultName;
+    /**
+     * @var AmOptions 
+     */
     protected $options;
     
     /**
-     * @return boolean
+     * @return bool
      */
     public function isActive()
     {
@@ -18,7 +37,7 @@ class AmConfigBehavior extends CBehavior
     }
     
     /**
-     * @return boolean
+     * @return bool
      */
     public function canActivate()
     {
@@ -26,7 +45,7 @@ class AmConfigBehavior extends CBehavior
     }
     
     /**
-     * @return boolean
+     * @return bool
      */
     public function canDeactivate()
     {
@@ -34,7 +53,7 @@ class AmConfigBehavior extends CBehavior
     }
     
     /**
-     * @return boolean
+     * @return bool
      */
     public function canUpdate()
     {
@@ -42,7 +61,7 @@ class AmConfigBehavior extends CBehavior
     }
     
     /**
-     * @return boolean
+     * @return bool
      */
     public function canRestore()
     {
@@ -197,7 +216,7 @@ class AmConfigBehavior extends CBehavior
     
     /**
      * Updates entity data.
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -269,8 +288,8 @@ class AmConfigBehavior extends CBehavior
     
     /**
      * Loads data for the entity.
-     * @param string $name
-     * @param bool   $create = true
+     * @param string  $name
+     * @param bool    $create = true
      * @return AmNode
      */
     protected function load($name, $create = true)
