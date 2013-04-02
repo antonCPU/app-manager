@@ -8,9 +8,9 @@
 			array(
 				'label'	  => AppManagerModule::t('Update'), 
 				'url'	  => '#',
-				'visible' => (bool)$entity->asa('config'),
+				'visible' => (bool)$entity->asa('config') || (bool)$entity->asa('options'),
 				'linkOptions' => array(
-					'id' => 'tab-config',
+					'id' => 'tab-update',
 				),
 			),
 			array(
@@ -18,20 +18,18 @@
 				'url'	  => '#',
 				'visible' => (bool)$entity->asa('class'),
 				'linkOptions' => array(
-					'id' => 'tab-class',
+					'id' => 'tab-view',
 				),
 			),
 		),
 	)); ?>
 </div>
-<?php if ($entity->asa('config')): ?>
-	<div id="entity-config" class="tab">
-		<?php $this->renderPartial('entity_config', array('entity' => $entity)); ?>
-	</div>
-<?php endif; ?>
+<div id="entity-update" class="tab">
+    <?php $this->renderPartial('entity_update', array('entity' => $entity)); ?>
+</div>
 <?php if ($entity->asa('class')): ?>
-	<div id="entity-class" class="tab" style="display:none;">
-		<?php $this->renderPartial('entity_class', array('entity' => $entity)); ?>
+	<div id="entity-view" class="tab" style="display:none;">
+		<?php $this->renderPartial('entity_view', array('entity' => $entity)); ?>
 	</div>
 <?php endif; ?>
 <script type="text/javascript">

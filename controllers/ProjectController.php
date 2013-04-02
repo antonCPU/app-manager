@@ -44,7 +44,7 @@ class ProjectController extends AmController
             $entity->$action();
         }
 
-        $this->renderPartial('entity_config', array(
+        $this->renderPartial('entity_update', array(
             'entity' => $entity,
         ));
     }

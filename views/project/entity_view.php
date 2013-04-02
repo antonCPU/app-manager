@@ -1,0 +1,1 @@
+<?php $this->renderPartial('entity_class', array('entity' => $entity)); ?>
