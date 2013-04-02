@@ -36,19 +36,14 @@ class AmEntityApplicationTest extends CTestCase
         $this->assertInstanceOf('AmEntityExtensions', $this->entity->getChild('extensions'));
     }
     
-    public function testIsActive()
-    {
-        $this->assertTrue($this->entity->isActive());
-    }
-    
     public function testAttachClassBehavior()
     {
         $this->assertEquals('CWebApplication', $this->entity->getClassName());
     }
     
-    public function testAttachConfigBehavior()
+    public function testAttachOptionsBehavior()
     {
-        $this->assertTrue($this->entity->isWritable());
+        $this->assertNotEmpty($this->entity->getOptions());
     }
     
     public function testSiteName()

@@ -224,9 +224,6 @@ class AmConfigBehavior extends CBehavior
             return false;
         }
         $this->getConfig()->add('class', $this->getOwner()->getFullClassName());
-        if (!$this->getOptions()->updateConfig()) {
-            return false;
-        }
         return $this->save();
     }
     
@@ -262,28 +259,6 @@ class AmConfigBehavior extends CBehavior
     public function loadSection()
     { 
         return AppManagerModule::config($this->section);
-    }
-    
-    /**
-     * Gets attributes for editing.
-     * @return AmOptions 
-     */
-    public function getOptions() 
-    { 
-        if (null === $this->options) {
-            $properties = $this->getOwner()->getProperties();
-            $this->options = new AmOptions($properties, $this->getConfig()); 
-        }
-        return $this->options;
-    }
-    
-    /**
-     * Sets options from input data.
-     * @param array $options 
-     */
-    public function setOptions($options)
-    { 
-        $this->getOptions()->attributes = $options;
     }
     
     /**

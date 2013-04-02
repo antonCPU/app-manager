@@ -26,6 +26,11 @@ class AmEntityComponentTest extends CTestCase
         $this->assertFalse($this->entity->isActive());
     }
     
+    public function testAttachOptionsBehavior()
+    {
+        $this->assertNotEmpty($this->entity->getOptions());
+    }
+    
     public function testCorrect()
     {
         $this->assertTrue($this->entity->isCorrect());

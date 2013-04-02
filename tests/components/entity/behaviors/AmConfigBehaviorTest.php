@@ -66,11 +66,6 @@ class AmConfigBehaviorTest extends CTestCase
         $this->assertTrue($entity->isActive());
         $this->assertEquals('test', $entity->getName());
     }
-    
-    public function testOptions()
-    {
-        $this->assertNotEmpty($this->entity->getOptions());
-    }
 }
 
 class AmEntityConfigMock extends AmEntity

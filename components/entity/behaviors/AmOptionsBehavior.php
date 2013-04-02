@@ -1,5 +1,6 @@
 <?php
 /**
+ * Organizes work with entity options.
  * @uses AmEntity::getProperties()
  * @uses AmEntity::getConfig()
  */

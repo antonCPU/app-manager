@@ -9,6 +9,9 @@ class AmEntityModule extends AmEntityComposite
                 'class'   => 'appManager.components.entity.behaviors.AmConfigBehavior',
                 'section' => 'modules',
             ),
+            'options' => array(
+                'class' => 'appManager.components.entity.behaviors.AmOptionsBehavior',
+            ),
             'class' => array(
                 'class' => 'appManager.components.entity.behaviors.AmClassBehavior',
                 'searchPatterns' => array('*Module.php'),

@@ -5,8 +5,8 @@ class AmEntityApplication extends AmEntityModule
     public function behaviors()
     {
         return array(
-            'config' => array(
-                'class'   => 'appManager.components.entity.behaviors.AmConfigBehavior',
+            'options' => array(
+                'class'   => 'appManager.components.entity.behaviors.AmOptionsBehavior',
             ),
             'class' => array(
                 'class' => 'appManager.components.entity.behaviors.AmClassBehavior',
@@ -15,9 +15,9 @@ class AmEntityApplication extends AmEntityModule
         );
     }
     
-    public function isActive()
+    public function getConfig()
     {
-        return true;
+        return AppManagerModule::config();
     }
     
     public function getTitle()

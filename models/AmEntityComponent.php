@@ -9,6 +9,9 @@ class AmEntityComponent extends AmEntity
                 'class'   => 'appManager.components.entity.behaviors.AmConfigBehavior',
                 'section' => 'components',
             ),
+            'options' => array(
+                'class' => 'appManager.components.entity.behaviors.AmOptionsBehavior',
+            ),
             'class' => array(
                 'class' => 'appManager.components.entity.behaviors.AmClassBehavior',
                 'baseClass' => 'IApplicationComponent',
