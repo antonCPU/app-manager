@@ -6,7 +6,7 @@ class AmEntityComponent extends AmEntity
     {
         return array(
             'config' => array(
-                'class'   => 'appManager.components.entity.AmConfigBehavior',
+                'class'   => 'appManager.components.entity.behaviors.AmConfigBehavior',
                 'section' => 'components',
             ),
             'class' => array(

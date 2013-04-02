@@ -1,5 +1,6 @@
 <?php
 Yii::import('appManager.components.entity.*');
+Yii::import('appManager.components.entity.behaviors.AmConfigBehavior');
 
 class AmConfigBehaviorTest extends CTestCase
 {
