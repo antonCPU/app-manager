@@ -1,5 +1,5 @@
 <?php
-Yii::import('appManager.components.entity.AmClassBehavior');
+Yii::import('appManager.components.entity.behaviors.AmClassBehavior');
 
 class AmClassBehaviorTest extends CTestCase
 {

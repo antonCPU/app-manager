@@ -10,7 +10,7 @@ class AmEntityModule extends AmEntityComposite
                 'section' => 'modules',
             ),
             'class' => array(
-                'class' => 'appManager.components.entity.AmClassBehavior',
+                'class' => 'appManager.components.entity.behaviors.AmClassBehavior',
                 'searchPatterns' => array('*Module.php'),
                 'baseClass' => 'CModule',
             ),

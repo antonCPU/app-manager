@@ -9,7 +9,7 @@ class AmEntityApplication extends AmEntityModule
                 'class'   => 'appManager.components.entity.AmConfigBehavior',
             ),
             'class' => array(
-                'class' => 'appManager.components.entity.AmClassBehavior',
+                'class' => 'appManager.components.entity.behaviors.AmClassBehavior',
                 'fullClassName' => 'system.web.CWebApplication',
             ),
         );
