@@ -9,6 +9,7 @@ class AmEntityApplicationTest extends CTestCase
     public function setUp()
     {
         $this->entity = new AmEntityApplication('appManager.tests.data.app');
+        AppManagerModule::getInstance()->configLocation = 'modules/appManager/tests/data/app/config/main.php';
     }
     
     public function testTitle()
@@ -44,6 +45,16 @@ class AmEntityApplicationTest extends CTestCase
     public function testAttachOptionsBehavior()
     {
         $this->assertNotEmpty($this->entity->getOptions());
+    }
+    
+    public function testCanUpdate()
+    {
+        $this->assertTrue($this->entity->canUpdate());
+    }
+    
+    public function testUpdate()
+    {
+        $this->assertTrue($this->entity->update());
     }
     
     public function testSiteName()

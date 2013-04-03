@@ -15,13 +15,38 @@ class AmEntityApplication extends AmEntityModule
         );
     }
     
+    /**
+     * @return AmConfig
+     */
     public function getConfig()
     {
         return AppManagerModule::config();
     }
     
+    /**
+     * @return string
+     */
     public function getTitle()
     {
         return AppManagerModule::t('Application');
+    }
+    
+    /**
+     * @return bool
+     */
+    public function canUpdate()
+    {
+        return $this->getConfig()->isWritable();
+    }
+    
+    /**
+     * @return bool
+     */
+    public function update()
+    {
+        if ($this->canUpdate()) {
+            return $this->getConfig()->save();
+        }
+        return false;
     }
 }
