@@ -1,6 +1,6 @@
 <?php
 /**
- * Properties availabe through AmClassInfo
+ * Properties available through AmClassInfo
  * @property string $author
  * @property string $summary
  * @property string $description
@@ -9,11 +9,26 @@
  */
 class AmClassBehavior extends CBehavior
 {
+    /**
+     * @var array
+     */
     public $searchPatterns = array('*.php');
-    public $baseClass      = 'CComponent';
-    
+    /**
+     * @var string
+     */
+    public $baseClass  = 'CComponent';
+
+    /**
+     * @var AmClassInfo
+     */
     protected $classInfo;
+    /**
+     * @var string
+     */
     protected $fileName;
+    /**
+     * @var string
+     */
     protected $fullClassName;
 
     /**
@@ -82,7 +97,10 @@ class AmClassBehavior extends CBehavior
         }
         return $this->fullClassName;
     }
-    
+
+    /**
+     * @param string $name
+     */
     public function setFullClassName($name)
     {
         $this->fullClassName = $name;
@@ -90,7 +108,6 @@ class AmClassBehavior extends CBehavior
     
     /**
      * Finds related to entity class.
-     * @param AmEntity $entity
      * @return string|bool full alias of class or false.
      */
     public function resolveFullClassName()
