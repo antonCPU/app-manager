@@ -7,22 +7,8 @@ abstract class AmModel extends CModel
     private static $_names=array();
 
     /**
-     * Constructor.
-     * @param string $scenario name of the scenario that this model is used in.
-     * See {@link CModel::scenario} on how scenario is used by models.
-     * @see getScenario
-     */
-    /*public function __construct($scenario='')
-    {
-        $this->setScenario($scenario);
-        $this->init();
-        $this->attachBehaviors($this->behaviors());
-        $this->afterConstruct();
-    }*/
-
-    /**
      * Sets the attribute values in a massive way.
-     * @param array $values attribute values (name=>value) to be set.
+     * @param array $attributes attribute values (name=>value) to be set.
      * @param bool $safeOnly is not used.
      */
     public function setAttributes($attributes, $safeOnly = true)
